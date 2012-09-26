@@ -35,7 +35,7 @@
 	)
 	omega <- fc*omega
 	# Alpha function
-	Alpha. <- omega_constants(omega, c.type="alpha", S.=S., T.=T., Rs=Rs.)
+	Alpha. <- omega_constants(omega, c.type="alpha", S.=S., T.=T., Rs.=Rs.)
 	# A1, and A2 (functions of Phi and Psi, calculated internally)
 	Amat <- alpha_constants(Alpha., c.type="A")
 	stopifnot(ncol(Amat)==7)

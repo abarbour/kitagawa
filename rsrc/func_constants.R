@@ -12,7 +12,7 @@
 	toret <- c.calc(omega,...)
 	return(toret)
 }
-.wc_alpha.default <- function(omega, S., T., Rs){
+.wc_alpha.default <- function(omega, S., T., Rs.){
 	# Kitagawa equation 12
 	# storativity S, transmissivity T, radius of screened portion Rs
 	if (missing(S.)){
@@ -23,11 +23,11 @@
 		warning("tranmissivity was missing, used 1")
 		T. <- 1
 	}
-	if (missing(Rs)){
-		Rs <- 1
+	if (missing(Rs.)){
+		Rs. <- 1
 		warning("radius was missing, used 1")
 	}
-	alpha <- sqrt( omega * S. / T. ) * Rs
+	alpha <- sqrt( omega * S. / T. ) * Rs.
 	nullchk(alpha)
 	return(alpha)
 }
@@ -37,18 +37,19 @@
 .alpha_constants.default <- function(alpha=0, c.type=c("Phi","Psi","A","Kel"), ...){
 	c.type <- match.arg(c.type)
 	c.meth <- switch(c.type, 
-		Phi=".ac_PhiPsi", Psi=".ac_PhiPsi", #PhiPsi=".ac_PhiPsi", 
-		A=".ac_A", 
-		Kel=".ac_Kel")
+                   Phi=".ac_PhiPsi", 
+                   Psi=".ac_PhiPsi", #PhiPsi=".ac_PhiPsi", 
+                   A=".ac_A", 
+                   Kel=".ac_Kel")
 	c.calc <- function(...) UseMethod(c.meth)
 	toret <- c.calc(alpha,...)
 	return(toret)
 }
 # Kelvin functions
 .ac_Kel.default <- function(alpha){
-	require(kelvin, warn.conflicts=FALSE)
+	require(kelvin)
 	# nu is order of Kelvin function
-	Kel <- kelvin::Kelvin(alpha, nu.=0, nSeq=2, return.list=FALSE)
+	Kel <- kelvin::Keir(alpha, nu.=0, nSeq.=2, return.list=FALSE)
 	# returns K0,K1 (complex matrix)
 	toret <- base::cbind(alpha, Kel)
 	colnames(toret) <- c("alpha","Kel0","Kel1")
@@ -56,8 +57,9 @@
 }
 # Phi and Psi are both calculated from Kel constants
 .ac_PhiPsi.default <- function(alpha){
-	# returns alpha,Kel0,Kel1
+	# calculate Kelvin functions
 	Kel <- alpha_constants(alpha, c.type="Kel")
+	# returns alpha,Kel0,Kel1
 	stopifnot(ncol(Kel)==3)
 	K1 <- Kel[,3] # Kelvin with nu.=1
 	K.r <- Re(K1)
@@ -67,7 +69,9 @@
 	# incomplete Phi & Psi
 	Phi <- (K.r + K.i)
 	Psi <- (K.r - K.i)
-	Kir2 <- -1 * sqrt(2) * alpha * (K.r2 - K.i2)
+  # bug in Kir2: was a minus (incorrectly), which affects the final solution
+  #      profoundly
+	Kir2 <- -1 * sqrt(2) * alpha * (K.r2 + K.i2)
 	# Kitagawa equations 10,11
 	# Scale and divide by sum of squares == complete Phi & Psi and
 	# combine with alpha, K0, and K1:

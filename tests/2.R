@@ -1,7 +1,7 @@
 #
 # unit-test 2: replicate plot 7
 #
-source("/Users/abarbour/nute.processing/development/kitagawa/tests/1.R")
+source("/Users/abarbour/kook.processing/R/dev/packages/kitagawa/tests/1.R")
 # frequencies in F. or Omega.
 stopifnot(exists("Omega."))
 #
