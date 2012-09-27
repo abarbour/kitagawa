@@ -1,7 +1,7 @@
 Package: kitagawa
 Type: Package
 Title: Hydroseismic response spectra for borehole strain and fluid-pressure
-Version: 1.0
+Version: 1.0-0
 Date: 2012-09-27
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
