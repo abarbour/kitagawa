@@ -1,5 +1,6 @@
-.RData
+rsrc
 tests
+.RData
 .git
 .git/*
 .gitignore
