@@ -9,9 +9,9 @@ Description: Hydroseismic response spectra for borehole strain and
     fluid-pressure
 License: GPL (>= 2)
 Collate:
+    'kitagawa-package.R'
+    'well_response.R'
     'alpha_constants.R'
-    'kitplt.R'
-    'nullchk.R'
     'omega_constants.R'
-    'strain_response.R'
-    'kitagawa-internal.R'
+    'nullchk.R'
+    'kitplot.R'

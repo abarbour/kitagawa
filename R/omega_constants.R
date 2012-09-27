@@ -16,14 +16,14 @@
 #' @examples
 #' omega_constants(1:10)  # dummy example for now
 omega_constants <-
-function(omega=0, c.type=c("alpha"), ...) UseMethod(".omega_constants")
+function(omega=0, c.type=c("alpha"), ...) UseMethod("omega_constants")
 
 #' @return \code{NULL}
 #' @rdname omega_constants
 #' @docType methods
 #' @method omega_constants default
 #' @S3method omega_constants default
-.omega_constants.default <-
+omega_constants.default <-
   function(omega, c.type=c("alpha"), ...){
     c.type <- match.arg(c.type)
     c.meth <- switch(c.type,alpha=".wc_alpha")

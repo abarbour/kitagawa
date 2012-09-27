@@ -1,56 +1,40 @@
+\docType{methods}
 \name{omega_constants}
+\alias{.wc_alpha.default}
 \alias{omega_constants}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-%%  ~~function to do ... ~~
-}
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\alias{omega_constants.default}
+\title{calculate constants that depend on \eqn{\omega}}
 \usage{
-omega_constants(...)
+  omega_constants(omega = 0, c.type = c("alpha"), ...)
+
+  \method{omega_constants}{default} (omega,
+    c.type = c("alpha"), ...)
+
+  \method{omega_constants}{default} (omega, S., T., Rs.)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
-}
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
+  \item{omega}{frequency, \eqn{[rad/sec]}}
+
+  \item{c.type}{the constant to calculate (currently only
+  'alpha', i.e. eq 12)}
+
+  \item{...}{additional params passed to calculator (should
+  not be used)}
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+  Matrix with
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+  \code{NULL}
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+  \code{NULL}
+}
+\description{
+  e.g. Kitagawa equation 12
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (...) 
-UseMethod(".omega_constants")
+omega_constants(1:10)  # dummy example for now
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+  Andrew Barbour <andy.barbour@gmail.com>
+}
+

@@ -1,56 +1,50 @@
+\docType{methods}
 \name{alpha_constants}
+\alias{.ac_A.default}
+\alias{.ac_Kel.default}
+\alias{.ac_PhiPsi.default}
 \alias{alpha_constants}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-%%  ~~function to do ... ~~
-}
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\alias{alpha_constants.default}
+\title{calculate constants that depend on \eqn{\alpha}}
 \usage{
-alpha_constants(...)
+  alpha_constants(alpha = 0,
+    c.type = c("Phi", "Psi", "A", "Kel"), ...)
+
+  \method{alpha_constants}{default} (alpha = 0,
+    c.type = c("Phi", "Psi", "A", "Kel"), ...)
+
+  \method{alpha_constants}{default} (alpha)
+
+  \method{alpha_constants}{default} (alpha)
+
+  \method{alpha_constants}{default} (alpha)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
-}
-}
-\details{
-%%  ~~ If necessary, more details than the description above ~~
+  \item{alpha}{the constant alpha}
+
+  \item{c.type}{the constant to calculate}
+
+  \item{...}{additional params passed to calculator (should
+  not be used)}
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+  Matrix with
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+  \code{NULL}
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+  \code{NULL}
+
+  \code{NULL}
+
+  \code{NULL}
+}
+\description{
+  e.g. # Kitagawa equations 10,11,18,19
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (...) 
-UseMethod(".alpha_constants")
+alpha_constants(1:10)  # dummy example for now
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\author{
+  Andrew Barbour <andy.barbour@gmail.com>
+}
+

@@ -33,14 +33,14 @@ function(omega,
          rho.=1000, 
          Kf.=2.2e9,
          grav.=9.81,
-         freq.units=NULL) UseMethod(".well_response")
+         freq.units=NULL) UseMethod("well_response")
 
 #' @return \code{NULL}
 #' @rdname well_response
 #' @docType methods
 #' @method well_response default
 #' @S3method well_response default
-.well_response.default <-
+well_response.default <-
   function(omega, T., S., Vw., Rs., Ku., B., Avs., Aw.,
            rho., Kf., grav., freq.units){
     #

@@ -1,6 +1,7 @@
 #' quickly check null, stopifnot
 #' 
 #' @name .nullchk
+#' @rdname nullchk
 #' @export
 #' 
 #' @param X   something to be checked (vector, scalar, ...)
