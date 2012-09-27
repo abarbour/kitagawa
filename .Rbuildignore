@@ -1,0 +1,13 @@
+.RData
+tests
+.git
+.git/*
+.gitignore
+Read-and-delete-me
+TODO
+^\.Rproj\.user$
+kitagawa.Rproj
+$\.Rout
+Rplots.pdf
+Rout$
+.Rhistory

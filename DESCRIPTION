@@ -1,0 +1,17 @@
+Package: kitagawa
+Type: Package
+Title: Hydroseismic response spectra for borehole strain and fluid-pressure
+Version: 1.0
+Date: 2012-09-27
+Author: Andrew J Barbour
+Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
+Description: Hydroseismic response spectra for borehole strain and
+    fluid-pressure
+License: GPL (>= 2)
+Collate:
+    'alpha_constants.R'
+    'kitplt.R'
+    'nullchk.R'
+    'omega_constants.R'
+    'strain_response.R'
+    'kitagawa-internal.R'
