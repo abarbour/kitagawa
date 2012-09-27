@@ -2,7 +2,7 @@
 ## 
 ##
 #
-kitplt <- function(Resp., xlim=c(-4,0)){
+kitplot <- function(Resp., xlim=c(-4,0)){
 	#
 	# reproduce plots as in Kitagawa
 	#
@@ -17,21 +17,20 @@ kitplt <- function(Resp., xlim=c(-4,0)){
 	Phs. <- Resp.[,3]*180/pi
 	##
 	origpar <- par(no.readonly = TRUE)
-  par(mar=c(3.5,3,1,2),oma=rep(0,4))
+  par(mar=c(3.5,4,1,2),oma=rep(0,4))
 	layout(matrix(c(1,2), 2, 1, byrow = TRUE))
 	# amplitude
 	plot(lFrq., log10(Amp.),
 		type="l",
-		ylim=c(5,7), 
-		yaxs="i", ylab="Amplitude [m/strain]", 
-		xlim=xlim, xaxs="i", xlab=""
+		ylim=c(4,7), yaxs="i", ylab="Amplitude [m/strain]", 
+		xlim=xlim,   xaxs="i", xlab=""
 	)
 	# phase shift
 	plot(lFrq., Phs.,
 		type="l",
-		ylim=c(120,180), 
-		yaxs="i", ylab="Phase Shift [degree]",
-		xlim=xlim, xaxs="i", xlab=""
+		#ylim=c(120,180), 
+	  ylim=180*c(-1,1), yaxs="i", ylab="Phase Shift [degree]",
+		xlim=xlim,        xaxs="i", xlab=""
 	)
   mtext(text="Frequency [Hz]",side=1,line=2)
 	par(origpar)
