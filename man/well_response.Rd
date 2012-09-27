@@ -9,7 +9,8 @@
     freq.units = NULL)
 
   \method{well_response}{default} (omega, T., S., Vw., Rs.,
-    Ku., B., Avs., Aw., rho., Kf., grav., freq.units)
+    Ku., B., Avs. = 1, Aw. = 1, rho. = 1000, Kf. = 2.2e+09,
+    grav. = 9.81, freq.units = NULL)
 }
 \arguments{
   \item{omega}{frequency, (see}

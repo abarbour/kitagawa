@@ -1,6 +1,6 @@
 #' Plot response spectrum
 #' 
-#' used to plot frequency response spectra as in kitagawa
+#' used to plot frequency response spectra as in kitagawa, e.g. Figures 7--9
 #'
 #' @name kitplot
 #' @export
@@ -9,7 +9,7 @@
 #' @param xlim   frequency limits (assume log10 scale)
 #'
 #' @return NULL
-#' 
+#'  
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
 #' 
 #' @examples
@@ -20,7 +20,7 @@ function(Resp., xlim=c(-4,0)){
 	# reproduce plots as in Kitagawa
 	#
   Resp. <- as.matrix(Resp.)
-  print((Resp.))
+  ##print((Resp.))
   stopifnot(ncol(Resp.)>=3)
 	# resp will have three or more columns:
 	#	1 - Freqs.(radians/sec)

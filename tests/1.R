@@ -1,6 +1,10 @@
-#source("/Users/abarbour/nute.processing/development/kitagawa/rsrc/.sourceloads.R")
-#source("/Users/abarbour/kook.processing/R/dev/packages/kitagawa/rsrc/.sourceloads.R")
-source("rsrc/.sourceloads.R")
+#
+library(devtools)
+owd<-getwd()
+setwd("../..")
+document('kitagawa')
+setwd(owd)
+#
 # some constants
 F. <- 10 ** seq.int(-4,0,by=0.1) # frequency
 Omega. <- 2 * pi * F.

@@ -8,10 +8,13 @@ Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
 Description: Hydroseismic response spectra for borehole strain and
     fluid-pressure
 License: GPL (>= 2)
+Depends:
+    kelvin (>= 1.1-0)
 Collate:
     'kitagawa-package.R'
     'well_response.R'
     'alpha_constants.R'
     'omega_constants.R'
-    'nullchk.R'
+    'sensing_volume.R'
     'kitplot.R'
+    'nullchk.R'

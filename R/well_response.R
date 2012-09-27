@@ -41,8 +41,14 @@ function(omega,
 #' @method well_response default
 #' @S3method well_response default
 well_response.default <-
-  function(omega, T., S., Vw., Rs., Ku., B., Avs., Aw.,
-           rho., Kf., grav., freq.units){
+  function(omega,
+           T., S., Vw., Rs., Ku., B.,
+           Avs.=1,
+           Aw.=1,
+           rho.=1000, 
+           Kf.=2.2e9,
+           grav.=9.81,
+           freq.units=NULL){
     #
     # calculate Kitagawa equation 17
     #
