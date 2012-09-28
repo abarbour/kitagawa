@@ -1,9 +1,10 @@
 #
-library(devtools)
-owd<-getwd()
-setwd("../..")
-document('kitagawa')
-setwd(owd)
+#library(devtools)
+#owd<-getwd()
+#setwd("../..")
+#document('kitagawa')
+#setwd(owd)
+library(kitagawa)
 #
 # some constants
 F. <- 10 ** seq.int(-4,0,by=0.1) # frequency

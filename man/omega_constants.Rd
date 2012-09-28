@@ -1,6 +1,5 @@
 \docType{methods}
 \name{omega_constants}
-\alias{.wc_alpha.default}
 \alias{omega_constants}
 \alias{omega_constants.default}
 \title{calculate constants that depend on \eqn{\omega}}
@@ -9,8 +8,6 @@
 
   \method{omega_constants}{default} (omega,
     c.type = c("alpha"), ...)
-
-  \method{omega_constants}{default} (omega, S., T., Rs.)
 }
 \arguments{
   \item{omega}{frequency, \eqn{[rad/sec]}}
@@ -23,8 +20,6 @@
 }
 \value{
   Matrix with
-
-  \code{NULL}
 
   \code{NULL}
 }

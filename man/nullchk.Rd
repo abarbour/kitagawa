@@ -14,9 +14,11 @@
   quickly check null, stopifnot
 }
 \examples{
+\dontrun{
 .nullchk(1:10)
 .nullchk(NULL)
 .nullchk(c(1:10,NULL))
+}
 }
 \author{
   Andrew Barbour <andy.barbour@gmail.com>

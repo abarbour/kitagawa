@@ -6,15 +6,15 @@
     len_screen)
 }
 \arguments{
-  \item{rad_case}{radius of the casing \eqn{[m]]}
+  \item{rad_case}{radius of the casing \eqn{[m]}}
 
-  \item{len_case}{length of the casing \eqn{[m]]}
+  \item{len_case}{length of the casing \eqn{[m]}}
 
   \item{rad_screen}{radius of the screened interval
-  \eqn{[m]]}
+  \eqn{[m]}}
 
   \item{len_screen}{length of the screened interval
-  \eqn{[m]]}
+  \eqn{[m]}}
 }
 \value{
   scalar

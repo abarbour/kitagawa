@@ -5,10 +5,10 @@
 #' @name sensing_volume
 #' @export
 #' 
-#' @param rad_case    radius of the casing  \eqn{[m]]
-#' @param len_case    length of the casing  \eqn{[m]]
-#' @param rad_screen  radius of the screened interval  \eqn{[m]]
-#' @param len_screen  length of the screened interval  \eqn{[m]]
+#' @param rad_case    radius of the casing  \eqn{[m]}
+#' @param len_case    length of the casing  \eqn{[m]}
+#' @param rad_screen  radius of the screened interval  \eqn{[m]}
+#' @param len_screen  length of the screened interval  \eqn{[m]}
 #' 
 #' @return scalar
 #' 

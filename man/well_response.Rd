@@ -13,39 +13,35 @@
     grav. = 9.81, freq.units = NULL)
 }
 \arguments{
-  \item{omega}{frequency, (see}
+  \item{omega}{frequency, (see freq.units)}
 
-  \item{freq.units)}{}
-
-  \item{rho.}{fluid density, \eqn{[kg/m^3]]}
-
-  \item{grav.}{local gravitational acceleration,
-  \eqn{[m/s^2]}}
-
-  \item{T.}{effective aquifer transmissivity,
-  \eqn{[m^2/s]}}
+  \item{T.}{effective aquifer transmissivity \eqn{[m^2/s]}}
 
   \item{S.}{well storativity, \eqn{[]}}
 
   \item{Vw.}{well volume, \eqn{[m^3]}}
 
-  \item{Aw.}{amplification factor of well volume change for
-  \eqn{E_{kk}}, \eqn{[]}}
+  \item{Rs.}{radius of screened portion, \eqn{[m]}}
+
+  \item{Ku.}{undrained bulk modulus, \eqn{[Pa]}}
+
+  \item{B.}{Skempton's coefficient, \eqn{[]}}
 
   \item{Avs.}{amplification factor for volumetric strain
   \eqn{E_{kk,obs}/E_{kk}}, \eqn{[]}}
 
-  \item{Ku.}{undrained bulk modulus, \eqn{[Pa]}}
+  \item{Aw.}{amplification factor of well volume change for
+  \eqn{E_{kk}}, \eqn{[]}}
+
+  \item{rho.}{fluid density \eqn{[kg/m^3]}}
 
   \item{Kf.}{bulk modulus of fluid, \eqn{[Pa]}}
 
-  \item{Rs.}{radius of screened portion, \eqn{[m]}}
+  \item{grav.}{local gravitational acceleration
+  \eqn{[m/s^2]}}
 
-  \item{B.}{Skempton's coefficient, \eqn{[]}}
-
-  \item{freq.units}{units of}
-
-  \item{omega:}{"rad_per_sec" (default, NULL), or "Hz"}
+  \item{freq.units}{set units of omega: "rad_per_sec"
+  (default, NULL), or "Hz"}
 }
 \value{
   Matrix with three columns: \eqn{\omega}, \eqn{A_\alpha

@@ -11,8 +11,10 @@
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
 #' 
 #' @examples
+#' \dontrun{
 #' .nullchk(1:10)
 #' .nullchk(NULL)
 #' .nullchk(c(1:10,NULL))
+#' }
 .nullchk <-
 function(X){stopifnot(!is.null(X) & !(NA %in% X))}

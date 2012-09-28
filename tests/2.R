@@ -5,6 +5,7 @@
 #setwd("../..")
 #document('kitagawa')
 source("1.R")
+library(kitagawa)
 # frequencies in F. or Omega.
 stopifnot(exists("Omega."))
 #

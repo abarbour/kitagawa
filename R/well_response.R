@@ -5,19 +5,19 @@
 #' @name well_response
 #' @export
 #' 
-#' @param omega  frequency,  (see @param freq.units)
-#' @param rho.   fluid density,  \eqn{[kg/m^3]]
-#' @param grav.  local gravitational acceleration, 	\eqn{[m/s^2]}
-#' @param T.     effective aquifer transmissivity,  \eqn{[m^2/s]}
+#' @param omega  frequency,  (see freq.units)
+#' @param T.     effective aquifer transmissivity \eqn{[m^2/s]}
 #' @param S.     well storativity,  \eqn{[]}
 #' @param Vw.    well volume,	 \eqn{[m^3]}
-#' @param Aw.    amplification factor of well volume change for \eqn{E_{kk}},  \eqn{[]}
-#' @param Avs.   amplification factor for volumetric strain \eqn{E_{kk,obs}/E_{kk}},  \eqn{[]}
+#' @param Rs.    radius of screened portion,  \eqn{[m]}
 #' @param Ku.    undrained bulk modulus,  \eqn{[Pa]}
-#' @param Kf.    bulk modulus of fluid,  \eqn{[Pa]}
-#' @param Rs.    radius of screened portion,	\eqn{[m]}
 #' @param B.     Skempton's coefficient,  \eqn{[]}
-#' @param freq.units  units of @param omega: "rad_per_sec" (default, NULL), or "Hz"
+#' @param Avs.   amplification factor for volumetric strain \eqn{E_{kk,obs}/E_{kk}},  \eqn{[]}
+#' @param Aw.    amplification factor of well volume change for \eqn{E_{kk}},  \eqn{[]}
+#' @param rho.   fluid density \eqn{[kg/m^3]}
+#' @param Kf.    bulk modulus of fluid,  \eqn{[Pa]}
+#' @param grav.  local gravitational acceleration \eqn{[m/s^2]}
+#' @param freq.units  set units of omega: "rad_per_sec" (default, NULL), or "Hz"
 #'
 #' @return Matrix with three columns: \eqn{\omega}, \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}
 #' 

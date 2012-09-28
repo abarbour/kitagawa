@@ -1,8 +1,5 @@
 \docType{methods}
 \name{alpha_constants}
-\alias{.ac_A.default}
-\alias{.ac_Kel.default}
-\alias{.ac_PhiPsi.default}
 \alias{alpha_constants}
 \alias{alpha_constants.default}
 \title{calculate constants that depend on \eqn{\alpha}}
@@ -12,12 +9,6 @@
 
   \method{alpha_constants}{default} (alpha = 0,
     c.type = c("Phi", "Psi", "A", "Kel"), ...)
-
-  \method{alpha_constants}{default} (alpha)
-
-  \method{alpha_constants}{default} (alpha)
-
-  \method{alpha_constants}{default} (alpha)
 }
 \arguments{
   \item{alpha}{the constant alpha}
@@ -29,12 +20,6 @@
 }
 \value{
   Matrix with
-
-  \code{NULL}
-
-  \code{NULL}
-
-  \code{NULL}
 
   \code{NULL}
 }

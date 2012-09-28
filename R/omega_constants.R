@@ -25,35 +25,34 @@ function(omega=0, c.type=c("alpha"), ...) UseMethod("omega_constants")
 #' @S3method omega_constants default
 omega_constants.default <-
   function(omega, c.type=c("alpha"), ...){
+    #
+    # switch constants-calculation method
     c.type <- match.arg(c.type)
-    c.meth <- switch(c.type,alpha=".wc_alpha")
+    c.meth <- switch(c.type, alpha=".wc_alpha")
+    #
+    # here are the methods available:
+    .wc_alpha.default <- function(omega, S., T., Rs.){
+        # Kitagawa equation 12
+        # storativity S, transmissivity T, radius of screened portion Rs
+        if (missing(S.)){
+          warning("storativity was missing, used 1")
+          S. <- 1
+        }
+        if (missing(T.)){
+          warning("tranmissivity was missing, used 1")
+          T. <- 1
+        }
+        if (missing(Rs.)){
+          Rs. <- 1
+          warning("radius was missing, used 1")
+        }
+        alpha <- sqrt( omega * S. / T. ) * Rs.
+        .nullchk(alpha)
+        return(alpha)
+    } # end .wc_alpha
+    #
+    # do the calculation with the method of choice
     c.calc <- function(...) UseMethod(c.meth)
     toret <- c.calc(omega,...)
     return(toret)
-  }
-
-#' @return \code{NULL}
-#' @rdname omega_constants
-#' @docType methods
-#' @method omega_constants default
-#' @S3method omega_constants default
-.wc_alpha.default <-
-  function(omega, S., T., Rs.){
-    # Kitagawa equation 12
-    # storativity S, transmissivity T, radius of screened portion Rs
-    if (missing(S.)){
-      warning("storativity was missing, used 1")
-      S. <- 1
-    }
-    if (missing(T.)){
-      warning("tranmissivity was missing, used 1")
-      T. <- 1
-    }
-    if (missing(Rs.)){
-      Rs. <- 1
-      warning("radius was missing, used 1")
-    }
-    alpha <- sqrt( omega * S. / T. ) * Rs.
-    .nullchk(alpha)
-    return(alpha)
   }
