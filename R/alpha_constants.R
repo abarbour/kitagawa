@@ -7,16 +7,16 @@
 #' 
 #' @param alpha   the constant alpha
 #' @param c.type  the constant to calculate
-#' @param ...     additional params passed to calculator (should not be used)
 #'
 #' @return Matrix with
 #' 
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
 #' 
 #' @examples
-#' alpha_constants(1:10)  # dummy example for now
+#' alpha_constants(0)  # 0 - Phi
+#' alpha_constants(1:10)  # sequence - Phi
 alpha_constants <-
-function(alpha=0, c.type=c("Phi","Psi","A","Kel"), ...) UseMethod("alpha_constants")
+function(alpha=0, c.type=c("Phi","Psi","A","Kel")) UseMethod("alpha_constants")
 
 #' @return \code{NULL}
 #' @rdname alpha_constants
@@ -24,7 +24,7 @@ function(alpha=0, c.type=c("Phi","Psi","A","Kel"), ...) UseMethod("alpha_constan
 #' @method alpha_constants default
 #' @S3method alpha_constants default
 alpha_constants.default <-
-  function(alpha=0, c.type=c("Phi","Psi","A","Kel"), ...){
+  function(alpha=0, c.type=c("Phi","Psi","A","Kel")){
     #
     # switch constants-calculation method
     c.type <- match.arg(c.type)

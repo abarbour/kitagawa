@@ -6,15 +6,18 @@
 #' @export
 #' 
 #' @param omega   frequency,  \eqn{[rad/sec]}
-#' @param c.type  the constant to calculate (currently only 'alpha', i.e. eq 12)
-#' @param ...     additional params passed to calculator (should not be used)
+#' @param c.type  the constant to calculate 
+#' @param ...     additional params passed to calculator, e.g. S., T., Rs.
 #'
-#' @return Matrix with
+#' @return values of the 'c.type' constant (currently only 'alpha', i.e. eq 12)
 #' 
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
 #' 
 #' @examples
-#' omega_constants(1:10)  # dummy example for now
+#' omega_constants() # 0, with warnings about S., T., Rs.
+#' omega_constants(T.=1,S.=1,Rs.=1)  # 0, no warnings
+#' omega_constants(1:10)  # sequence, with warnings about S., T., Rs.
+#' omega_constants(1:10,T.=1,S.=1,Rs.=1) # sequence, no warnings
 omega_constants <-
 function(omega=0, c.type=c("alpha"), ...) UseMethod("omega_constants")
 
@@ -24,7 +27,7 @@ function(omega=0, c.type=c("alpha"), ...) UseMethod("omega_constants")
 #' @method omega_constants default
 #' @S3method omega_constants default
 omega_constants.default <-
-  function(omega, c.type=c("alpha"), ...){
+  function(omega=0, c.type=c("alpha"), ...){
     #
     # switch constants-calculation method
     c.type <- match.arg(c.type)

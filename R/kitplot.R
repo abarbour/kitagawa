@@ -13,7 +13,10 @@
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
 #' 
 #' @examples
-#' kitplot(data.frame(f=2*pi*10**seq(-4,0,length.out=10), amp=1e6*rep(1,10), phs=.9*pi*rep(1,10))) # bad example
+#' n <- 10
+#' ones <- rep(1,n)
+#' fakeResp <- data.frame(f=2*pi*10**seq(-4,0,length.out=n), amp=1e6*ones, phs=.9*pi*ones)
+#' kitplot(fakeResp)
 kitplot <-
 function(Resp., xlim=c(-4,0)){
 	#
