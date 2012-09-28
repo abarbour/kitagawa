@@ -2,13 +2,17 @@
 \alias{kitplot}
 \title{Plot response spectrum}
 \usage{
-  kitplot(Resp., xlim = c(-4, 0))
+  kitplot(Resp., xlim = c(-4, 0),
+    ylims = list(amp = c(5, 7), phs = 180 * c(-1, 1)))
 }
 \arguments{
   \item{Resp.}{the response information
   matrix(f,Amp,Phi,ncol=3)}
 
   \item{xlim}{frequency limits (assume log10 scale)}
+
+  \item{ylims}{list of limits (assume log10 scale for
+  amplitude), use 'amp' and 'phs'}
 }
 \value{
   NULL

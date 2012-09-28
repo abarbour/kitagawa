@@ -84,7 +84,7 @@ alpha_constants.default <-
     #
     # do the calculation with the method of choice
     c.calc <- function(...) UseMethod(c.meth)
-    toret <- c.calc(alpha,...)
+    toret <- c.calc(alpha)
     return(toret)
   }
 

@@ -7,6 +7,7 @@
 #' 
 #' @param Resp.  the response information matrix(f,Amp,Phi,ncol=3)
 #' @param xlim   frequency limits (assume log10 scale)
+#' @param ylims  list of limits (assume log10 scale for amplitude), use 'amp' and 'phs'
 #'
 #' @return NULL
 #'  
@@ -18,7 +19,7 @@
 #' fakeResp <- data.frame(f=2*pi*10**seq(-4,0,length.out=n), amp=1e6*ones, phs=.9*pi*ones)
 #' kitplot(fakeResp)
 kitplot <-
-function(Resp., xlim=c(-4,0)){
+function(Resp., xlim=c(-4,0), ylims=list(amp=c(5,7),phs=180*c(-1,1))){
 	#
 	# reproduce plots as in Kitagawa
 	#
@@ -42,14 +43,14 @@ function(Resp., xlim=c(-4,0)){
 	# amplitude
 	plot(lFrq., log10(Amp.),
 		type="l",
-		ylim=c(5,7), 
+		ylim=ylims$amp,
 		yaxs="i", ylab="Amplitude [m/strain]", 
 		xlim=xlim, xaxs="i", xlab=""
 	)
 	# phase shift
 	plot(lFrq., Phs.,
 		type="l",
-		ylim=c(120,180), 
+		ylim=ylims$phs,
 		yaxs="i", ylab="Phase Shift [degree]",
 		xlim=xlim, xaxs="i", xlab=""
 	)
