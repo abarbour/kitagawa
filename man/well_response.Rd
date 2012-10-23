@@ -57,7 +57,7 @@
 }
 \examples{
 #### dummy example
-well_response(1:10, T.=1, S.=1, Vw.=1, Rs.=1, Ku.=1, B.=1)  # rest of params are default values
+well_response(1:10, T.=1, S.=1, Vw.=1, Rs.=1, Ku.=1, B.=1)
 
 #### a more physically realistic calculation:
 # Physical params applicable for B084 borehole
@@ -72,7 +72,8 @@ Ls <- 9.14     # m, length of screened region (30ft)
 Volw <- sensing_volume(Rc, Lc, Rs, Ls) # m**3, ~= 1.8
 #
 Frqs <- 10**seq.int(from=-4,to=0,by=0.1) # log10-space
-head(Rsp <- well_response(omega=Frqs, T.=1e-6, S.=1e-5, Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
+head(Rsp <- well_response(omega=Frqs, T.=1e-6, S.=1e-5,
+Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
 #
 kitplot(Rsp)
 }
