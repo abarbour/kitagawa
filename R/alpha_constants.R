@@ -78,7 +78,7 @@ alpha_constants.default <-
         # Kitagawa equations 10,11
         # Scale and divide by sum of squares == complete Phi & Psi and
         # combine with alpha, K0, and K1:
-        toret <- base::cbind(Kel, Phi/Kir2, Psi/Kir2)
+        toret <- base::cbind(cKel, Phi/Kir2, Psi/Kir2)
         return(toret)
     } # end .ac_PhiPsi
     #
