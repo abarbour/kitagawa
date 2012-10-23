@@ -17,14 +17,34 @@
 #' @param rho.   fluid density \eqn{[kg/m^3]}
 #' @param Kf.    bulk modulus of fluid,  \eqn{[Pa]}
 #' @param grav.  local gravitational acceleration \eqn{[m/s^2]}
-#' @param freq.units  set units of omega: "rad_per_sec" (default, NULL), or "Hz"
+#' @param freq.units  set what the units of frequency (omega) are: "rad_per_sec" (default, NULL), or "Hz"
 #'
 #' @return Matrix with three columns: \eqn{\omega}, \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}
+#' @return where the units of \eqn{\omega} will be radians per second
 #' 
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
 #' 
 #' @examples
-#' well_response(1:10, 1, 1, 1, 1, 1, 1)  # dummy example for now
+#' #### dummy example
+#' well_response(1:10, T.=1, S.=1, Vw.=1, Rs.=1, Ku.=1, B.=1)  # rest of params are default values
+#' 
+#' #### a more physically realistic calculation:
+#' # Physical params applicable for B084 borehole
+#' # (see: http://pbo.unavco.org/station/overview/B084/)
+#' #
+#' Rc <- 0.0508   # m, radius of water-sensing (2in)
+#' Lc <- 146.9    # m, length of grouted region (482ft)
+#' Rs <- 3*Rc     # m, radius of screened region (6in)
+#' Ls <- 9.14     # m, length of screened region (30ft)
+#' #
+#' # calculate the sensing volume for the given well parameters
+#' Volw <- sensing_volume(Rc, Lc, Rs, Ls) # m**3, ~= 1.8
+#' #
+#' Frqs <- 10**seq.int(from=-4,to=0,by=0.1) # log10-space
+#' head(Rsp <- well_response(omega=Frqs, T.=1e-6, S.=1e-5, Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
+#' #
+#' kitplot(Rsp)
+#'
 well_response <-
 function(omega,
          T., S., Vw., Rs., Ku., B.,
@@ -50,13 +70,13 @@ well_response.default <-
            grav.=9.81,
            freq.units=NULL){
     #
-    # calculate Kitagawa equation 17
-    #
+    # Enforce units of omega to be radians/sec
     fc <- switch(match.arg(freq.units, c("rad_per_sec","Hz")),
                  rad_per_sec=1,
                  Hz=2*pi
     )
     omega <- fc*omega
+    #
     # Alpha function
     Alpha. <- omega_constants(omega, c.type="alpha", S.=S., T.=T., Rs.=Rs.)
     # A1, and A2 (functions of Phi and Psi, calculated internally)
@@ -83,15 +103,22 @@ well_response.default <-
     tmpd. <- Kf. * TVFRG  -  A2
     rDen. <- tmpd. * tmpd. + A1 * A1
     rm(tmpd.)
-    # amplitude, Kitagawa equation 20
+    ##
+    ## amplitude, Kitagawa equation 20
+    ##
     Amp. <- Kf. * Aw. / Avs. / rhog * sqrt(rNum. / rDen.)
-    # phase, Kitagawa equation 21
+    ##
+    ## phase, Kitagawa equation 21
+    ##
     Y. <- (Kf. - Ku. * B. / Aw.) * TVFRG * A1
     X. <- (Ku. * B. / Aw. * TVFRG - A2) * (Kf. * TVFRG - A2) + A1 * A1
     Phs. <- atan2(-1*Y.,-1*X.)
+    #
     # params?
     # attributes?
     # message?
+    #
+    # return results
     toret <- cbind(omega, Amp., Phs.)
     return(toret)
   }

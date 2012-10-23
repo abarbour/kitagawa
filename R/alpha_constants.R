@@ -39,11 +39,11 @@ alpha_constants.default <-
         PhiPsi <- alpha_constants(alpha, c.type="Phi")
         stopifnot(ncol(PhiPsi) == 5)
         #columns: 1 is alpha, 2 is K0, 3 is K1, 4 is Phi, 5 is Psi
-        K0 <- PhiPsi[,2]
+        K0 <- as.vector(PhiPsi[,2])
         K.r <- Re(K0)
         K.i <- Im(K0)
-        Phi <- PhiPsi[,4]
-        Psi <- PhiPsi[,5]
+        Phi <- as.vector(PhiPsi[,4])
+        Psi <- as.vector(PhiPsi[,5])
         # Kitagawa equations 18,19
         A1 <- Phi * K.r - Psi * K.i
         A2 <- Psi * K.r + Phi * K.i
@@ -62,10 +62,10 @@ alpha_constants.default <-
     } # end .ac_Kel
     .ac_PhiPsi.default <- function(alpha){
         # calculate Kelvin functions
-        Kel <- alpha_constants(alpha, c.type="Kel")
+        cKel <- alpha_constants(alpha, c.type="Kel")
         # returns alpha,Kel0,Kel1
-        stopifnot(ncol(Kel)==3)
-        K1 <- Kel[,3] # Kelvin with nu.=1
+        stopifnot(ncol(cKel)==3)
+        K1 <- as.vector(cKel[,3]) # Kelvin with nu.=1
         K.r <- Re(K1)
         K.r2 <- K.r * K.r
         K.i <- Im(K1)

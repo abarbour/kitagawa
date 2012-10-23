@@ -1,14 +1,19 @@
 Package: kitagawa
 Type: Package
-Title: Hydroseismic response spectra for borehole strain and fluid-pressure
-Version: 1.0-0
-Date: 2012-09-27
+Title: Calculate the expected frequency-response between water-height and
+    strain in a borehole, at seismic frequencies.
+Version: 1.0-1
+Date: 2012-10-23
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
-Description: Hydroseismic response spectra for borehole strain and
-    fluid-pressure
+Description: Calculate what the hydrodynamic response spectra will be for
+    borehole strain and fluid-pressure (water height) for a given set of aquifer
+    parameters.  The package is based on the model presented by Kitagawa et al
+    (2011, doi:10.1029/2010JB007794); hence, the name of the package.
 License: GPL (>= 2)
+URL: http://abarbour.github.com/kitagawa/
 Depends:
+    R (>= 2.10.1),
     kelvin (>= 1.1-0)
 Collate:
     'kitagawa-package.R'
