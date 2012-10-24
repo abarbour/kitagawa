@@ -1,23 +1,27 @@
 \name{.nullchk}
 \alias{.nullchk}
-\title{quickly check null, stopifnot}
+\title{Quickly check for \code{NULL} and \code{NA}}
 \usage{
   .nullchk(X)
 }
 \arguments{
   \item{X}{something to be checked (vector, scalar, ...)}
 }
-\value{
-  NULL
-}
 \description{
-  quickly check null, stopifnot
+  Checks \code{NULL} and \code{NA} status, and raises an
+  error if \code{TRUE}.
+}
+\details{
+  \emph{This function is not likely to be needed by the
+  user.}
 }
 \examples{
 \dontrun{
-.nullchk(1:10)
-.nullchk(NULL)
-.nullchk(c(1:10,NULL))
+.nullchk(1:10) # OK
+.nullchk(NULL) # error
+.nullchk(c(1:10,NULL)) # error
+.nullchk(NA) # error
+.nullchk(c(1:10,NA)) # error
 }
 }
 \author{

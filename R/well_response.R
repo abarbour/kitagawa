@@ -20,9 +20,17 @@
 #' @param freq.units  set what the units of frequency (omega) are: "rad_per_sec" (default, NULL), or "Hz"
 #'
 #' @return Matrix with three columns: \eqn{\omega}, \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}
-#' @return where the units of \eqn{\omega} will be radians per second
+#' where the units of \eqn{\omega} will be radians per second
 #' 
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' 
+#' @references Kitagawa, Y., S. Itaba, N. Matsumoto, and N. Koisumi (2011),
+#' Frequency characteristics of the response of water pressure in a closed well to volumetric strain in the high-frequency domain,
+#' \emph{J. Geophys. Res.}, \strong{116}, B08301, doi:10.1029/2010JB007794.
+#' 
+#' @references \url{http://www.agu.org/pubs/crossref/2011/2010JB007794.shtml}
+#'
+#' @seealso \code{\link{sensing_volume}}, \code{\link{kitplot}}
 #' 
 #' @examples
 #' #### dummy example
@@ -30,7 +38,7 @@
 #' 
 #' #### a more physically realistic calculation:
 #' # Physical params applicable for B084 borehole
-#' # (see: http://pbo.unavco.org/station/overview/B084/)
+#' # (see: http://pbo.unavco.org/station/overview/B084/ for details)
 #' #
 #' Rc <- 0.0508   # m, radius of water-sensing (2in)
 #' Lc <- 146.9    # m, length of grouted region (482ft)
@@ -56,7 +64,7 @@ function(omega,
          grav.=9.81,
          freq.units=NULL) UseMethod("well_response")
 
-#' @return \code{NULL}
+# @return \code{NULL}
 #' @rdname well_response
 #' @docType methods
 #' @method well_response default
@@ -85,7 +93,8 @@ well_response.default <-
     stopifnot(ncol(Amat)==7)
     rm(Alpha.)  # cleanup
     #  A1,2 are in Mod(A.[,6:7]) 
-    A12 <- Mod(Amat[,6:7])  # is complex, but imag is zero, so == abs
+    A12 <- matrix(Mod(Amat[,6:7]),ncol=2)  # is complex, but imag is zero, so == abs
+    stopifnot(ncol(A12)==2)
     rm(Amat)    # cleanup
     A1 <- A12[,1]
     A2 <- A12[,2]

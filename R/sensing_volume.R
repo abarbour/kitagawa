@@ -1,6 +1,11 @@
-#' Calculate volume of fluids in the sensing borehole
+#' Calculate volume of fluids in the sensing region of the borehole.
+#'
+#' This function calculates the volume of fluid in the screened section, 
+#' namely \strong{Equation 2} in Kitagawa et al (2011).
 #' 
-#' calculate Kitagawa equation 2
+#' Although typical scientific boreholes with water-level sensors are 
+#' drilled very deeply, pore-fluids are only allowed to flow through
+#' a relatively short section, known as the "screened" section.
 #'
 #' @name sensing_volume
 #' @export
@@ -10,9 +15,11 @@
 #' @param rad_screen  radius of the screened interval  \eqn{[m]}
 #' @param len_screen  length of the screened interval  \eqn{[m]}
 #' 
-#' @return scalar, the sensing volume in units of \eqn{[m^3]}
+#' @return scalar, with units of \eqn{[m^3]}
 #' 
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' 
+#' @seealso \code{\link{well_response}}, \code{\link{kitplot}}
 #' 
 #' @examples
 #' #### dummy example
@@ -20,7 +27,7 @@
 #' #
 #' #### a more physically realistic calculation:
 #' # Physical params applicable for B084 borehole
-#' # (see: http://pbo.unavco.org/station/overview/B084/)
+#' # (see: http://pbo.unavco.org/station/overview/B084/ for details)
 #' #
 #' Rc <- 0.0508   # m, radius of water-sensing (2in)
 #' Lc <- 146.9    # m, length of grouted region (482ft)

@@ -1,14 +1,16 @@
 Package: kitagawa
 Type: Package
-Title: Calculate the expected frequency-response between water-height and
-    strain in a borehole, at seismic frequencies.
+Title: Model the spectral response of a closed well to dynamic strains at
+    seismic frequencies.
 Version: 1.0-1
 Date: 2012-10-23
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
-Description: Calculate what the hydrodynamic response spectra will be for
-    borehole strain and fluid-pressure (water height) for a given set of aquifer
-    parameters.  The package is based on the model presented by Kitagawa et al
+Description: Provides tools to calculate what the
+    theoretical hydrodynamic response will be
+    for borehole strain and fluid-pressure (water height) measurements at
+    seismic frequencies, for a given set of aquifer parameters. The
+    calculations are based on the model presented by Kitagawa et al
     (2011, doi:10.1029/2010JB007794); hence, the name of the package.
 License: GPL (>= 2)
 URL: http://abarbour.github.com/kitagawa/
@@ -18,8 +20,8 @@ Depends:
 Collate:
     'kitagawa-package.R'
     'well_response.R'
-    'alpha_constants.R'
-    'omega_constants.R'
     'sensing_volume.R'
     'kitplot.R'
+    'omega_constants.R'
+    'alpha_constants.R'
     'nullchk.R'
