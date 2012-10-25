@@ -1,14 +1,14 @@
-kelvin 1.0-1 (2012-10-23) ---------------------------------------- NOT RELEASED
+kelvin 1.0-1 (2012-10-25) ---------------------------------------- FIRST RELEASE
 
-* added demo
+* added a demo
 
 * bug fix: when given a single frequency (omega), the calculation failed
 
-* documentation improvements
+* documentation improved, and complete
 
 kelvin 1.0-0 (2012-09-27) ---------------------------------------- NOT RELEASED
 
-* first version
+* first version, checks ok
 
-* complete documentation thanks to **roxygen2**
+* documentation, thanks to **roxygen2**
 

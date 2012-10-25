@@ -5,13 +5,25 @@
 #' 
 #' Although typical scientific boreholes with water-level sensors are 
 #' drilled very deeply, pore-fluids are only allowed to flow through
-#' a relatively short section, known as the "screened" section.
+#' a relatively short section, known as the "screened" section.  The
+#' calculation assumes two pairs of radii and lengths: one for the cemented (grout)
+#' section, and another for the screened section.
+#' 
+#' The volume calculated is
+#' \deqn{
+#' \pi R_C^2 (L_C - L_S) + \pi R_S^2 L_S
+#' }
+#' where 
+#' \eqn{R} and \eqn{L} denote radius and length respectively, and subscripts
+#' \eqn{C} and \eqn{S} denote the cemented and screened sections respectively.
+#' 
+#' This calculation assumes the measurement is for a sealed well.
 #'
 #' @name sensing_volume
 #' @export
 #' 
-#' @param rad_case    radius of the casing  \eqn{[m]}
-#' @param len_case    length of the casing  \eqn{[m]}
+#' @param rad_grout   radius of the grouting  \eqn{[m]}
+#' @param len_grout   length of the grouting  \eqn{[m]}
 #' @param rad_screen  radius of the screened interval  \eqn{[m]}
 #' @param len_screen  length of the screened interval  \eqn{[m]}
 #' 
@@ -36,9 +48,9 @@
 #' #
 #' # calculate the sensing volume for the given well parameters
 #' sensing_volume(Rc, Lc, Rs, Ls) # m**3, ~= 1.8
-sensing_volume <- function(rad_case, len_case, rad_screen, len_screen){
-  Rc. <- rad_case
-  Lc. <- len_case
+sensing_volume <- function(rad_grout, len_grout, rad_screen, len_screen){
+  Rc. <- rad_grout
+  Lc. <- len_grout
   Rs. <- rad_screen
   Ls. <- len_screen
   Vw. <- Rc. * Rc. * (Lc. - Ls.) + Rs. * Rs. * Ls.

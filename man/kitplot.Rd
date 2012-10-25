@@ -46,12 +46,12 @@
 \examples{
 # dummy example: get some lines on the figure
 n <- 10
-ones <- rep(1,n)
-fakeResp <- data.frame(f=2*pi*10**seq(-4,0,length.out=n), amp=1e6*ones, phs=.9*pi*ones)
+ones <- rep(1, n)
+fakeResp <- data.frame(f=2*pi*10**seq(-4, 0, length.out=n), amp=1e6*ones, phs=.9*pi*ones)
 kitplot(fakeResp)
-# focus:
-fakeResp.foc <- kitplot(fakeResp, xlim.=c(-3,-1), ylims=list(amp=c(5.5,6.5),phs=180*c(0,1)))
-kitplot(fakeResp.foc, prep.resp=FALSE)
+# focus in on a certain range:
+fakeResp.foc <- kitplot(fakeResp, xlim.=c(-3, -1), ylims=list(amp=c(5.5, 6.5), phs=180*c(0, 1)))
+kitplot(fakeResp.foc, prep.resp=FALSE) # fakeResp.foc has already been transformed
 }
 \author{
   Andrew Barbour <andy.barbour@gmail.com>

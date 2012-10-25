@@ -17,7 +17,7 @@
 
   \item{T.}{effective aquifer transmissivity \eqn{[m^2/s]}}
 
-  \item{S.}{well storativity, \eqn{[]}}
+  \item{S.}{well storativity, \eqn{[unitless]}}
 
   \item{Vw.}{well volume, \eqn{[m^3]}}
 
@@ -25,7 +25,8 @@
 
   \item{Ku.}{undrained bulk modulus, \eqn{[Pa]}}
 
-  \item{B.}{Skempton's coefficient, \eqn{[]}}
+  \item{B.}{Skempton's coefficient, \eqn{[unitless,
+  bounded]}}
 
   \item{Avs.}{amplification factor for volumetric strain
   \eqn{E_{kk,obs}/E_{kk}}, \eqn{[]}}
@@ -41,15 +42,41 @@
   \eqn{[m/s^2]}}
 
   \item{freq.units}{set what the units of frequency (omega)
-  are: "rad_per_sec" (default, NULL), or "Hz"}
+  are: \code{"rad_per_sec"} (default, \code{NULL}), or
+  \code{"Hz"}}
 }
 \value{
-  Matrix with three columns: \eqn{\omega}, \eqn{A_\alpha
-  (\omega)}, \eqn{\Phi_\alpha (\omega)} where the units of
-  \eqn{\omega} will be radians per second
+  Matrix with three columns: radial frequency, amplitude,
+  and phase [\eqn{\omega}), \eqn{A_\alpha (\omega)},
+  \eqn{\Phi_\alpha (\omega)}] where the units of
+  \eqn{\omega} will be radians per second, \eqn{A_\alpha
+  (\omega)} in meters per strain, and \eqn{\Phi_\alpha
+  (\omega)} in radians.
 }
 \description{
-  calculate Kitagawa equation 17
+  This is the primary function which calculates the
+  theoretical, complex well response, namely
+  \strong{Equation 17} in Kitagawa et al (2011). The
+  results, however, are expressed as amplitude and phase.
+}
+\details{
+  \strong{The response depends strongly on the physical
+  properties given. Default values are assumed where
+  resonable, mostly that the pore-fluid is water, but
+  considerable care should be invested in the choice of
+  parameters, unless the function is used in an
+  optimization scheme.}
+
+  Assumed values are: \describe{ \item{\code{Avs.}}{1}
+  \item{\code{Aw.}}{1} \item{\code{rho.}}{\eqn{1000
+  [kg/m^3]}, the density of water}
+  \item{\code{Kf.}}{\eqn{2.2e9 [Pa]}, the bulk modulus of
+  water} \item{\code{grav.}}{\eqn{9.81 [m/s^2]}, average
+  gravitational force on Earth} }
+
+  Note that Skempton's coefficient, \code{B.}, is bounded
+  inclusively within \eqn{[0,1]}; an error is thrown if
+  it's not.
 }
 \examples{
 #### dummy example

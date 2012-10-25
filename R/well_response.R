@@ -1,26 +1,49 @@
 #' Calculate the pressure/strain response spectrum for given formation properties
 #'
-#' calculate Kitagawa equation 17
+#' This is the primary function which calculates the theoretical, complex
+#' well response, namely \strong{Equation 17} in Kitagawa et al (2011).
+#' The results, however, are expressed as amplitude and phase.
+#' 
+#' \strong{The response depends strongly on the physical properties
+#' given.
+#' Default values are assumed where resonable, mostly that the pore-fluid
+#' is water, but considerable care should be invested in the choice of
+#' parameters, unless the function is used in an optimization scheme.}
+#' 
+#' Assumed values are:
+#' \describe{
+#' \item{\code{Avs.}}{1}
+#' \item{\code{Aw.}}{1}
+#' \item{\code{rho.}}{\eqn{1000 [kg/m^3]}, the density of water}
+#' \item{\code{Kf.}}{\eqn{2.2e9 [Pa]}, the bulk modulus of water}
+#' \item{\code{grav.}}{\eqn{9.81 [m/s^2]}, average gravitational force on Earth}
+#' }
+#' 
+#' Note that Skempton's coefficient, \code{B.}, is bounded inclusively
+#' within \eqn{[0,1]}; an error is thrown if it's not.
 #'
 #' @name well_response
 #' @export
 #' 
 #' @param omega  frequency,  (see freq.units)
 #' @param T.     effective aquifer transmissivity \eqn{[m^2/s]}
-#' @param S.     well storativity,  \eqn{[]}
+#' @param S.     well storativity,  \eqn{[unitless]}
 #' @param Vw.    well volume,	 \eqn{[m^3]}
 #' @param Rs.    radius of screened portion,  \eqn{[m]}
 #' @param Ku.    undrained bulk modulus,  \eqn{[Pa]}
-#' @param B.     Skempton's coefficient,  \eqn{[]}
+#' @param B.     Skempton's coefficient,  \eqn{[unitless, bounded]}
 #' @param Avs.   amplification factor for volumetric strain \eqn{E_{kk,obs}/E_{kk}},  \eqn{[]}
 #' @param Aw.    amplification factor of well volume change for \eqn{E_{kk}},  \eqn{[]}
 #' @param rho.   fluid density \eqn{[kg/m^3]}
 #' @param Kf.    bulk modulus of fluid,  \eqn{[Pa]}
 #' @param grav.  local gravitational acceleration \eqn{[m/s^2]}
-#' @param freq.units  set what the units of frequency (omega) are: "rad_per_sec" (default, NULL), or "Hz"
+#' @param freq.units  set what the units of frequency (omega) are: \code{"rad_per_sec"} (default, \code{NULL}), or \code{"Hz"}
 #'
-#' @return Matrix with three columns: \eqn{\omega}, \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}
-#' where the units of \eqn{\omega} will be radians per second
+#' @return Matrix with three columns: radial frequency, amplitude, and phase 
+#' [\eqn{\omega}), \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}]
+#' where the units of \eqn{\omega} will be radians per second,
+#' \eqn{A_\alpha (\omega)} in meters per strain, 
+#' and \eqn{\Phi_\alpha (\omega)} in radians.
 #' 
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
 #' 
@@ -104,6 +127,9 @@ well_response.default <-
     rhog <- rho. * grav.
     #print(summary(omega))
     TVFRG <- 2 * pi * T. / omega / Vw. / rhog
+    #
+    #check B: it's bounded between [0,1]
+    stopifnot((B.>=0) & (B.<=1))
     #
     # calculate amp and phase of response
     #

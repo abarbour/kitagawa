@@ -36,7 +36,7 @@
 
   The constant \eqn{\alpha} is a function of frequency
   \eqn{\omega} as well as aquifer and well parameters; it
-  is formally defined as \deqn{\alpha \equiv R_S \cdot
+  is formally defined as \deqn{\alpha \equiv R_S
   \sqrt{\omega S / T}} where \eqn{S} is the storativity,
   \eqn{T} is the aquifer's effective transmissivity, and
   \eqn{R_S} is the radius of the screened portion of the
@@ -47,7 +47,7 @@
   10} \item{\code{Psi}}{Given as \eqn{\Psi} in Eqn. 11}
   \item{\code{A}}{Given as \eqn{A_i, i=1,2} in Eqns. 18,
   19} \item{\code{Kel}}{\eqn{\mathcal{K}}, the complex
-  Kelvin functions} }
+  Kelvin functions (see Abramowitz and Stegun, 1972)} }
 }
 \examples{
 alpha_constants() # kelvin::Keir gives warning

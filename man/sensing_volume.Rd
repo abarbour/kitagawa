@@ -2,13 +2,13 @@
 \alias{sensing_volume}
 \title{Calculate volume of fluids in the sensing region of the borehole.}
 \usage{
-  sensing_volume(rad_case, len_case, rad_screen,
+  sensing_volume(rad_grout, len_grout, rad_screen,
     len_screen)
 }
 \arguments{
-  \item{rad_case}{radius of the casing \eqn{[m]}}
+  \item{rad_grout}{radius of the grouting \eqn{[m]}}
 
-  \item{len_case}{length of the casing \eqn{[m]}}
+  \item{len_grout}{length of the grouting \eqn{[m]}}
 
   \item{rad_screen}{radius of the screened interval
   \eqn{[m]}}
@@ -28,7 +28,18 @@
   Although typical scientific boreholes with water-level
   sensors are drilled very deeply, pore-fluids are only
   allowed to flow through a relatively short section, known
-  as the "screened" section.
+  as the "screened" section.  The calculation assumes two
+  pairs of radii and lengths: one for the cemented (grout)
+  section, and another for the screened section.
+
+  The volume calculated is \deqn{ \pi R_C^2 (L_C - L_S) +
+  \pi R_S^2 L_S } where \eqn{R} and \eqn{L} denote radius
+  and length respectively, and subscripts \eqn{C} and
+  \eqn{S} denote the cemented and screened sections
+  respectively.
+
+  This calculation assumes the measurement is for a sealed
+  well.
 }
 \examples{
 #### dummy example

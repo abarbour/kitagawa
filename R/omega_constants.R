@@ -7,9 +7,15 @@
 #' 
 #' \emph{This function is not likely to be needed by the user.}
 #' 
-#' Because the constant \eqn{\alpha} depends also on physical
+#' The radial frequency \eqn{\omega} is formally defined as:
+#' \deqn{\omega \equiv 2 \pi / \tau}
+#' where \eqn{\tau} is the period of oscillation.
+#' 
+#' Because the computation of \eqn{\alpha} depends also on physical
 #' properties, additional parameters can be
 #' passed through (e.g. the transmissivity).  
+#' 
+#' @section Warnings:
 #' 
 #' \strong{In the case \code{c.type='alpha'}(the default), the 
 #' parameters \code{S.}, \code{T.},  and \code{Rs.} must
