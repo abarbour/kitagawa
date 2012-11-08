@@ -140,6 +140,14 @@ well_response.default <-
     rDen. <- tmpd. * tmpd. + A1 * A1
     rm(tmpd.)
     ##
+    ## complex response EQ 17
+    ## cNum <- complex(real=(Ku. * B. / Aw. * TVFRG - A2), imaginary=A1)
+    ## cDen <- complex(real=(Kf. * TVFRG  -  A2), imaginary=A1)
+    ## cResp <- -1 * Kf. * Aw. / Avs. / rhog * cNum / cDen
+    ## amplitude
+    ## Amp. <- Mod(cResp)
+    ## Phs. <- Arg(cResp)
+    ##
     ## amplitude, Kitagawa equation 20
     ##
     Amp. <- Kf. * Aw. / Avs. / rhog * sqrt(rNum. / rDen.)
