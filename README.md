@@ -2,9 +2,9 @@
 
 Tools to calculate the theoretical spectral response 
 between fluid and strain in a closed well. The theoretical model
-is from Kitagawa et al (2011)
+is from Kitagawa et al (2011).
 
-The package is named after Yuichi Kitagawa.
+The package is named after the author, Y. Kitagawa.
 
 ## Original Article
 
