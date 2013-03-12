@@ -14,6 +14,7 @@
   \itemize{
     \item Added \code{.onAttach} message into 'zzz.R' file.
     \item NEWS is now in Rd format in the inst/ directory.
+  }
 }
 \section{CHANGES IN kitagawa VERSION 1.0-1 (2012-10-25)}{
   \itemize{
@@ -21,6 +22,7 @@
     \item added a demo
     \item bug fix: when given a single frequency (omega), the calculation failed
     \item documentation improved
+  }
 }
 \section{CHANGES in kitagawa VERSION 1.0-0 (2012-09-27)}{
   \itemize{
