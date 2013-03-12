@@ -10,6 +10,12 @@
 \title{News for package 'kitagawa'}
 \encoding{UTF-8}
 
+\section{CHANGES IN kitagawa VERSION 1.1-1 (2013-03-12)}{
+  \itemize{
+    \item Removed empty \code{.Last.lib} function.
+    \item Added missing closures in 'NEWS.Rd'.
+  }
+}
 \section{CHANGES IN kitagawa VERSION 1.1-0 (2013-03-11)}{
   \itemize{
     \item Added \code{.onAttach} message into 'zzz.R' file.

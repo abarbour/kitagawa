@@ -2,7 +2,7 @@ Package: kitagawa
 Type: Package
 Title: Model the spectral response of a closed water-well to
     harmonic strains at seismic frequencies.
-Version: 1.1-0
+Version: 1.1-1
 Date: 2013-03-12
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
