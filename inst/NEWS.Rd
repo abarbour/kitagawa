@@ -13,7 +13,7 @@
 \section{CHANGES IN kitagawa VERSION 1.1-0 (2013-03-11)}{
   \itemize{
     \item Added \code{.onAttach} message into 'zzz.R' file.
-    \item NEWS is now properly marked-down, and in the inst/ directory.
+    \item NEWS is now in Rd format in the inst/ directory.
 }
 \section{CHANGES IN kitagawa VERSION 1.0-1 (2012-10-25)}{
   \itemize{
