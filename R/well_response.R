@@ -77,15 +77,7 @@
 #' #
 #' kitplot(Rsp)
 #'
-well_response <-
-function(omega,
-         T., S., Vw., Rs., Ku., B.,
-         Avs.=1,
-         Aw.=1,
-         rho.=1000, 
-         Kf.=2.2e9,
-         grav.=9.81,
-         freq.units=NULL) UseMethod("well_response")
+well_response <- function(omega, T., S., Vw., Rs., Ku., B., ...) UseMethod("well_response")
 
 # @return \code{NULL}
 #' @rdname well_response
@@ -111,7 +103,7 @@ well_response.default <-
     #
     # Alpha function
     Alpha. <- omega_constants(omega, c.type="alpha", S.=S., T.=T., Rs.=Rs.)
-    # A1, and A2 (functions of Phi and Psi, calculated internally)
+    #   A1, and A2 (functions of Phi and Psi, calculated internally)
     Amat <- alpha_constants(Alpha., c.type="A")
     stopifnot(ncol(Amat)==7)
     rm(Alpha.)  # cleanup
@@ -123,19 +115,17 @@ well_response.default <-
     A2 <- A12[,2]
     rm(A12)     # cleanup
     #
-    # prevent duplicate calculations
     rhog <- rho. * grav.
-    #print(summary(omega))
     TVFRG <- 2 * pi * T. / omega / Vw. / rhog
     #
-    #check B: it's bounded between [0,1]
-    stopifnot((B.>=0) & (B.<=1))
+    #check Skemptons coefficient: it should be bound to [0,1]
+    .in0to1(B.)
     #
     # calculate amp and phase of response
     #
     tmpd. <- Ku. * B. / Aw. * TVFRG - A2
     rNum. <- tmpd. * tmpd. + A1 * A1
-    rm(tmpd.)
+    #
     tmpd. <- Kf. * TVFRG  -  A2
     rDen. <- tmpd. * tmpd. + A1 * A1
     rm(tmpd.)
@@ -166,3 +156,106 @@ well_response.default <-
     toret <- cbind(omega, Amp., Phs.)
     return(toret)
   }
+
+#' Calculate the pressure/strain response spectrum for given formation properties (OPEN well)
+#' 
+#' Assumed values are:
+#' \describe{
+#' \item{\code{Avs.}}{1}
+#' \item{\code{Aw.}}{1}
+#' \item{\code{rho.}}{\eqn{1000 [kg/m^3]}, the density of water}
+#' \item{\code{Kf.}}{\eqn{2.2e9 [Pa]}, the bulk modulus of water}
+#' \item{\code{grav.}}{\eqn{9.81 [m/s^2]}, average gravitational force on Earth}
+#' }
+#' 
+#' @name open_well_response
+#' @export
+#' 
+#' @param omega  frequency,  (see freq.units)
+#' @param T.     effective aquifer transmissivity \eqn{[m^2/s]}
+#' @param S.     well storativity,  \eqn{[unitless]}
+#' @param Vw.    well volume,	 \eqn{[m^3]}
+#' @param Rs.    radius of screened portion,  \eqn{[m]}
+#' @param Ku.    undrained bulk modulus,  \eqn{[Pa]}
+#' @param B.     Skempton's coefficient,  \eqn{[unitless, bounded]}
+#' @param Avs.   amplification factor for volumetric strain \eqn{E_{kk,obs}/E_{kk}},  \eqn{[]}
+#' @param Aw.    amplification factor of well volume change for \eqn{E_{kk}},  \eqn{[]}
+#' @param rho.   fluid density \eqn{[kg/m^3]}
+#' @param Kf.    bulk modulus of fluid,  \eqn{[Pa]}
+#' @param grav.  local gravitational acceleration \eqn{[m/s^2]}
+#' @param freq.units  set what the units of frequency (omega) are: \code{"rad_per_sec"} (default, \code{NULL}), or \code{"Hz"}
+#' @param model  character; use the model of Liu et al (1989), or Cooper et al (1965)
+#' @param ...    additional parameters
+#'
+#' @return Matrix with three columns: radial frequency, amplitude, and phase 
+#' [\eqn{\omega}), \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}]
+#' where the units of \eqn{\omega} will be radians per second,
+#' \eqn{A_\alpha (\omega)} in meters per strain, 
+#' and \eqn{\Phi_\alpha (\omega)} in radians.
+#' 
+#' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' 
+#' @seealso \code{\link{well_response}}
+#'
+open_well_response <- function(omega, T., S., Vw., Rs., Ku., B., ...) UseMethod("well_response")
+#' @rdname open_well_response
+#' @docType methods
+#' @method open_well_response default
+#' @S3method open_well_response default
+open_well_response <- function(omega, T., S., Vw., Rs., Ku., B.,
+         Avs.=1,
+         Aw.=1,
+         rho.=1000, 
+         Kf.=2.2e9,
+         grav.=9.81,
+         freq.units=NULL,
+         model=c("liu","cooper")){
+  Alpha. <- omega_constants(omega, c.type="alpha", S.=S., T.=T., Rs.=Rs.)
+  Kmat <- alpha_constants(Alpha., c.type="Kel")
+  # alpha Kel0 Kel1, Kels are complex
+  Kel0. <- Kmat[,2]
+  kei. <- Im(Kel0.)
+  ker. <- Re(Kel0.)
+  omegsq <- omega**2
+  #
+  model <- match.arg(model)
+  Hw. <- d. <- 1 # fix this!
+  #
+  if (model=="liu"){
+	#
+    # from Liu et al (1989), expressed in
+    # Roeloffs 1998 eq 22
+    #
+    U. <- (d./T.)*Kel0.
+    gamma <- sqrt(complex(imaginary=2*omega/(Rs.**2 * grav. * U.)))
+    expgam <- exp(-1*gamma*d)
+    exp2gam <- exp(-2*gamma*d)
+    A. <- -1*omegsq/grav. * (Hw. + (1-expgam)/(1+expgam)/gamma)
+    B. <- complex(imaginary=omega*U*Rs.**2 * gamma*expgam/(1-exp2gam))
+    wellres <- 1/(A. - B. + 1)
+    #
+  } else if (model=="cooper"){
+    #
+    # from Cooper et al (1965), expressed in
+    # Roeloffs 1998 eq 20
+    #
+    #
+    # the effective height of the water column in the well
+    He. <- Hw. + 3*d./8 
+    # d is the aquifer thickness
+    # Hw is the height of the water column above the upper limit of the aquifer
+    cT. <- omega * Rs.**2 / 2 / T.
+    A. <- 1 - cT. * kei. + omegsq * He. / grav.
+    B. <- cT. * ker
+    # the amplification of water level in the well relative to 
+    # pressure head in the aquifer
+	wellresp <- sqrt(A.**2 + B.**2)  # |w/h|
+	# eq 10
+	# h/e_kk
+	# h/e_areal ?
+	# wellresp <- wellresp * -2 * mu * B. * (1+nu_u) /(rho. * grav * 3 * (1-2 * nu_u)) # | w/h * h/e_kk|
+	omega_peak <- sqrt(grav./He.) # eq 21
+  }
+  toret <- cbind(omega, wellresp)
+  return(toret)
+}

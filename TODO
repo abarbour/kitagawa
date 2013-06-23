@@ -1,2 +1,20 @@
+[ ] Add environment to store global or default constants
+
+[ ] Frequency units of output should be consistent with frequency units of input
+    (currently only Hz is returned)
+
+[ ] Convert to complex response output, with optional Amp/Phs returns
+
+[ ] add models:
+*** Liu et al 1989 [ ]
+*** Cooper et al 1965 [ ]
+
 [ ] cleanup directory structure
-[ ] add dataset
+
+[ ] Method to estimate transfer function between two series
+*** MT CSD
+
+[ ] Datasets:
+*** Honshu timeseries
+*** PBO-PP well information (and calculated sensing volumes)
+*** Slug test series???

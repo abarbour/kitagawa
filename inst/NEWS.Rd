@@ -10,6 +10,11 @@
 \title{News for package 'kitagawa'}
 \encoding{UTF-8}
 
+\section{CHANGES IN kitagawa VERSION 1.2-0 (2013-06-22)}{
+  \itemize{
+    \item New utility function \code{.in0to1} to test for existence in [0,1].
+  }
+}
 \section{CHANGES IN kitagawa VERSION 1.1-1 (2013-03-12)}{
   \itemize{
     \item Removed empty \code{.Last.lib} function.
