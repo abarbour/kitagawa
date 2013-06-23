@@ -113,6 +113,10 @@ kitplot(Rsp)
   \url{http://www.agu.org/pubs/crossref/2011/2010JB007794.shtml}
 }
 \seealso{
-  \code{\link{sensing_volume}}, \code{\link{kitplot}}
+  \code{\link{sensing_volume}} to estimate the volume of
+  water, and \code{\link{kitplot}} to plot the results.
+
+  \code{\link{open_well_response}} for modeling response of
+  an open (exposed) well.
 }
 

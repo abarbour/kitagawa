@@ -38,6 +38,7 @@
 #' @param Kf.    bulk modulus of fluid,  \eqn{[Pa]}
 #' @param grav.  local gravitational acceleration \eqn{[m/s^2]}
 #' @param freq.units  set what the units of frequency (omega) are: \code{"rad_per_sec"} (default, \code{NULL}), or \code{"Hz"}
+# @param ...    additional parameters
 #'
 #' @return Matrix with three columns: radial frequency, amplitude, and phase 
 #' [\eqn{\omega}), \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}]
@@ -53,7 +54,12 @@
 #' 
 #' @references \url{http://www.agu.org/pubs/crossref/2011/2010JB007794.shtml}
 #'
-#' @seealso \code{\link{sensing_volume}}, \code{\link{kitplot}}
+#' @seealso 
+#' \code{\link{sensing_volume}} to estimate the volume of water, and
+#' \code{\link{kitplot}} to plot the results.
+#'
+#' \code{\link{open_well_response}} for modeling response of an open (exposed)
+#' well.
 #' 
 #' @examples
 #' #### dummy example
@@ -77,16 +83,19 @@
 #' #
 #' kitplot(Rsp)
 #'
-well_response <- function(omega, T., S., Vw., Rs., Ku., B., ...) UseMethod("well_response")
+well_response <- function(omega, T., S., Vw., Rs., Ku., B., 
+           Avs.=1,
+           Aw.=1,
+           rho.=1000, 
+           Kf.=2.2e9,
+           grav.=9.81,
+           freq.units=NULL) UseMethod("well_response")
 
-# @return \code{NULL}
 #' @rdname well_response
 #' @docType methods
 #' @method well_response default
 #' @S3method well_response default
-well_response.default <-
-  function(omega,
-           T., S., Vw., Rs., Ku., B.,
+well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
            Avs.=1,
            Aw.=1,
            rho.=1000, 
@@ -185,7 +194,7 @@ well_response.default <-
 #' @param grav.  local gravitational acceleration \eqn{[m/s^2]}
 #' @param freq.units  set what the units of frequency (omega) are: \code{"rad_per_sec"} (default, \code{NULL}), or \code{"Hz"}
 #' @param model  character; use the model of Liu et al (1989), or Cooper et al (1965)
-#' @param ...    additional parameters
+# @param ...    additional parameters
 #'
 #' @return Matrix with three columns: radial frequency, amplitude, and phase 
 #' [\eqn{\omega}), \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}]
@@ -197,12 +206,19 @@ well_response.default <-
 #' 
 #' @seealso \code{\link{well_response}}
 #'
-open_well_response <- function(omega, T., S., Vw., Rs., Ku., B., ...) UseMethod("well_response")
+open_well_response <- function(omega, T., S., Vw., Rs., Ku., B., 
+         Avs.=1,
+         Aw.=1,
+         rho.=1000, 
+         Kf.=2.2e9,
+         grav.=9.81,
+         freq.units=NULL,
+         model=c("liu","cooper")) UseMethod("open_well_response")
 #' @rdname open_well_response
 #' @docType methods
 #' @method open_well_response default
 #' @S3method open_well_response default
-open_well_response <- function(omega, T., S., Vw., Rs., Ku., B.,
+open_well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
          Avs.=1,
          Aw.=1,
          rho.=1000, 
@@ -228,10 +244,10 @@ open_well_response <- function(omega, T., S., Vw., Rs., Ku., B.,
     #
     U. <- (d./T.)*Kel0.
     gamma <- sqrt(complex(imaginary=2*omega/(Rs.**2 * grav. * U.)))
-    expgam <- exp(-1*gamma*d)
-    exp2gam <- exp(-2*gamma*d)
+    expgam <- exp(-1*gamma*d.)
+    exp2gam <- exp(-2*gamma*d.)
     A. <- -1*omegsq/grav. * (Hw. + (1-expgam)/(1+expgam)/gamma)
-    B. <- complex(imaginary=omega*U*Rs.**2 * gamma*expgam/(1-exp2gam))
+    B. <- complex(imaginary=omega*U.*Rs.**2 * gamma*expgam/(1-exp2gam))
     wellres <- 1/(A. - B. + 1)
     #
   } else if (model=="cooper"){
@@ -246,7 +262,7 @@ open_well_response <- function(omega, T., S., Vw., Rs., Ku., B.,
     # Hw is the height of the water column above the upper limit of the aquifer
     cT. <- omega * Rs.**2 / 2 / T.
     A. <- 1 - cT. * kei. + omegsq * He. / grav.
-    B. <- cT. * ker
+    B. <- cT. * ker.
     # the amplification of water level in the well relative to 
     # pressure head in the aquifer
 	wellresp <- sqrt(A.**2 + B.**2)  # |w/h|
