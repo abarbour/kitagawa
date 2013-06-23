@@ -12,6 +12,8 @@
 
 \section{CHANGES IN kitagawa VERSION 1.2-0 (2013-06-22)}{
   \itemize{
+    \item New function \code{open_well_response} to model response of open
+    wells.
     \item New utility function \code{.in0to1} to test for existence in [0,1].
   }
 }
