@@ -10,7 +10,7 @@
 \title{News for package 'kitagawa'}
 \encoding{UTF-8}
 
-\section{CHANGES IN kitagawa VERSION 1.2-0 (2013-06-22)}{
+\section{CHANGES IN kitagawa VERSION 1.2-1 (2013-07-02)}{
   \itemize{
     \item New function \code{open_well_response} to model response of open
     wells.

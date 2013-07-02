@@ -1,14 +1,11 @@
 BUGS
-doc
-data
-dataman
+NOBUILD
 rsrc
 tests
 .RData
 .git
 .git/*
 .gitignore
-Read-and-delete-me
 TODO
 ^\.Rproj\.user$
 kitagawa.Rproj
