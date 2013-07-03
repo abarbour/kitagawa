@@ -1,8 +1,12 @@
-\docType{package}
+\docType{data}
 \name{kitagawa-package}
 \alias{kitagawa}
 \alias{kitagawa-package}
 \title{Spectral response of a water well to harmonic strains at seismic frequencies}
+\format{chr ".kitEnv"}
+\usage{
+  .kitEnvName
+}
 \description{
   Provides tools to calculate the theoretical hydrodynamic
   response of an aquifer undergoing harmonic straining.
@@ -78,7 +82,7 @@
   Cooper, H. H., Bredehoeft, J. D., Papadopulos, I. S., and
   Bennett, R. R. (1965), The response of well-aquifer
   systems to seismic waves, \emph{J. Geophys. Res.},
-  \strong{70} (16):3915–3926, doi:
+  \strong{70} (16):3915-3926, doi:
 
   Hsieh, P. A., J. D. Bredehoeft, and J. M. Farr (1987),
   Determination of aquifer transmissivity from Earth tide
@@ -94,7 +98,7 @@
   Liu, L.-B., Roeloffs, E., and Zheng, X.-Y. (1989),
   Seismically Induced Water Level Fluctuations in the Wali
   Well, Beijing, China, \emph{J. Geophys. Res.},
-  \strong{94} (B7):9453–9462, doi:
+  \strong{94} (B7):9453-9462, doi:
 
   Roeloffs, E. (1996), Poroelastic techniques in the study
   of earthquake-related hydrologic phenomena,
@@ -106,4 +110,5 @@
   \code{\link{open_well_response}},
   \code{\link{sensing_volume}}, \code{\link{kitplot}}
 }
+\keyword{datasets}
 

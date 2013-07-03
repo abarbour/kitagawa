@@ -76,7 +76,7 @@
 #' 
 #' @references Cooper, H. H., Bredehoeft, J. D., Papadopulos, I. S., and Bennett, R. R. (1965),
 #' The response of well-aquifer systems to seismic waves, 
-#' \emph{J. Geophys. Res.}, \strong{70} (16):3915–3926, doi:
+#' \emph{J. Geophys. Res.}, \strong{70} (16):3915-3926, doi:
 #' 
 #' @references Hsieh, P. A., J. D. Bredehoeft, and J. M. Farr (1987),
 #' Determination of aquifer transmissivity from Earth tide analysis,
@@ -89,12 +89,55 @@
 #'
 #' @references Liu, L.-B., Roeloffs, E., and Zheng, X.-Y. (1989),
 #' Seismically Induced Water Level Fluctuations in the Wali Well, Beijing, China,
-#' \emph{J. Geophys. Res.}, \strong{94} (B7):9453–9462, doi:
+#' \emph{J. Geophys. Res.}, \strong{94} (B7):9453-9462, doi:
 #'
 #' @references Roeloffs, E. (1996),
 #' Poroelastic techniques in the study of earthquake-related hydrologic phenomena,
 #' \emph{Advances in Geophysics}, \strong{37}:135-195, Elsevier, doi:
 #' 
 #' @seealso \code{\link{well_response}}, \code{\link{open_well_response}}, \code{\link{sensing_volume}}, \code{\link{kitplot}}
-#'  
-NULL
+#'
+.kitEnvName = ".kitEnv"
+.kitEnv = new.env()
+
+#
+# Datasets, etc
+#
+
+#' Constants used as defaults
+#' 
+#' The response of an aquifer depends on its mechanical
+#' and hydrological properties; if these are not known or 
+#' specified, these constants are used.
+#'
+#' @details The helper function \code{\link{constants}}
+#' shows (the structure of, optionally)
+#' and returns \code{.constants}.
+#' 
+#' \subsection{Constants}{
+# The constants set here include:
+#' \describe{
+#' \item{For water: }{Density and bulk modulus}
+#' \item{Gravity: }{Standard gravitational acceleration at 6371km radius}
+#' }
+#' }
+#' @name kitagawa-constants
+#' @seealso 
+#' \code{\link{well_response}} and \code{\link{open_well_response}}
+#' 
+.constants = list(
+  radians=list(from.degrees=pi/180, to.degrees=180/pi),
+  water=list( density=1000, bulkmod=2.2e9 ),
+  gravity=9.80665
+)
+
+#' @rdname kitagawa-constants
+#' @param do.str logical; should the structure be printed?
+#' @export
+# @example
+# constants()
+constants <- function(do.str=TRUE){
+  const <- kitagawa:::.constants
+  if (do.str) str(const, comp.str = "++++++++\n\t", no.list=TRUE, digits.d = 9)
+  return(invisible(const))
+}

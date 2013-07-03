@@ -59,7 +59,7 @@
 }
 \details{
   The response depends strongly on the physical properties
-  given. Default values are assumed where resonable--for
+  given. Default values are assumed where reasonable--for
   instance, the pore-fluid is assumed to be water--but
   considerable care should be invested in the choice of
   parameters, unless the function is used in an

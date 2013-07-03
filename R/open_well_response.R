@@ -53,11 +53,11 @@
 #' 
 #' @references Cooper, H. H., Bredehoeft, J. D., Papadopulos, I. S., and Bennett, R. R. (1965),
 #' The response of well-aquifer systems to seismic waves, 
-#' \emph{J. Geophys. Res.}, \strong{70} (16):3915–3926
+#' \emph{J. Geophys. Res.}, \strong{70} (16):3915-3926
 #' 
 #' @references Liu, L.-B., Roeloffs, E., and Zheng, X.-Y. (1989),
 #' Seismically Induced Water Level Fluctuations in the Wali Well, Beijing, China,
-#' \emph{J. Geophys. Res.}, \strong{94} (B7):9453–9462
+#' \emph{J. Geophys. Res.}, \strong{94} (B7):9453-9462
 #' 
 #' @references Roeloffs, E. (1996),
 #' Poroelastic techniques in the study of earthquake-related hydrologic phenomena,
