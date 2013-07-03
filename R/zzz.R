@@ -1,10 +1,8 @@
 #
+# Do not use .Last.lib [CRAN check (3.0.0) causes note]
+#
 .onAttach <- function(...) { 
+  pack <- "kitagawa"
   packageStartupMessage(
-    sprintf("Loaded kitagawa (%s) -- Spectral response of water wells",
-            utils:::packageVersion("kitagawa")))
+    sprintf("Loaded %s (%s) -- Spectral response of water wells", pack, utils:::packageVersion(pack)))
 }
-# CRAN check (3.0.0) causes note
-# .Last.lib <- function(...){
-#   NULL
-# }

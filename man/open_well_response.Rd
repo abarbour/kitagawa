@@ -2,20 +2,21 @@
 \name{open_well_response}
 \alias{open_well_response}
 \alias{open_well_response.default}
-\title{Calculate the pressure/strain response spectrum for given formation properties (OPEN well)}
+\title{Spectral response for an open well}
 \usage{
   open_well_response(omega, T., S., Vw., Rs., Ku., B.,
     Avs. = 1, Aw. = 1, rho. = 1000, Kf. = 2.2e+09,
-    grav. = 9.81, freq.units = NULL,
+    grav. = 9.81, freq.units = c("rad_per_sec", "Hz"),
     model = c("liu", "cooper"))
 
   \method{open_well_response}{default} (omega, T., S., Vw.,
     Rs., Ku., B., Avs. = 1, Aw. = 1, rho. = 1000,
-    Kf. = 2.2e+09, grav. = 9.81, freq.units = NULL,
+    Kf. = 2.2e+09, grav. = 9.81,
+    freq.units = c("rad_per_sec", "Hz"),
     model = c("liu", "cooper"))
 }
 \arguments{
-  \item{omega}{frequency, (see freq.units)}
+  \item{omega}{frequency, (see \code{freq.units})}
 
   \item{T.}{effective aquifer transmissivity \eqn{[m^2/s]}}
 
@@ -43,9 +44,7 @@
   \item{grav.}{local gravitational acceleration
   \eqn{[m/s^2]}}
 
-  \item{freq.units}{set what the units of frequency (omega)
-  are: \code{"rad_per_sec"} (default, \code{NULL}), or
-  \code{"Hz"}}
+  \item{freq.units}{set the units of \code{omega}}
 
   \item{model}{character; use the model of Liu et al
   (1989), or Cooper et al (1965)}
@@ -59,15 +58,51 @@
   (\omega)} in radians.
 }
 \description{
-  Assumed values are: \describe{ \item{\code{Avs.}}{1}
-  \item{\code{Aw.}}{1} \item{\code{rho.}}{\eqn{1000
-  [kg/m^3]}, the density of water}
-  \item{\code{Kf.}}{\eqn{2.2e9 [Pa]}, the bulk modulus of
-  water} \item{\code{grav.}}{\eqn{9.81 [m/s^2]}, average
-  gravitational force on Earth} }
+  This is the primary function for an open (exposed to air)
+  well. It calculates the theoretical, complex well
+  response from either Cooper et al (1965) or Liu et al
+  (1989). These models are expressed succinctly in Roeloffs
+  (1996).
+}
+\details{
+  The response depends strongly on the physical properties
+  given. Default values are assumed where resonable--for
+  instance, the pore-fluid is assumed to be water--but
+  considerable care should be invested in the choice of
+  parameters, unless the function is used in an
+  optimization scheme.
+
+  Assumed values are: \tabular{rlrl}{ \code{Avs.} \tab 1
+  \tab \tab amplification factor for volumetric strain\cr
+  \code{Aw.} \tab 1 \tab \tab amplification factor for
+  water well\cr \code{rho.} \tab \eqn{1000} \tab
+  \eqn{[kg/m^3]} \tab the density of water \cr \code{Kf.}
+  \tab \eqn{2.2} \tab \eqn{[GPa]} \tab the bulk modulus of
+  water\cr \code{grav.} \tab \eqn{9.81} \tab \eqn{[m/s^2]}
+  \tab average gravitational force on Earth\cr }
+
+  \emph{Note that Skempton's coefficient, \code{B.}, is
+  bounded inclusively within \eqn{[0,1]}; an error is
+  thrown if it's not. }
 }
 \author{
   Andrew Barbour <andy.barbour@gmail.com>
+}
+\references{
+  Cooper, H. H., Bredehoeft, J. D., Papadopulos, I. S., and
+  Bennett, R. R. (1965), The response of well-aquifer
+  systems to seismic waves, \emph{J. Geophys. Res.},
+  \strong{70} (16):3915–3926
+
+  Liu, L.-B., Roeloffs, E., and Zheng, X.-Y. (1989),
+  Seismically Induced Water Level Fluctuations in the Wali
+  Well, Beijing, China, \emph{J. Geophys. Res.},
+  \strong{94} (B7):9453–9462
+
+  Roeloffs, E. (1996), Poroelastic techniques in the study
+  of earthquake-related hydrologic phenomena,
+  \emph{Advances in Geophysics}, \strong{37}:135-195,
+  Elsevier.
 }
 \seealso{
   \code{\link{well_response}}

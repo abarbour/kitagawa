@@ -2,18 +2,18 @@
 \name{well_response}
 \alias{well_response}
 \alias{well_response.default}
-\title{Calculate the pressure/strain response spectrum for given formation properties}
+\title{Spectral response for a sealed well}
 \usage{
   well_response(omega, T., S., Vw., Rs., Ku., B., Avs. = 1,
     Aw. = 1, rho. = 1000, Kf. = 2.2e+09, grav. = 9.81,
-    freq.units = NULL)
+    freq.units = c("rad_per_sec", "Hz"))
 
   \method{well_response}{default} (omega, T., S., Vw., Rs.,
     Ku., B., Avs. = 1, Aw. = 1, rho. = 1000, Kf. = 2.2e+09,
-    grav. = 9.81, freq.units = NULL)
+    grav. = 9.81, freq.units = c("rad_per_sec", "Hz"))
 }
 \arguments{
-  \item{omega}{frequency, (see freq.units)}
+  \item{omega}{frequency, (see \code{freq.units})}
 
   \item{T.}{effective aquifer transmissivity \eqn{[m^2/s]}}
 
@@ -41,9 +41,7 @@
   \item{grav.}{local gravitational acceleration
   \eqn{[m/s^2]}}
 
-  \item{freq.units}{set what the units of frequency (omega)
-  are: \code{"rad_per_sec"} (default, \code{NULL}), or
-  \code{"Hz"}}
+  \item{freq.units}{set the units of \code{omega}}
 }
 \value{
   Matrix with three columns: radial frequency, amplitude,
@@ -54,29 +52,31 @@
   (\omega)} in radians.
 }
 \description{
-  This is the primary function which calculates the
-  theoretical, complex well response, namely
+  This is the primary function for a sealed well. It
+  calculates the theoretical, complex well response, namely
   \strong{Equation 17} in Kitagawa et al (2011). The
   results, however, are expressed as amplitude and phase.
 }
 \details{
-  \strong{The response depends strongly on the physical
-  properties given. Default values are assumed where
-  resonable, mostly that the pore-fluid is water, but
+  The response depends strongly on the physical properties
+  given. Default values are assumed where resonable--for
+  instance, the pore-fluid is assumed to be water--but
   considerable care should be invested in the choice of
   parameters, unless the function is used in an
-  optimization scheme.}
+  optimization scheme.
 
-  Assumed values are: \describe{ \item{\code{Avs.}}{1}
-  \item{\code{Aw.}}{1} \item{\code{rho.}}{\eqn{1000
-  [kg/m^3]}, the density of water}
-  \item{\code{Kf.}}{\eqn{2.2e9 [Pa]}, the bulk modulus of
-  water} \item{\code{grav.}}{\eqn{9.81 [m/s^2]}, average
-  gravitational force on Earth} }
+  Assumed values are: \tabular{rlrl}{ \code{Avs.} \tab 1
+  \tab \tab amplification factor for volumetric strain\cr
+  \code{Aw.} \tab 1 \tab \tab amplification factor for
+  water well\cr \code{rho.} \tab \eqn{1000} \tab
+  \eqn{[kg/m^3]} \tab the density of water \cr \code{Kf.}
+  \tab \eqn{2.2} \tab \eqn{[GPa]} \tab the bulk modulus of
+  water\cr \code{grav.} \tab \eqn{9.81} \tab \eqn{[m/s^2]}
+  \tab average gravitational force on Earth\cr }
 
-  Note that Skempton's coefficient, \code{B.}, is bounded
-  inclusively within \eqn{[0,1]}; an error is thrown if
-  it's not.
+  \emph{Note that Skempton's coefficient, \code{B.}, is
+  bounded inclusively within \eqn{[0,1]}; an error is
+  thrown if it's not. }
 }
 \examples{
 #### dummy example
@@ -108,15 +108,15 @@ kitplot(Rsp)
   (2011), Frequency characteristics of the response of
   water pressure in a closed well to volumetric strain in
   the high-frequency domain, \emph{J. Geophys. Res.},
-  \strong{116}, B08301, doi:10.1029/2010JB007794.
-
-  \url{http://www.agu.org/pubs/crossref/2011/2010JB007794.shtml}
+  \strong{116}, B08301, doi:10.1029/2010JB007794
 }
 \seealso{
-  \code{\link{sensing_volume}} to estimate the volume of
-  water, and \code{\link{kitplot}} to plot the results.
+  \code{\link{sensing_volume}} to estimate the volume
+  \code{Vw.}
 
-  \code{\link{open_well_response}} for modeling response of
-  an open (exposed) well.
+  \code{\link{kitplot}} to plot the results.
+
+  \code{\link{open_well_response}} for modeling an open
+  well.
 }
 
