@@ -10,10 +10,11 @@
 \title{News for package 'kitagawa'}
 \encoding{UTF-8}
 
-\section{CHANGES IN kitagawa VERSION 2.0-0 (2013-07-30)}{
+\section{CHANGES IN kitagawa VERSION 2.0 (2013-07-30)}{
   \itemize{
-    \item New capabilities to model open wells, including the function \code{open_well_response}
-    \item New utility function \code{.in0to1} to test for existence between zero to one.
+    \item New capability to model open well response: \code{open_well_response}
+    \item New utility function \code{.in0to1} to test for existence between zero to one;
+    this is useful to check if a parameter is valid (e.g. Skemptons ratio).
   }
 }
 \section{CHANGES IN kitagawa VERSION 1.1-1 (2013-03-12)}{
