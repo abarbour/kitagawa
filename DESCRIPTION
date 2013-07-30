@@ -1,9 +1,9 @@
 Package: kitagawa
 Type: Package
-Title: Spectral response of a water well to harmonic strains at seismic
+Title: Spectral response of water wells to harmonic strains at seismic
     frequencies
-Version: 1.2-1
-Date: 2013-07-02
+Version: 2.0-1
+Date: 2013-07-30
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response

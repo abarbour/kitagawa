@@ -92,7 +92,6 @@ well_response <- function(omega, T., S., Vw., Rs., Ku., B.,
            freq.units=c("rad_per_sec","Hz")) UseMethod("well_response")
 
 #' @rdname well_response
-#' @docType methods
 #' @method well_response default
 #' @S3method well_response default
 well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,

@@ -10,11 +10,10 @@
 \title{News for package 'kitagawa'}
 \encoding{UTF-8}
 
-\section{CHANGES IN kitagawa VERSION 1.2-1 (2013-07-02)}{
+\section{CHANGES IN kitagawa VERSION 2.0-0 (2013-07-30)}{
   \itemize{
-    \item New function \code{open_well_response} to model response of open
-    wells.
-    \item New utility function \code{.in0to1} to test for existence in [0,1].
+    \item New capabilities to model open wells, including the function \code{open_well_response}
+    \item New utility function \code{.in0to1} to test for existence between zero to one.
   }
 }
 \section{CHANGES IN kitagawa VERSION 1.1-1 (2013-03-12)}{

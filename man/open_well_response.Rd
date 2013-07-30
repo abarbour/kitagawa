@@ -1,110 +1,61 @@
-\docType{methods}
 \name{open_well_response}
 \alias{open_well_response}
 \alias{open_well_response.default}
 \title{Spectral response for an open well}
 \usage{
-  open_well_response(omega, T., S., Vw., Rs., Ku., B.,
-    Avs. = 1, Aw. = 1, rho. = 1000, Kf. = 2.2e+09,
-    grav. = 9.81, freq.units = c("rad_per_sec", "Hz"),
-    model = c("liu", "cooper"))
-
-  \method{open_well_response}{default} (omega, T., S., Vw.,
-    Rs., Ku., B., Avs. = 1, Aw. = 1, rho. = 1000,
-    Kf. = 2.2e+09, grav. = 9.81,
+  open_well_response(omega, T., S., z.,
     freq.units = c("rad_per_sec", "Hz"),
-    model = c("liu", "cooper"))
+    model = c("roj", "liu", "cooper"))
+
+  \method{open_well_response}{default} (omega, T., S., z.,
+    freq.units = c("rad_per_sec", "Hz"),
+    model = c("rojstaczer", "liu", "cooper"))
 }
 \arguments{
-  \item{omega}{frequency, (see \code{freq.units})}
+  \item{omega}{numeric; frequency, (see \code{freq.units})}
 
-  \item{T.}{effective aquifer transmissivity \eqn{[m^2/s]}}
+  \item{T.}{numeric; effective aquifer transmissivity
+  \eqn{[m^2/s]}}
 
-  \item{S.}{well storativity, \eqn{[unitless]}}
+  \item{S.}{numeric; well storativity, \eqn{[unitless]}}
 
-  \item{Vw.}{well volume, \eqn{[m^3]}}
+  \item{z.}{numeric; the}
 
-  \item{Rs.}{radius of screened portion, \eqn{[m]}}
+  \item{freq.units}{charachter; setup the units of
+  \code{omega}}
 
-  \item{Ku.}{undrained bulk modulus, \eqn{[Pa]}}
-
-  \item{B.}{Skempton's coefficient, \eqn{[unitless,
-  bounded]}}
-
-  \item{Avs.}{amplification factor for volumetric strain
-  \eqn{E_{kk,obs}/E_{kk}}, \eqn{[]}}
-
-  \item{Aw.}{amplification factor of well volume change for
-  \eqn{E_{kk}}, \eqn{[]}}
-
-  \item{rho.}{fluid density \eqn{[kg/m^3]}}
-
-  \item{Kf.}{bulk modulus of fluid, \eqn{[Pa]}}
-
-  \item{grav.}{local gravitational acceleration
-  \eqn{[m/s^2]}}
-
-  \item{freq.units}{set the units of \code{omega}}
-
-  \item{model}{character; use the model of Liu et al
-  (1989), or Cooper et al (1965)}
-}
-\value{
-  Matrix with three columns: radial frequency, amplitude,
-  and phase [\eqn{\omega}), \eqn{A_\alpha (\omega)},
-  \eqn{\Phi_\alpha (\omega)}] where the units of
-  \eqn{\omega} will be radians per second, \eqn{A_\alpha
-  (\omega)} in meters per strain, and \eqn{\Phi_\alpha
-  (\omega)} in radians.
+  \item{model}{character; setup the response model from
+  Rojstaczer (1988), Liu et al (1989), or Cooper et al
+  (1965)}
 }
 \description{
   This is the primary function for an open (exposed to air)
-  well. It calculates the theoretical, complex well
-  response from either Cooper et al (1965) or Liu et al
-  (1989). These models are expressed succinctly in Roeloffs
-  (1996).
+  well.
 }
 \details{
+  As opposed to \code{\link{well_response}}, this
+  calculates the theoretical, complex well response for an
+  unsealed (open) well.
+
   The response depends strongly on the physical properties
   given. Default values are assumed where reasonable--for
   instance, the pore-fluid is assumed to be water--but
   considerable care should be invested in the choice of
   parameters, unless the function is used in an
   optimization scheme.
+}
+\section{Models}{
+  Rojstaczer (1988):
 
-  Assumed values are: \tabular{rlrl}{ \code{Avs.} \tab 1
-  \tab \tab amplification factor for volumetric strain\cr
-  \code{Aw.} \tab 1 \tab \tab amplification factor for
-  water well\cr \code{rho.} \tab \eqn{1000} \tab
-  \eqn{[kg/m^3]} \tab the density of water \cr \code{Kf.}
-  \tab \eqn{2.2} \tab \eqn{[GPa]} \tab the bulk modulus of
-  water\cr \code{grav.} \tab \eqn{9.81} \tab \eqn{[m/s^2]}
-  \tab average gravitational force on Earth\cr }
-
-  \emph{Note that Skempton's coefficient, \code{B.}, is
-  bounded inclusively within \eqn{[0,1]}; an error is
-  thrown if it's not. }
+  Cooper et al (1965) and Liu et al (1989): These models
+  are expressed succinctly in Roeloffs (1996).
 }
 \author{
   Andrew Barbour <andy.barbour@gmail.com>
 }
-\references{
-  Cooper, H. H., Bredehoeft, J. D., Papadopulos, I. S., and
-  Bennett, R. R. (1965), The response of well-aquifer
-  systems to seismic waves, \emph{J. Geophys. Res.},
-  \strong{70} (16):3915-3926
-
-  Liu, L.-B., Roeloffs, E., and Zheng, X.-Y. (1989),
-  Seismically Induced Water Level Fluctuations in the Wali
-  Well, Beijing, China, \emph{J. Geophys. Res.},
-  \strong{94} (B7):9453-9462
-
-  Roeloffs, E. (1996), Poroelastic techniques in the study
-  of earthquake-related hydrologic phenomena,
-  \emph{Advances in Geophysics}, \strong{37}:135-195,
-  Elsevier.
-}
 \seealso{
-  \code{\link{well_response}}
+  \code{\link{well_response}}, and
+  \code{\link{kitagawa-package}} for references and more
+  background.
 }
 

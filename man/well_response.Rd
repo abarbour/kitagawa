@@ -1,4 +1,3 @@
-\docType{methods}
 \name{well_response}
 \alias{well_response}
 \alias{well_response.default}
