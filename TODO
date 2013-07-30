@@ -1,20 +1,42 @@
+[ ] Vignette:
+*** Optimization of params B084--Tohoku
+
+[ ] Functions:
+*** Dimensionless frequency: Q=z^2 omega / 2 Diffusiv
+*** Diffusivity/Transmiss/Storativ calculations
+
+[ ] Methods for
+*** 'wrsp'  class [ ]
+
+[ ] cleanup directory structure
+*** Reorganize files: [ ]
+	utilities.R <-- kitplot.R, .in0to1.R, kitplot.R, sensing_volume.R
+
 [ ] Add environment to store global or default constants
 
 [ ] Frequency units of output should be consistent with frequency units of input
     (currently only Hz is returned)
+*** open_well_response [X]
+*** well_response [ ]
+    		  *** Ensure utilities (eg kitplot) wont hickup
 
-[ ] Convert to complex response output, with optional Amp/Phs returns
+[ ] Fix so that complex response is always output, with new method to convert
+    to Amp/Phs (for 'wrsp')
+*** open_well_response [X]
+*** well_response [ ]
 
 [ ] add models:
 *** Liu et al 1989 [ ]
+*** Hsieh et al 1987 [ ]
 *** Cooper et al 1965 [ ]
 
-[ ] cleanup directory structure
 
 [ ] Method to estimate transfer function between two series
-*** MT CSD
+*** MT CSD <-- perhaps include in  psd
 
 [ ] Datasets:
-*** Honshu timeseries
+*** Honshu timeseries [X] <-- in  psd
 *** PBO-PP well information (and calculated sensing volumes)
 *** Slug test series???
+
+
