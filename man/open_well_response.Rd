@@ -4,12 +4,14 @@
 \title{Spectral response for an open well}
 \usage{
   open_well_response(omega, T., S., z.,
+    Rs. = (8/12) * (1200/3937), rho, grav,
     freq.units = c("rad_per_sec", "Hz"),
     model = c("roj", "liu", "cooper"))
 
   \method{open_well_response}{default} (omega, T., S., z.,
+    Rs. = (8/12) * (1200/3937), rho, grav,
     freq.units = c("rad_per_sec", "Hz"),
-    model = c("rojstaczer", "liu", "cooper"))
+    model = c("rojstaczer", "liu", "cooper", "hsieh"))
 }
 \arguments{
   \item{omega}{numeric; frequency, (see \code{freq.units})}
@@ -19,9 +21,18 @@
 
   \item{S.}{numeric; well storativity, \eqn{[unitless]}}
 
-  \item{z.}{numeric; the}
+  \item{z.}{numeric; From Rojstaczer (1988): 'the depth
+  from the water table'}
 
-  \item{freq.units}{charachter; setup the units of
+  \item{Rs.}{numeric; the \emph{radius} of the open
+  (screened) section}
+
+  \item{rho}{numeric; fluid density (assumed if missing)}
+
+  \item{grav}{numeric; the local gravitational acceleration
+  (assumed if missing)}
+
+  \item{freq.units}{character; setup the units of
   \code{omega}}
 
   \item{model}{character; setup the response model from
