@@ -58,14 +58,19 @@ open_well_response.default <- function(omega, T., S., z.,
   fc <- switch(match.arg(freq.units), rad_per_sec=1, Hz=2*pi)
   omega <- fc*omega
   #
+  const <- kitagawa:::constants(FALSE)
+  rho <- const$water$density
+  grav <- const$gravity
+  rhog <- rho*grav
+  #
   if (model=="rojstaczer"){
     Dtau. <- omega_constants(omega, c.type="diffusivity_time", S.=S., T.=T.)
     # Dtau == sqrt( omega / 2 / D.)
     # sqrt Qp <- z. * sqrt(omega / 2 / D) = z * Dtau
     sQp <- z. * Dtau.
     exptau <- exp(-sQp)
-    A. <- exptau*cos(sQp) - 1
-    B. <- -exptau*sin(sQp)
+    A. <- rhog(exptau*cos(sQp) - 1)
+    B. <- -1*rhog*exptau*sin(sQp)
     wellresp <- complex(real=A., imaginary=B.)
   } else if (model=="liu" | model=="cooper"){
     
