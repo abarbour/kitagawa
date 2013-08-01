@@ -21,16 +21,18 @@
   specified, these constants are used.
 }
 \details{
-  The helper function \code{\link{constants}} shows (the
-  structure of, optionally) and returns \code{.constants}.
+  The helper function \code{\link{constants}} shows the
+  structure of (optionally), and returns \code{.constants},
+  which does \emph{not} reside in the namespace.
 
-  \subsection{Constants}{ \describe{ \item{For water:
+  \subsection{Values}{ \describe{ \item{For water:
   }{Density and bulk modulus} \item{Gravity: }{Standard
-  gravitational acceleration at 6371km radius} } }
+  gravitational acceleration at 6371km radius (Earth)} } }
 }
 \seealso{
   \code{\link{well_response}} and
-  \code{\link{open_well_response}}
+  \code{\link{open_well_response}},
+  \code{\link{kitagawa-package}}
 }
 \keyword{datasets}
 

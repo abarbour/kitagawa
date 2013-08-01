@@ -15,6 +15,7 @@
     \item New capability to model open well response: \code{open_well_response}
     \item New utility function \code{.in0to1} to test for existence between zero to one;
     this is useful to check if a parameter is valid (e.g. Skemptons ratio).
+    \item New utility \code{constants} to access stored physical constants.
   }
 }
 \section{CHANGES IN kitagawa VERSION 1.1-1 (2013-03-12)}{

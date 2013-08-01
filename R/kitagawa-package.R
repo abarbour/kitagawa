@@ -111,28 +111,31 @@
 #' specified, these constants are used.
 #'
 #' @details The helper function \code{\link{constants}}
-#' shows (the structure of, optionally)
-#' and returns \code{.constants}.
+#' shows the structure of (optionally),
+#' and returns \code{.constants}, which does \emph{not} reside in
+#' the namespace.
 #' 
-#' \subsection{Constants}{
+#' \subsection{Values}{
 # The constants set here include:
 #' \describe{
 #' \item{For water: }{Density and bulk modulus}
-#' \item{Gravity: }{Standard gravitational acceleration at 6371km radius}
+#' \item{Gravity: }{Standard gravitational acceleration at 6371km radius (Earth)}
 #' }
 #' }
 #' @name kitagawa-constants
 #' @seealso 
-#' \code{\link{well_response}} and \code{\link{open_well_response}}
+#' \code{\link{well_response}} and \code{\link{open_well_response}}, \code{\link{kitagawa-package}}
 #' 
-.constants = list(
+.constants <- list(
   radians=list(from.degrees=pi/180, to.degrees=180/pi),
   water=list( density=1000, bulkmod=2.2e9 ),
   gravity=9.80665
 )
 
+
 #' @rdname kitagawa-constants
 #' @param do.str logical; should the structure be printed?
+#' @name constants
 #' @export
 # @example
 # constants()
