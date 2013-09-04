@@ -4,5 +4,5 @@
 .onAttach <- function(...) { 
   pack <- "kitagawa"
   packageStartupMessage(
-    sprintf("Loaded %s (%s) -- Spectral response of water wells", pack, utils:::packageVersion(pack)))
+    sprintf("Loaded %s (%s) -- Spectral response of water wells", pack, utils::packageVersion(pack)))
 }
