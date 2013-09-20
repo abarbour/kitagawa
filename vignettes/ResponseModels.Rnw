@@ -1,0 +1,91 @@
+%% HEAD from knitr template
+%% /Users/abarbour/Library/textemplates
+%% Thu Feb  7 18:24:57 PST 2013
+\documentclass[10pt]{article}
+%%
+%% !Rnw weave = knitr
+%% sweave fig help:
+%% http://users.stat.umn.edu/~geyer/Sweave/foo.pdf
+%%
+% \VignetteIndexEntry{ResponseModels}
+% \VignetteEngine{knitr}
+%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[font=sf, labelfont={sf,bf}, margin=2cm]{caption}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyvrb}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{verbose,tmargin=3cm,bmargin=5cm,lmargin=2.5cm,rmargin=2.5cm}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{makeidx}
+\makeindex % comment to have no index
+\usepackage{upquote}
+\usepackage{url}
+%
+\author{Andrew J. Barbour}
+\title{Demonstration of Well Response Functions}
+\begin{document}
+\maketitle
+%\tableofcontents
+%% BODY from knitr template
+%\newcommand{\newcomm}[1]{#1}
+%\renewcommand{\newcomm}[1]{#1}
+%
+\newcommand{\SC}[1]{\textsc{#1}}
+\newcommand{\Rcmd}[1]{\texttt{#1}}
+\newcommand{\bidxa}[1]{\index{#1}{\textbf{#1}}} 
+\newcommand{\bidxb}[2]{\index{#2}{\textbf{#1}}} 
+\newcommand{\idxa}[1]{\index{#1}{#1}} 
+\newcommand{\idxb}[2]{\index{#2}{#1}} 
+%
+\begin{abstract}
+abstract text
+\end{abstract}
+%
+%<<eval=TRUE, echo=FALSE, fig.width=5, fig.height=5, label=SOMEFIG>>=
+%@
+%
+\begin{figure}[htb!]
+\begin{center}
+<<eval=TRUE, echo=TRUE, fig.height=5, fig.width=5.5, label=TMP>>=
+plot(rnorm(10),runif(10))
+@
+\caption{A plot.}
+\label{fig:tmp}
+\end{center}
+\end{figure}
+%
+% ResponseModels
+% Fri Sep 20 14:49:59 PDT 2013
+% /Users/abarbour/kook.processing/R/dev/packages/kitagawa/vignettes
+%
+%\newcommand{\new}[#in]{code}
+%\renewcommand{\new}[#in]{code}
+%\input{Defs} % general definitions
+%
+%\begin{abstract}
+%\abstract text
+%\end{abstract}
+%
+\section{Sealed well response: Kitagawa (2011)}
+
+\citet{kitagawa2011}
+
+\section{Open well response: Rojstaczer (1988)}
+
+\citet{rojstaczer1988, rojstaczer1988b}
+
+%% TAIL from knitr template
+\bibliographystyle{apalike}
+\bibliography{REFS}
+
+\printindex
+
+\end{document}

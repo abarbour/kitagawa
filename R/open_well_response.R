@@ -15,10 +15,13 @@
 #' 
 #' @section Models:
 #' 
-#' Rojstaczer (1988):
+#' Rojstaczer (1988) is based on measurements of water level
+#' and strain from volumetric or areal strainmeters.
 #' 
-#' Cooper et al (1965) and Liu et al (1989):
-#' These models are expressed succinctly in Roeloffs (1996).
+#' Cooper et al (1965) and Liu et al (1989) are based
+#' on measurements of water level and 
+#' displacements from seismometers; these
+#' models are expressed succinctly in Roeloffs (1996).
 #'
 #' @name open_well_response
 #' @export
@@ -31,7 +34,8 @@
 #' @param rho numeric; fluid density (assumed if missing)
 #' @param grav numeric; the local gravitational acceleration (assumed if missing)
 #' @param freq.units character; setup the units of \code{omega}
-#' @param model  character; setup the response model from 
+#' @param model  character; use the response model from 
+#'    either
 #'    Rojstaczer (1988),
 #'    Liu et al (1989), or 
 #'    Cooper et al (1965)
@@ -51,7 +55,7 @@ open_well_response <- function(omega, T., S., z.,
                                Rs.=(8/12)*(1200/3937),
                                rho, grav,
                                freq.units=c("rad_per_sec","Hz"),
-                               model=c("roj","liu","cooper")) UseMethod("open_well_response")
+                               model=c("rojstaczer","roj","liu","cooper")) UseMethod("open_well_response")
 #' @rdname open_well_response
 #' @method open_well_response default
 #' @S3method open_well_response default
@@ -65,7 +69,7 @@ open_well_response.default <- function(omega, T., S., z.,
   fc <- switch(match.arg(freq.units), rad_per_sec=1, Hz=2*pi)
   omega <- fc*omega
   #
-  const <- kitagawa:::constants(FALSE)
+  const <- kitagawa::constants(FALSE)
   if (missing(rho)) rho <- const$water$density
   if (missing(grav)) grav <- const$gravity
   rhog <- rho*grav

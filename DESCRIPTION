@@ -1,8 +1,8 @@
 Package: kitagawa
 Type: Package
 Title: Spectral response of water wells to harmonic strains
-Version: 2.0-1
-Date: 2013-07-31
+Version: 2.0-2
+Date: 2013-09-20
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response
@@ -13,19 +13,19 @@ Description: Provides tools to calculate the theoretical hydrodynamic response
     displacements) as an input to the physical system, and fluid-pressure (or
     water height) as the output. The applicable frequency band of the models is
     characteristic of seismic waves and tides.
-License: GPL (>= 2)
+License: GPL
 URL: http://abarbour.github.io/kitagawa/
 Depends:
     R (>= 2.10.1),
     kelvin (>= 1.2-0)
+Suggests:
+    knitr
+VignetteBuilder: knitr
 Collate:
     'kitagawa-package.R'
     'well_response.R'
     'open_well_response.R'
-    'sensing_volume.R'
-    'kitplot.R'
     'omega_constants.R'
     'alpha_constants.R'
-    'nullchk.R'
-    'in0to1.R'
+    'utilities.R'
     'zzz.R'

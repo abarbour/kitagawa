@@ -1,4 +1,4 @@
-#' Calculate any constants that depend on \eqn{\omega}
+#' Calculate any constants that depend on angular frequency \eqn{\omega}
 #' 
 #' @description This function accesses the appropriate method to calculate the
 #' \eqn{\omega}-dependent constant associated with the choice of \code{c.type}.

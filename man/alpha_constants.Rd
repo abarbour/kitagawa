@@ -2,7 +2,7 @@
 \name{alpha_constants}
 \alias{alpha_constants}
 \alias{alpha_constants.default}
-\title{Calculate any constants depending on \eqn{\alpha}}
+\title{Calculate any constants depending on effective stress coefficient \eqn{\alpha}}
 \usage{
   alpha_constants(alpha = 0,
     c.type = c("Phi", "Psi", "A", "Kel"))

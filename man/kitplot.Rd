@@ -1,6 +1,6 @@
 \name{kitplot}
 \alias{kitplot}
-\title{Quickly plot the amplitude and phase spectra}
+\title{Quickly plot the amplitude and phase spectra of sealed-well response}
 \usage{
   kitplot(Resp., xlim. = c(-4, 0),
     ylims = list(amp = c(5, 7), phs = 180 * c(-1, 1)),

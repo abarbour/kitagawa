@@ -1,4 +1,4 @@
-#' Calculate any constants depending on \eqn{\alpha}
+#' Calculate any constants depending on effective stress coefficient \eqn{\alpha}
 #' 
 #' This function accesses the appropriate method to calculate the
 #' \eqn{\alpha}-dependent constant associated with the choice of \code{c.type}.  

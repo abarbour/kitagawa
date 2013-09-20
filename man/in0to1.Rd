@@ -22,4 +22,8 @@
 \author{
   Andrew Barbour <andy.barbour@gmail.com>
 }
+\seealso{
+  Other utilities: \code{\link{.nullchk}},
+  \code{\link{omega_norm}}, \code{\link{sensing_volume}}
+}
 

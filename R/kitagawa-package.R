@@ -99,20 +99,26 @@
 #'
 .kitEnvName = ".kitEnv"
 .kitEnv = new.env()
+.constants_in = ".kitConstants"
+.kitConstants = list(
+  radians=list(from.degrees=pi/180, to.degrees=180/pi),
+  water=list( density=1000, bulkmod=2.2e9 ),
+  gravity=9.80665
+)
 
 #
 # Datasets, etc
 #
 
-#' Constants used as defaults
+#' Access to constants used by default
 #' 
 #' The response of an aquifer depends on its mechanical
 #' and hydrological properties; if these are not known or 
 #' specified, these constants are used.
 #'
-#' @details The helper function \code{\link{constants}}
+#' @details The function \code{\link{constants}}
 #' shows the structure of (optionally),
-#' and returns \code{.constants}, which does \emph{not} reside in
+#' and returns the assumed constants, which do \emph{not} reside in
 #' the namespace.
 #' 
 #' \subsection{Values}{
@@ -120,27 +126,23 @@
 #' \describe{
 #' \item{For water: }{Density and bulk modulus}
 #' \item{Gravity: }{Standard gravitational acceleration at 6371km radius (Earth)}
+#' \item{Conversions: }{Degrees to radians}
 #' }
 #' }
 #' @name kitagawa-constants
 #' @seealso 
 #' \code{\link{well_response}} and \code{\link{open_well_response}}, \code{\link{kitagawa-package}}
-#' 
-.constants <- list(
-  radians=list(from.degrees=pi/180, to.degrees=180/pi),
-  water=list( density=1000, bulkmod=2.2e9 ),
-  gravity=9.80665
-)
-
+NULL
 
 #' @rdname kitagawa-constants
 #' @param do.str logical; should the structure be printed?
 #' @name constants
 #' @export
-# @example
-# constants()
+#' @examples
+#' constants()
+#' #constants(FALSE) # returns invisibly
 constants <- function(do.str=TRUE){
-  const <- kitagawa:::.constants
+  const <- .kitConstants
   if (do.str) str(const, comp.str = "++++++++\n\t", no.list=TRUE, digits.d = 9)
   return(invisible(const))
 }

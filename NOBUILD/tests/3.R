@@ -2,6 +2,7 @@
 # Replicate Rojstaczer 1988, fig 3
 #
 library(signal)
+library(kitagawa)
 library(kook) # locally only
 # Note Rmpfr has erf and erfc functions... 
 #
@@ -30,7 +31,7 @@ lQ <- log10(Q)
 # Amplitude
 As <- 0.05 # cm/nE
 Gain <- Mod(crsp)
-plot(lQ, Gain, type="l", ylim=c(0, 1.2), #*As
+plot(lQ, Gain*As, type="l", #ylim=c(0, 1.2), #*As,
      xaxt="n", lwd=2,
      ylab="", #" (cm/nanostrain)", 
      xlab="", #Dimensionless frequency Q",

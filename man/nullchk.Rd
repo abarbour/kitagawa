@@ -27,4 +27,8 @@
 \author{
   Andrew Barbour <andy.barbour@gmail.com>
 }
+\seealso{
+  Other utilities: \code{\link{.in0to1}},
+  \code{\link{omega_norm}}, \code{\link{sensing_volume}}
+}
 

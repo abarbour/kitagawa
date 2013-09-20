@@ -62,5 +62,8 @@ sensing_volume(Rc, Lc, Rs, Ls) # m**3, ~= 1.8
 }
 \seealso{
   \code{\link{well_response}}, \code{\link{kitplot}}
+
+  Other utilities: \code{\link{.in0to1}},
+  \code{\link{.nullchk}}, \code{\link{omega_norm}}
 }
 

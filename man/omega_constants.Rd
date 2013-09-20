@@ -2,7 +2,7 @@
 \name{omega_constants}
 \alias{omega_constants}
 \alias{omega_constants.default}
-\title{Calculate any constants that depend on \eqn{\omega}}
+\title{Calculate any constants that depend on angular frequency \eqn{\omega}}
 \usage{
   omega_constants(omega = 0,
     c.type = c("alpha", "diffusivity_time"), ...)

@@ -6,7 +6,7 @@
   open_well_response(omega, T., S., z.,
     Rs. = (8/12) * (1200/3937), rho, grav,
     freq.units = c("rad_per_sec", "Hz"),
-    model = c("roj", "liu", "cooper"))
+    model = c("rojstaczer", "roj", "liu", "cooper"))
 
   \method{open_well_response}{default} (omega, T., S., z.,
     Rs. = (8/12) * (1200/3937), rho, grav,
@@ -35,9 +35,9 @@
   \item{freq.units}{character; setup the units of
   \code{omega}}
 
-  \item{model}{character; setup the response model from
-  Rojstaczer (1988), Liu et al (1989), or Cooper et al
-  (1965)}
+  \item{model}{character; use the response model from
+  either Rojstaczer (1988), Liu et al (1989), or Cooper et
+  al (1965)}
 }
 \description{
   This is the primary function for an open (exposed to air)
@@ -56,10 +56,13 @@
   optimization scheme.
 }
 \section{Models}{
-  Rojstaczer (1988):
+  Rojstaczer (1988) is based on measurements of water level
+  and strain from volumetric or areal strainmeters.
 
-  Cooper et al (1965) and Liu et al (1989): These models
-  are expressed succinctly in Roeloffs (1996).
+  Cooper et al (1965) and Liu et al (1989) are based on
+  measurements of water level and displacements from
+  seismometers; these models are expressed succinctly in
+  Roeloffs (1996).
 }
 \author{
   Andrew Barbour <andy.barbour@gmail.com>
