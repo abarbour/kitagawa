@@ -104,45 +104,97 @@
 abstract text
 \end{abstract}
 %
-%<<eval=TRUE, echo=FALSE, fig.width=5, fig.height=5, label=SOMEFIG>>=
-%@
+\section{Sealed well response}
+\subsection{Strain: Kitagawa (2011)}
 %
-\begin{figure}[htb!]
-\begin{center}
+\citet{kitagawa2011}
+
+\section{Open well response}
+\subsection{Strain: Rojstaczer (1988)}
+%
+\citet{rojstaczer1988, rojstaczer1988b}
+
+Load the packages
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plot}(\hlfunctioncall{rnorm}(10), \hlfunctioncall{runif}(10))
+\hlfunctioncall{library}(signal, warn.conflicts = FALSE)
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: MASS}}\begin{alltt}
+\hlfunctioncall{library}(kitagawa, warn.conflicts = FALSE)
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: kelvin}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Bessel}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Rmpfr}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: gmp}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'gmp'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  \%*\%, apply, crossprod, matrix, tcrossprod}}\begin{verbatim}
+## Loading C code of R package 'Rmpfr': GMP using 64 bits per limb
+\end{verbatim}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'Rmpfr'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  pnorm, print.integrate}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  cbind, pmax, pmin, rbind}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loaded kelvin (1.2.2) -- Solutions to the Kelvin differential equation.}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loaded kitagawa (2.0.2) -- Spectral response of water wells}}\end{kframe}
+\end{knitrout}
+
+%#library(kook) # locally only
+%# Note Rmpfr has erf and erfc functions... 
+%
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+omega <- 10^\hlfunctioncall{seq}(-3, 2, by = 0.1)
+z <- 1
+Trans <- 1
+Stor <- 1
+Diffus <- Trans/Stor
+\hlcomment{# nondim freq}
+Q <- 10^\hlfunctioncall{seq}(-3, 2, by = 0.1)  \hlcomment{# == z**2 omega / 2 D}
+omega <- Q * 2 * Diffus/z^2
+wrsp <- \hlfunctioncall{open_well_response}(omega, T. = Trans, S. = Stor, z. = z, model = \hlstring{"rojstaczer"})
+crsp <- wrsp[, 2]
+\hlcomment{#}
+lQ <- \hlfunctioncall{log10}(Q)
+\hlcomment{# Amplitude}
+As <- 0.05  \hlcomment{# cm/nE}
+Gain <- \hlfunctioncall{Mod}(crsp)
+\hlcomment{# Phase}
+Phs <- \hlfunctioncall{Arg}(crsp)  \hlcomment{# will wrap to -pi/pi}
+uPhs <- signal::\hlfunctioncall{unwrap}(Phs, tol = pi/30)
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/TMP} 
+\end{knitrout}
+
+
+\begin{figure}[htb!]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/ROJRESPFIG} 
 
 \end{knitrout}
 
-\caption{A plot.}
+\caption{The response of an open well to harmonic areal strains, using
+the model of \citet{rojstaczer1988}.}
 \label{fig:tmp}
 \end{center}
 \end{figure}
-%
-% ResponseModels
-% Fri Sep 20 14:49:59 PDT 2013
-% /Users/abarbour/kook.processing/R/dev/packages/kitagawa/vignettes
-%
-%\newcommand{\new}[#in]{code}
-%\renewcommand{\new}[#in]{code}
-%\input{Defs} % general definitions
-%
-%\begin{abstract}
-%\abstract text
-%\end{abstract}
-%
-\section{Sealed well response: Kitagawa (2011)}
-
-\citet{kitagawa2011}
-
-\section{Open well response: Rojstaczer (1988)}
-
-\citet{rojstaczer1988, rojstaczer1988b}
 
 %% TAIL from knitr template
 \bibliographystyle{apalike}

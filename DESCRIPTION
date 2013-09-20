@@ -8,17 +8,20 @@ Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response
     of an aquifer undergoing harmonic straining. There are two classes of
     models here: (1) for sealed wells, based on the model of Kitagawa et al
-    (2011), and (2) for open wells, based on the models of Rojstaczer (1988),
-    Cooper et al (1965), and Liu et al (1989). These models treat strain (or
-    displacements) as an input to the physical system, and fluid-pressure (or
-    water height) as the output. The applicable frequency band of the models is
-    characteristic of seismic waves and tides.
+    (2011), and (2) for open wells, based on the models of
+    Rojstaczer (1988), Cooper et al (1965), and Liu et al (1989).
+    These models treat strain (or displacements) as an input to the physical
+    system, and fluid-pressure (or water height) as the output.
+    The applicable frequency band of the models is
+    characteristic of seismic waves, atmospheric pressure fluctuations,
+    and solid earth tides.
 License: GPL
 URL: http://abarbour.github.io/kitagawa/
 Depends:
     R (>= 2.10.1),
     kelvin (>= 1.2-0)
 Suggests:
+    signal,
     knitr
 VignetteBuilder: knitr
 Collate:
