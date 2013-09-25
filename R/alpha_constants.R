@@ -56,7 +56,6 @@ function(alpha=0, c.type=c("Phi","Psi","A","Kel")) UseMethod("alpha_constants")
 
 # @return \code{NULL}
 #' @rdname alpha_constants
-#' @docType methods
 #' @method alpha_constants default
 #' @S3method alpha_constants default
 alpha_constants.default <-

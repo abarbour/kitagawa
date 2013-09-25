@@ -1,0 +1,67 @@
+\name{logticks}
+\alias{log_ticks}
+\alias{log10_ticks}
+\alias{log2_ticks}
+\alias{logticks}
+\title{Add proper logarithm ticks to a plot axis.}
+\usage{
+  logticks(ax = 1, n.minor = 9, t.lims, t.ratio = 0.5,
+    major.ticks = NULL, base = c("ten", "ln", "two"), ...)
+
+  log_ticks(...)
+
+  log2_ticks(...)
+
+  log10_ticks(...)
+}
+\arguments{
+  \item{ax}{numeric; the axis number to add tick-marks to}
+
+  \item{n.minor}{numeric; the number of minor ticks to
+  display}
+
+  \item{t.lims}{numeric; the upper and lower tick limits
+  (in log space)}
+
+  \item{t.ratio}{numeric; the ratio of minor to major tick
+  lengths.}
+
+  \item{major.ticks}{numeric; the axis limits.}
+
+  \item{base}{numeric; the base of the logarithm (somewhat
+  experimental)}
+
+  \item{...}{additional parameters passed to the
+  \code{axis} call for the major ticks.}
+}
+\description{
+  Add proper logarithm ticks to a plot axis.
+}
+\details{
+  This uses \code{\link{pretty}} with \code{n==5}, and
+  assumes that the data along the axis \code{ax} has
+  \emph{already} been transformed into its logarithm.
+  \emph{Only integer exponents are labeled.}
+
+  The functions \code{\link{log_ticks}},
+  \code{\link{log2_ticks}}, and \code{\link{log10_ticks}}
+  are wrapper functions.
+
+  Set the \code{axt} parameter (e.g. \code{xaxt}) to
+  \code{'n'} in the original plot command to prevent adding
+  default tick marks.
+}
+\examples{
+x <- 10^(0:8)
+y <- 1:9
+plot(log10(x),y,xaxt="n",xlab="x",xlim=c(0,9))
+logticks()
+}
+\references{
+  This was modified from a post on StackOverflow:
+  \url{http://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}
+}
+\seealso{
+  Other PlotUtilities: \code{\link{kitplot}}
+}
+

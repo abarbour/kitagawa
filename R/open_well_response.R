@@ -13,6 +13,11 @@
 #' should be invested in the choice of
 #' parameters, unless the function is used in an optimization scheme.
 #' 
+#' If \code{as.pressure=TRUE}, then the responses are scaled by
+#' \code{rho*grav} so they represent hydrostatic pressure; if
+#' either \code{rho} or \code{grav} are not specified, they
+#' are taken from \code{\link{constants}}.
+#' 
 #' @section Models:
 #' 
 #' Rojstaczer (1988) is based on measurements of water level
@@ -35,6 +40,7 @@
 #' @param grav numeric; the local gravitational acceleration (assumed if missing)
 #' @param freq.units character; setup the units of \code{omega}
 #' @param model  character; use the response model from 
+#' @param as.pressure logical; should the units of water height be returned as pressure?
 #'    either
 #'    Rojstaczer (1988),
 #'    Liu et al (1989), or 
@@ -50,12 +56,14 @@
 #' 
 #' @seealso \code{\link{well_response}}, and
 #' \code{\link{kitagawa-package}} for references and more background.
+#' @family WellResponseFunctions
 #'
 open_well_response <- function(omega, T., S., z., 
                                Rs.=(8/12)*(1200/3937),
                                rho, grav,
                                freq.units=c("rad_per_sec","Hz"),
-                               model=c("rojstaczer","roj","liu","cooper")) UseMethod("open_well_response")
+                               model=c("rojstaczer","roj","liu","cooper"),
+                               as.pressure=TRUE) UseMethod("open_well_response")
 #' @rdname open_well_response
 #' @method open_well_response default
 #' @S3method open_well_response default
@@ -63,7 +71,8 @@ open_well_response.default <- function(omega, T., S., z.,
                                        Rs.=(8/12)*(1200/3937),
                                        rho, grav,
                                        freq.units=c("rad_per_sec","Hz"),
-                                       model=c("rojstaczer","liu","cooper","hsieh")){
+                                       model=c("rojstaczer","liu","cooper","hsieh"),
+                                       as.pressure=TRUE){
   model <- match.arg(model)
   # Enforce units of omega to be radians/sec
   fc <- switch(match.arg(freq.units), rad_per_sec=1, Hz=2*pi)
@@ -74,17 +83,32 @@ open_well_response.default <- function(omega, T., S., z.,
   if (missing(grav)) grav <- const$gravity
   rhog <- rho*grav
   #
+  # Diffusiv time in unified framework
   Dtau. <- omega_constants(omega, c.type="diffusivity_time", S.=S., T.=T.)
-  # Dtau == sqrt( omega / 2 / D.) == sqrt (omega * S / 2 / T)
-  # sqrt Qp <- z. * sqrt(omega / 2 / D) = z * Dtau
+  # e.g., Rojstaczer 1988 Eq 11:
+  #   Qp is
+  #     z^2 omega / 2 / D
+  #   and we want sqrt(Q')
+  #   Dtau is 
+  #     sqrt( omega / 2 / D.) == sqrt (omega * S / 2 / T)
+  #   so
+  #     sqrt(Qp) == z * sqrt(omega / 2 / D) == z * Dtau
   #
   if (model=="rojstaczer"){
+    # Rojstaczer 1988
+    # Eq A3 - A4
     sQp <- z. * Dtau.
     exptau <- exp(-sQp)
-    # scale by rhog for pressure over strain relative to static response
+    #
+    # scale by rhog for pressure over strain, relative to static response
+    # (Original is in pressure head over strain -- scale by 1)
+    if (!as.pressure) rhog <- 1
+    #
     A. <- rhog*(exptau*cos(sQp) - 1)
     B. <- -1*rhog*exptau*sin(sQp)
+    #
     wellresp <- complex(real=A., imaginary=B.)
+    #
   } else if (model %in% c("liu","cooper","hsieh")){
     # constants alpha and Kel
     Alpha. <- omega_constants(omega, c.type="alpha", S.=S., T.=T., Rs.=Rs.)

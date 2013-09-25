@@ -30,8 +30,10 @@ par(mfrow=c(2,1),
 lQ <- log10(Q)
 # Amplitude
 As <- 0.05 # cm/nE
+rhog <- 1000*9.81
 Gain <- Mod(crsp)
-plot(lQ, Gain*As, type="l", #ylim=c(0, 1.2), #*As,
+Gain_head <- Gain*As/rhog #or Gain*As if as.pressure=FALSE 
+plot(lQ, Gain_head, type="l", #ylim=c(0, 1.2), #*As,
      xaxt="n", lwd=2,
      ylab="", #" (cm/nanostrain)", 
      xlab="", #Dimensionless frequency Q",

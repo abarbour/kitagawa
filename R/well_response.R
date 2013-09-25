@@ -61,6 +61,8 @@
 #'
 #' \code{\link{open_well_response}} for modeling an open well.
 #' 
+#' @family WellResponseFunctions
+#' 
 #' @examples
 #' #### dummy example
 #' well_response(1:10, T.=1, S.=1, Vw.=1, Rs.=1, Ku.=1, B.=1)

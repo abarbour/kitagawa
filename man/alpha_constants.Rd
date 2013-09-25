@@ -1,4 +1,3 @@
-\docType{methods}
 \name{alpha_constants}
 \alias{alpha_constants}
 \alias{alpha_constants.default}

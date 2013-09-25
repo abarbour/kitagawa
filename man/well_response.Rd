@@ -117,5 +117,9 @@ kitplot(Rsp)
 
   \code{\link{open_well_response}} for modeling an open
   well.
+
+  Other WellResponseFunctions:
+  \code{\link{open_well_response}},
+  \code{\link{open_well_response.default}}
 }
 

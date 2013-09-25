@@ -1,4 +1,3 @@
-\docType{methods}
 \name{omega_constants}
 \alias{omega_constants}
 \alias{omega_constants.default}

@@ -76,7 +76,6 @@ function(omega=0, c.type=c("alpha","diffusivity_time"), ...) UseMethod("omega_co
 
 # @return \code{NULL}
 #' @rdname omega_constants
-#' @docType methods
 #' @method omega_constants default
 #' @S3method omega_constants default
 omega_constants.default <-
@@ -88,7 +87,7 @@ omega_constants.default <-
                      alpha=".wc_alpha",
                      diffusivity_time=".wc_difftime")
     #
-    cdef <- 1 # default constant, if missing
+    cdef <- 1 # default constant, if S T or Rs are missing
     # here are the methods available:
     #
     # 1) Alpha
@@ -124,11 +123,11 @@ omega_constants.default <-
         }
         # diffusivity is just T/S, so check for those
         if (missing(S.)){
-          warning("storativity was missing, used defaults")
+          warning("storativity was missing, used default")
           S. <- cdef
         }
         if (missing(T.)){
-          warning("tranmissivity was missing, used defaults")
+          warning("tranmissivity was missing, used default")
           T. <- cdef
         }
         D. <- T./S.

@@ -67,5 +67,9 @@ kitplot(fakeResp.foc, prep.resp=FALSE) # fakeResp.foc has already been transform
 }
 \seealso{
   \code{\link{well_response}}
+
+  Other PlotUtilities: \code{\link{log_ticks}},
+  \code{\link{log10_ticks}}, \code{\link{log2_ticks}},
+  \code{\link{logticks}}
 }
 
