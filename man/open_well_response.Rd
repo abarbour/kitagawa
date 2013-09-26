@@ -81,7 +81,8 @@
   \code{\link{kitagawa-package}} for references and more
   background.
 
-  Other WellResponseFunctions: \code{\link{well_response}},
+  Other WellResponseFunctions: \code{\link{print.wrsp}},
+  \code{\link{well_response}},
   \code{\link{well_response.default}}
 }
 

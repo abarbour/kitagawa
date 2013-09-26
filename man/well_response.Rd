@@ -1,15 +1,17 @@
 \name{well_response}
+\alias{print.wrsp}
 \alias{well_response}
 \alias{well_response.default}
 \title{Spectral response for a sealed well}
 \usage{
-  well_response(omega, T., S., Vw., Rs., Ku., B., Avs. = 1,
-    Aw. = 1, rho. = 1000, Kf. = 2.2e+09, grav. = 9.81,
-    freq.units = c("rad_per_sec", "Hz"))
+  well_response(omega, T., S., Vw., Rs., Ku., B., Avs, Aw,
+    rho, Kf, grav, freq.units = c("rad_per_sec", "Hz"))
 
   \method{well_response}{default} (omega, T., S., Vw., Rs.,
-    Ku., B., Avs. = 1, Aw. = 1, rho. = 1000, Kf. = 2.2e+09,
-    grav. = 9.81, freq.units = c("rad_per_sec", "Hz"))
+    Ku., B., Avs, Aw, rho, Kf, grav,
+    freq.units = c("rad_per_sec", "Hz"))
+
+  \method{print}{wrsp} (X, ...)
 }
 \arguments{
   \item{omega}{frequency, (see \code{freq.units})}
@@ -27,17 +29,17 @@
   \item{B.}{Skempton's coefficient, \eqn{[unitless,
   bounded]}}
 
-  \item{Avs.}{amplification factor for volumetric strain
+  \item{Avs}{amplification factor for volumetric strain
   \eqn{E_{kk,obs}/E_{kk}}, \eqn{[]}}
 
-  \item{Aw.}{amplification factor of well volume change for
+  \item{Aw}{amplification factor of well volume change for
   \eqn{E_{kk}}, \eqn{[]}}
 
-  \item{rho.}{fluid density \eqn{[kg/m^3]}}
+  \item{rho}{fluid density \eqn{[kg/m^3]}}
 
-  \item{Kf.}{bulk modulus of fluid, \eqn{[Pa]}}
+  \item{Kf}{bulk modulus of fluid, \eqn{[Pa]}}
 
-  \item{grav.}{local gravitational acceleration
+  \item{grav}{local gravitational acceleration
   \eqn{[m/s^2]}}
 
   \item{freq.units}{set the units of \code{omega}}
@@ -46,7 +48,7 @@
   Matrix with three columns: radial frequency, amplitude,
   and phase [\eqn{\omega}), \eqn{A_\alpha (\omega)},
   \eqn{\Phi_\alpha (\omega)}] where the units of
-  \eqn{\omega} will be radians per second, \eqn{A_\alpha
+  \eqn{\omega} will be as they were input, \eqn{A_\alpha
   (\omega)} in meters per strain, and \eqn{\Phi_\alpha
   (\omega)} in radians.
 }
@@ -64,18 +66,19 @@
   parameters, unless the function is used in an
   optimization scheme.
 
-  Assumed values are: \tabular{rlrl}{ \code{Avs.} \tab 1
+  Assumed values are: \tabular{rlrl}{ \code{Avs} \tab 1
   \tab \tab amplification factor for volumetric strain\cr
-  \code{Aw.} \tab 1 \tab \tab amplification factor for
-  water well\cr \code{rho.} \tab \eqn{1000} \tab
-  \eqn{[kg/m^3]} \tab the density of water \cr \code{Kf.}
-  \tab \eqn{2.2} \tab \eqn{[GPa]} \tab the bulk modulus of
-  water\cr \code{grav.} \tab \eqn{9.81} \tab \eqn{[m/s^2]}
-  \tab average gravitational force on Earth\cr }
+  \code{Aw} \tab 1 \tab \tab amplification factor for water
+  well\cr }
 
   \emph{Note that Skempton's coefficient, \code{B.}, is
   bounded inclusively within \eqn{[0,1]}; an error is
   thrown if it's not. }
+
+  Not all parameters need to given, as some properties can
+  be assumed (say, for water).  \emph{The parameters which
+  do not end in \code{.} do not need to be specified (they
+  may be excluded).}
 }
 \examples{
 #### dummy example
@@ -102,13 +105,6 @@ kitplot(Rsp)
 \author{
   Andrew Barbour <andy.barbour@gmail.com>
 }
-\references{
-  Kitagawa, Y., S. Itaba, N. Matsumoto, and N. Koisumi
-  (2011), Frequency characteristics of the response of
-  water pressure in a closed well to volumetric strain in
-  the high-frequency domain, \emph{J. Geophys. Res.},
-  \strong{116}, B08301, doi:10.1029/2010JB007794
-}
 \seealso{
   \code{\link{sensing_volume}} to estimate the volume
   \code{Vw.}
@@ -117,6 +113,8 @@ kitplot(Rsp)
 
   \code{\link{open_well_response}} for modeling an open
   well.
+
+  \code{\link{constants}} for assumed constants.
 
   Other WellResponseFunctions:
   \code{\link{open_well_response}},

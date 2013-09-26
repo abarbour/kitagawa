@@ -337,3 +337,13 @@ log2_ticks <- function(...) logticks(base="two", ...)
 #' @rdname logticks
 #' @export
 log10_ticks <- function(...) logticks(base="ten", ...)
+
+#' Reports whether an object has S3 class 'wrsp',
+#' or 'owrsp', as
+#' would one returned by, for example, 
+#' \code{\link{well_response}}.
+#' @param Obj the object to test
+#' @export
+#' @family utilities
+#' @seealso \code{\link{kitagawa-package}}
+is.wrsp <- function(Obj) inherits(Obj, c("wrsp","owrsp"))

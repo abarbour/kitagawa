@@ -73,11 +73,14 @@ open_well_response.default <- function(omega, T., S., z.,
                                        freq.units=c("rad_per_sec","Hz"),
                                        model=c("rojstaczer","liu","cooper","hsieh"),
                                        as.pressure=TRUE){
+  # Pick a model
   model <- match.arg(model)
   # Enforce units of omega to be radians/sec
-  fc <- switch(match.arg(freq.units), rad_per_sec=1, Hz=2*pi)
+  freq.units <- match.arg(freq.units)
+  fc <- switch(freq.units, rad_per_sec=1, Hz=2*pi)
   omega <- fc*omega
   #
+  # Setup constants
   const <- kitagawa::constants(FALSE)
   if (missing(rho)) rho <- const$water$density
   if (missing(grav)) grav <- const$gravity

@@ -14,16 +14,17 @@
 #' 
 #' Assumed values are:
 #' \tabular{rlrl}{
-#' \code{Avs.}  \tab 1 \tab \tab amplification factor for volumetric strain\cr
-#' \code{Aw.}   \tab 1 \tab \tab amplification factor for water well\cr
-#' \code{rho.}  \tab \eqn{1000}  \tab \eqn{[kg/m^3]} \tab the density of water \cr
-#' \code{Kf.}   \tab \eqn{2.2}   \tab \eqn{[GPa]}    \tab the bulk modulus of water\cr
-#' \code{grav.} \tab \eqn{9.81}  \tab \eqn{[m/s^2]}  \tab average gravitational force on Earth\cr
+#' \code{Avs}  \tab 1 \tab \tab amplification factor for volumetric strain\cr
+#' \code{Aw}   \tab 1 \tab \tab amplification factor for water well\cr
 #' }
 #' 
 #' \emph{Note that Skempton's coefficient, \code{B.}, is bounded inclusively
 #' within \eqn{[0,1]}; an error is thrown if it's not.
 #' }
+#' 
+#' Not all parameters need to given, as some properties can be assumed 
+#' (say, for water).  \emph{The parameters which do not end in \code{.} do
+#' not need to be specified (they may be excluded).}
 #'
 #' @name well_response
 #' @export
@@ -35,24 +36,20 @@
 #' @param Rs.    radius of screened portion,  \eqn{[m]}
 #' @param Ku.    undrained bulk modulus,  \eqn{[Pa]}
 #' @param B.     Skempton's coefficient,  \eqn{[unitless, bounded]}
-#' @param Avs.   amplification factor for volumetric strain \eqn{E_{kk,obs}/E_{kk}},  \eqn{[]}
-#' @param Aw.    amplification factor of well volume change for \eqn{E_{kk}},  \eqn{[]}
-#' @param rho.   fluid density \eqn{[kg/m^3]}
-#' @param Kf.    bulk modulus of fluid,  \eqn{[Pa]}
-#' @param grav.  local gravitational acceleration \eqn{[m/s^2]}
+#' @param Avs   amplification factor for volumetric strain \eqn{E_{kk,obs}/E_{kk}},  \eqn{[]}
+#' @param Aw    amplification factor of well volume change for \eqn{E_{kk}},  \eqn{[]}
+#' @param rho   fluid density \eqn{[kg/m^3]}
+#' @param Kf    bulk modulus of fluid,  \eqn{[Pa]}
+#' @param grav  local gravitational acceleration \eqn{[m/s^2]}
 #' @param freq.units  set the units of \code{omega}
 #'
 #' @return Matrix with three columns: radial frequency, amplitude, and phase 
 #' [\eqn{\omega}), \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}]
-#' where the units of \eqn{\omega} will be radians per second,
+#' where the units of \eqn{\omega} will be as they were input,
 #' \eqn{A_\alpha (\omega)} in meters per strain, 
 #' and \eqn{\Phi_\alpha (\omega)} in radians.
 #' 
 #' @author Andrew Barbour <andy.barbour@@gmail.com>
-#' 
-#' @references Kitagawa, Y., S. Itaba, N. Matsumoto, and N. Koisumi (2011),
-#' Frequency characteristics of the response of water pressure in a closed well to volumetric strain in the high-frequency domain,
-#' \emph{J. Geophys. Res.}, \strong{116}, B08301, doi:10.1029/2010JB007794
 #'
 #' @seealso 
 #' \code{\link{sensing_volume}} to estimate the volume \code{Vw.}
@@ -60,6 +57,8 @@
 #' \code{\link{kitplot}} to plot the results.
 #'
 #' \code{\link{open_well_response}} for modeling an open well.
+#' 
+#' \code{\link{constants}} for assumed constants.
 #' 
 #' @family WellResponseFunctions
 #' 
@@ -86,27 +85,37 @@
 #' kitplot(Rsp)
 #'
 well_response <- function(omega, T., S., Vw., Rs., Ku., B., 
-           Avs.=1,
-           Aw.=1,
-           rho.=1000, 
-           Kf.=2.2e9,
-           grav.=9.81,
+           Avs,
+           Aw,
+           rho, 
+           Kf,
+           grav,
            freq.units=c("rad_per_sec","Hz")) UseMethod("well_response")
 
 #' @rdname well_response
 #' @method well_response default
 #' @S3method well_response default
 well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
-           Avs.=1,
-           Aw.=1,
-           rho.=1000, 
-           Kf.=2.2e9,
-           grav.=9.81,
+           Avs,
+           Aw,
+           rho, 
+           Kf,
+           grav,
            freq.units=c("rad_per_sec","Hz")){
-    #
     # Enforce units of omega to be radians/sec
-    fc <- switch(match.arg(freq.units), rad_per_sec=1, Hz=2*pi)
+    freq.units <- match.arg(freq.units)
+    fc <- switch(freq.units, rad_per_sec=1, Hz=2*pi)
     omega <- fc*omega
+    #
+    # Setup constants
+    defA <- 1
+    if (missing(Avs)) Avs <- defA
+    if (missing(Aw)) Aw <- defA
+    const <- kitagawa::constants(FALSE)
+    if (missing(rho)) rho <- const$water$density
+    if (missing(Kf)) Kf <- const$water$bulkmod
+    if (missing(grav)) grav <- const$gravity
+    rhog <- rho*grav
     #
     # Alpha function
     Alpha. <- omega_constants(omega, c.type="alpha", S.=S., T.=T., Rs.=Rs.)
@@ -122,7 +131,6 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
     A2 <- A12[,2]
     rm(A12)     # cleanup
     #
-    rhog <- rho. * grav.
     TVFRG <- 2 * pi * T. / omega / Vw. / rhog
     #
     #check Skemptons coefficient: it should be bound to [0,1]
@@ -130,36 +138,72 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
     #
     # calculate amp and phase of response
     #
-    tmpd. <- Ku. * B. / Aw. * TVFRG - A2
+    tmpd. <- Ku. * B. / Aw * TVFRG - A2
     rNum. <- tmpd. * tmpd. + A1 * A1
     #
-    tmpd. <- Kf. * TVFRG  -  A2
+    tmpd. <- Kf * TVFRG  -  A2
     rDen. <- tmpd. * tmpd. + A1 * A1
     rm(tmpd.)
     ##
     ## complex response EQ 17
-    ## cNum <- complex(real=(Ku. * B. / Aw. * TVFRG - A2), imaginary=A1)
-    ## cDen <- complex(real=(Kf. * TVFRG  -  A2), imaginary=A1)
-    ## cResp <- -1 * Kf. * Aw. / Avs. / rhog * cNum / cDen
+    ## cNum <- complex(real=(Ku. * B. / Aw * TVFRG - A2), imaginary=A1)
+    ## cDen <- complex(real=(Kf * TVFRG  -  A2), imaginary=A1)
+    ## cResp <- -1 * Kf * Aw / Avs / rhog * cNum / cDen
     ## amplitude
     ## Amp. <- Mod(cResp)
     ## Phs. <- Arg(cResp)
     ##
     ## amplitude, Kitagawa equation 20
     ##
-    Amp. <- Kf. * Aw. / Avs. / rhog * sqrt(rNum. / rDen.)
+    Amp. <- Kf * Aw / Avs / rhog * sqrt(rNum. / rDen.)
     ##
     ## phase, Kitagawa equation 21
     ##
-    Y. <- (Kf. - Ku. * B. / Aw.) * TVFRG * A1
-    X. <- (Ku. * B. / Aw. * TVFRG - A2) * (Kf. * TVFRG - A2) + A1 * A1
+    Y. <- (Kf - Ku. * B. / Aw) * TVFRG * A1
+    X. <- (Ku. * B. / Aw * TVFRG - A2) * (Kf * TVFRG - A2) + A1 * A1
     Phs. <- atan2(-1*Y.,-1*X.)
     #
-    # params?
-    # attributes?
-    # message?
+    # TODO: Return complex only
     #
     # return results
-    toret <- cbind(omega, Amp., Phs.)
+    omega <- omega/fc
+    toret <- list(Aquifer=list(Transmiss=T., Storativ=S., Diffusiv=T./S.),
+                  Well=list(Volume=Vw., ScreenRad=Rs.),
+                  Solid=list(BulkModU=Ku.,Skemp=B.),
+                  Fluid=list(BulkMod=Kf, Density=rho),
+                  Amplification=list(Ekk=Avs, Well=Aw),
+                  Omega=list(Units=freq.units),
+                  Gravity=grav,
+                  Response=cbind(omega=omega, Amp.=Amp., Phs.=Phs.))
+    class(toret) <- "wrsp"
     return(toret)
-  }
+}
+
+#' @rdname well_response
+#' @aliases print.wrsp
+#' @method print wrsp
+#' @S3method print wrsp
+print.wrsp <- function(X, ...){
+  stopifnot(is.wrsp(X))
+  message("Sealed well response:")
+  Xm <- as.data.frame(X$Response)
+  print(head(Xm,3))
+  message("\t...")
+  print(tail(Xm,3))
+}
+# 
+# #' @rdname well_response
+# #' @aliases as.data.frame.wrsp
+# #' @method as.data.frame wrsp
+# #' @S3method as.data.frame wrsp
+# as.data.frame.wrsp <- function(X, ...){
+#   df <- as.data.frame.numeric(X)
+#   dfn <- as.vector(attributes(X)$dimnames[[2]])
+#   print(colnames(df)) # <- dfn
+#   return(df)
+# }
+# #' @rdname well_response
+# #' @aliases data.frame.wrsp
+# #' @method data.frame wrsp
+# #' @S3method data.frame wrsp
+# data.frame.wrsp <- as.data.frame.wrsp
