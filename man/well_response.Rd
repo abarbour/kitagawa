@@ -67,10 +67,10 @@
   bounded inclusively within \eqn{[0,1]}; an error is
   thrown if it's not. }
 
-  Not all parameters need to given, as some properties can
-  be assumed (say, for water).  \emph{The parameters which
-  do not end in \code{.} do not need to be specified (they
-  may be excluded).}
+  Not all parameters need to be given, as some properties
+  can be assumed (say, for water).  \emph{The parameters
+  which do not end in \code{.} do not need to be specified
+  (they may be excluded).}
 }
 \examples{
 #### dummy example

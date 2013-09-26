@@ -22,7 +22,7 @@
 #' within \eqn{[0,1]}; an error is thrown if it's not.
 #' }
 #' 
-#' Not all parameters need to given, as some properties can be assumed 
+#' Not all parameters need to be given, as some properties can be assumed 
 #' (say, for water).  \emph{The parameters which do not end in \code{.} do
 #' not need to be specified (they may be excluded).}
 #'
@@ -107,12 +107,22 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
     #
     # Setup constants
     defA <- 1
-    if (missing(Avs)) Avs <- defA
-    if (missing(Aw)) Aw <- defA
+    if (missing(Avs)){
+      Avs <- defA
+    }
+    if (missing(Aw)){
+      Aw <- defA
+    }
     const <- kitagawa::constants(FALSE)
-    if (missing(rho)) rho <- const$water$density
-    if (missing(Kf)) Kf <- const$water$bulkmod
-    if (missing(grav)) grav <- const$gravity
+    if (missing(rho)){
+      rho <- const$water$density
+    }
+    if (missing(Kf)){
+      Kf <- const$water$bulkmod
+    }
+    if (missing(grav)){
+      grav <- const$gravity
+    }
     rhog <- rho*grav
     #
     # Alpha function

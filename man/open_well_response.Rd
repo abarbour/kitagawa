@@ -3,14 +3,14 @@
 \alias{open_well_response.default}
 \title{Spectral response for an open well}
 \usage{
-  open_well_response(omega, T., S., z.,
-    Rs. = (8/12) * (1200/3937), rho, grav,
+  open_well_response(omega, T., S.,
+    Rs. = (8/12) * (1200/3937), rho, grav, z, Hw, Ta,
     freq.units = c("rad_per_sec", "Hz"),
-    model = c("rojstaczer", "roj", "liu", "cooper"),
+    model = c("rojstaczer", "liu", "cooper", "hsieh"),
     as.pressure = TRUE)
 
-  \method{open_well_response}{default} (omega, T., S., z.,
-    Rs. = (8/12) * (1200/3937), rho, grav,
+  \method{open_well_response}{default} (omega, T., S.,
+    Rs. = (8/12) * (1200/3937), rho, grav, z, Hw, Ta,
     freq.units = c("rad_per_sec", "Hz"),
     model = c("rojstaczer", "liu", "cooper", "hsieh"),
     as.pressure = TRUE)
@@ -23,9 +23,6 @@
 
   \item{S.}{numeric; well storativity, \eqn{[unitless]}}
 
-  \item{z.}{numeric; From Rojstaczer (1988): 'the depth
-  from the water table'}
-
   \item{Rs.}{numeric; the \emph{radius} of the open
   (screened) section}
 
@@ -33,6 +30,15 @@
 
   \item{grav}{numeric; the local gravitational acceleration
   (assumed if missing)}
+
+  \item{z}{numeric; From Rojstaczer (1988): the depth from
+  the water table (assumed if missing and if needed)}
+
+  \item{Hw}{numeric; height of water column above confined
+  surface (assumed if missing and if needed)}
+
+  \item{Ta}{numeric; thickness of aquifer (assumed if
+  missing and if needed)}
 
   \item{freq.units}{character; setup the units of
   \code{omega}}
@@ -63,6 +69,11 @@
   by \code{rho*grav} so they represent hydrostatic
   pressure; if either \code{rho} or \code{grav} are not
   specified, they are taken from \code{\link{constants}}.
+
+  Not all parameters need to be given, but should be.
+  \emph{The parameters which do not end in \code{.} do not
+  need to be specified (they may be excluded); if missing
+  then warnings will be thrown.}
 }
 \section{Models}{
   Rojstaczer (1988) is based on measurements of water level
