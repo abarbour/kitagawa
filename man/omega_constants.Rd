@@ -80,12 +80,17 @@ omega_constants(c.type="diff")  # 0, warnings about S., T. because no D.
 omega_constants(c.type="diff", S.=1)  # 0, warnings about T. because no D. or S.
 }
 \author{
-  Andrew Barbour <andy.barbour@gmail.com>
+  A. J. Barbour <andy.barbour@gmail.com>
 }
 \seealso{
   \code{\link{alpha_constants}},
   \code{\link{well_response}}, and
   \code{\link{kitagawa-package}} for references and more
   background.
+
+  Other ConstantsCalculators:
+  \code{\link{alpha_constants}},
+  \code{\link{alpha_constants.default}},
+  \code{\link{constants}}, \code{\link{kitagawa-constants}}
 }
 

@@ -29,7 +29,14 @@ constants()
 }
 \seealso{
   \code{\link{well_response}} and
-  \code{\link{open_well_response}},
+  \code{\link{open_well_response}}
+
   \code{\link{kitagawa-package}}
+
+  Other ConstantsCalculators:
+  \code{\link{alpha_constants}},
+  \code{\link{alpha_constants.default}},
+  \code{\link{omega_constants}},
+  \code{\link{omega_constants.default}}
 }
 

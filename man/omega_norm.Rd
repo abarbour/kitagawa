@@ -27,6 +27,9 @@
   depth, \eqn{\omega} is the angular frequency and \eqn{D}
   is the hydraulic diffusivity
 }
+\author{
+  A. J. Barbour <andy.barbour@gmail.com>
+}
 \seealso{
   \code{\link{open_well_response}},
   \code{\link{kitagawa-package}}

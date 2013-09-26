@@ -33,19 +33,10 @@
 #' \emph{as well as} any other \eqn{\alpha}-dependent constants 
 #' which are needed in the computation.
 #' 
-#' @author Andrew Barbour <andy.barbour@@gmail.com>
-#' 
-#' @references Kitagawa, Y., S. Itaba, N. Matsumoto, and N. Koisumi (2011),
-#' Frequency characteristics of the response of water pressure in a closed well to volumetric strain in the high-frequency domain,
-#' \emph{J. Geophys. Res.}, \strong{116}, B08301, doi:10.1029/2010JB007794.
-#' 
-#' @references \url{http://www.agu.org/pubs/crossref/2011/2010JB007794.shtml}
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #'
-#' @references Abramowitz, M. and Stegun, I. A. (Eds.). "Kelvin Functions." 
-#' \eqn{\S 9.9} in Handbook of Mathematical Functions with Formulas, Graphs, 
-#' and Mathematical Tables, 9th printing. New York: Dover, pp. 379-381, 1972.
-#'
-#' @seealso \code{\link{omega_constants}}, \code{\link{well_response}}, \pkg{kelvin}
+#' @seealso \code{\link{omega_constants}}, \code{\link{well_response}}
+#' @family ConstantsCalculators
 #' 
 #' @examples
 #' alpha_constants() # kelvin::Keir gives warning
@@ -54,7 +45,6 @@
 alpha_constants <-
 function(alpha=0, c.type=c("Phi","Psi","A","Kel")) UseMethod("alpha_constants")
 
-# @return \code{NULL}
 #' @rdname alpha_constants
 #' @method alpha_constants default
 #' @S3method alpha_constants default
@@ -124,6 +114,3 @@ alpha_constants.default <-
     toret <- c.calc(alpha)
     return(toret)
   }
-
-
-#

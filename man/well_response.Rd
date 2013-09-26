@@ -1,5 +1,4 @@
 \name{well_response}
-\alias{print.wrsp}
 \alias{well_response}
 \alias{well_response.default}
 \title{Spectral response for a sealed well}
@@ -10,8 +9,6 @@
   \method{well_response}{default} (omega, T., S., Vw., Rs.,
     Ku., B., Avs, Aw, rho, Kf, grav,
     freq.units = c("rad_per_sec", "Hz"))
-
-  \method{print}{wrsp} (X, ...)
 }
 \arguments{
   \item{omega}{frequency, (see \code{freq.units})}
@@ -45,12 +42,7 @@
   \item{freq.units}{set the units of \code{omega}}
 }
 \value{
-  Matrix with three columns: radial frequency, amplitude,
-  and phase [\eqn{\omega}), \eqn{A_\alpha (\omega)},
-  \eqn{\Phi_\alpha (\omega)}] where the units of
-  \eqn{\omega} will be as they were input, \eqn{A_\alpha
-  (\omega)} in meters per strain, and \eqn{\Phi_\alpha
-  (\omega)} in radians.
+  An object with class 'wrsp'
 }
 \description{
   This is the primary function for a sealed well. It
@@ -103,9 +95,12 @@ Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
 kitplot(Rsp)
 }
 \author{
-  Andrew Barbour <andy.barbour@gmail.com>
+  A. J. Barbour <andy.barbour@gmail.com>
 }
 \seealso{
+  \code{\link{wrsp-methods}} for a description of the class
+  'wrsp' and its methods
+
   \code{\link{sensing_volume}} to estimate the volume
   \code{Vw.}
 

@@ -54,24 +54,15 @@ alpha_constants(1)  # defaults to constant 'Phi' (note output also has Kel)
 alpha_constants(1:10, c.type="A")  # constant 'A' (again, note output)
 }
 \author{
-  Andrew Barbour <andy.barbour@gmail.com>
-}
-\references{
-  Kitagawa, Y., S. Itaba, N. Matsumoto, and N. Koisumi
-  (2011), Frequency characteristics of the response of
-  water pressure in a closed well to volumetric strain in
-  the high-frequency domain, \emph{J. Geophys. Res.},
-  \strong{116}, B08301, doi:10.1029/2010JB007794.
-
-  \url{http://www.agu.org/pubs/crossref/2011/2010JB007794.shtml}
-
-  Abramowitz, M. and Stegun, I. A. (Eds.). "Kelvin
-  Functions." \eqn{\S 9.9} in Handbook of Mathematical
-  Functions with Formulas, Graphs, and Mathematical Tables,
-  9th printing. New York: Dover, pp. 379-381, 1972.
+  A. J. Barbour <andy.barbour@gmail.com>
 }
 \seealso{
   \code{\link{omega_constants}},
-  \code{\link{well_response}}, \pkg{kelvin}
+  \code{\link{well_response}}
+
+  Other ConstantsCalculators: \code{\link{constants}},
+  \code{\link{kitagawa-constants}},
+  \code{\link{omega_constants}},
+  \code{\link{omega_constants.default}}
 }
 

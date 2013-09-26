@@ -15,6 +15,9 @@ would one returned by, for example,
   'owrsp', as would one returned by, for example,
   \code{\link{well_response}}.
 }
+\author{
+  A. J. Barbour <andy.barbour@gmail.com>
+}
 \seealso{
   \code{\link{kitagawa-package}}
 

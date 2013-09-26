@@ -20,7 +20,7 @@
 }
 }
 \author{
-  Andrew Barbour <andy.barbour@gmail.com>
+  A. J. Barbour <andy.barbour@gmail.com>
 }
 \seealso{
   Other utilities: \code{\link{.nullchk}},

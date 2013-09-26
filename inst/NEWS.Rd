@@ -14,6 +14,8 @@
   \itemize{
     \item Response functions now add attributes and class to output: 'wrsp' and 'owrsp'
     for sealed and open well response, respectively.
+    \item New methods for class 'wrsp', including \code{plot.wrsp}
+    \item \code{kitplot} now uses \code{plot.wrsp}
     \item Changes variable names in \code{well_response} and made defaults in case some
     are missing.
     \item Added a vignette highlighting models.
@@ -21,6 +23,7 @@
     \item New utility function \code{.in0to1} to test for existence between zero to one;
     this is useful to check if a parameter is valid (e.g. Skemptons ratio).
     \item New utility \code{constants} to access stored physical constants.
+    \item Substantial documentation improvements.
   }
 }
 \section{CHANGES IN kitagawa VERSION 1.1-1 (2013-03-12)}{

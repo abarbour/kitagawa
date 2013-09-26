@@ -1,104 +1,29 @@
 #' Quickly plot the amplitude and phase spectra of sealed-well response
 #' 
-#' Used to mimic plots of frequency response spectra, as in Kitagawa et al (2011), 
-#' e.g. \strong{Figures 7--9}.
+#' Reproduce plots of frequency response spectra, 
+#' as in Kitagawa et al (2011, Figs 7--9).
 #' 
-#' This is primarily a diagnostic tool, and is thus not very flexible in its 
-#' implementation.
-#' 
-#' The input data are assumed to be structured as they would be out
-#' of \code{\link{well_response}}, specifically three vectors representing:
-#' \describe{
-#'  \item{Radial frequency}{\eqn{[radians/s]}}
-#'  \item{Amplitude}{\eqn{[m/strain]}}
-#'  \item{Phase}{\eqn{[radians]}}
-#' }
-#' These will be transformed to have units of \eqn{[\log10 Hz]}, \eqn{[\log10 m/strain]}, and
-#' \eqn{[rad]} respectively, unless \code{prep.resp=FALSE}.
+#' \emph{This is primarily a diagnostic tool, and is thus not very flexible in its 
+#' implementation.}
 #'
 #' @name kitplot
 #' @export
 #' 
-#' @param Resp.  the response information as from well_response (see \strong{Details})
-#' @param xlim.   frequency limits (assume log10 Hz scale)
-#' @param ylims  list of limits (assume log10 m/strain for amplitude), use \code{amp} and \code{phs} for variable assignments
-#' @param prep.resp  boolean, should the units of \code{Resp.} be appropriately transformed ?
-#'
-#' @return A \code{data.frame} with the (transformed) values that have been
-#' plotted; this will 
-#' include \emph{only} the subset of data falling in the range of \code{xlim.}
-#' inclusively.
+#' @param object the object to plot, with class 'wrsp', for example
+#' @param ... additional parameters send to the plot method; \code{\link{plot.wrsp}}, for example
 #'  
-#' @author Andrew Barbour <andy.barbour@@gmail.com>
-#' 
-#' @references Kitagawa, Y., S. Itaba, N. Matsumoto, and N. Koisumi (2011),
-#' Frequency characteristics of the response of water pressure in a closed well to volumetric strain in the high-frequency domain,
-#' \emph{J. Geophys. Res.}, \strong{116}, B08301, doi:10.1029/2010JB007794.
-#' 
-#' @references \url{http://www.agu.org/pubs/crossref/2011/2010JB007794.shtml}
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #'
-#' @seealso \code{\link{well_response}}
+#' @seealso \code{\link{well_response}} and \code{\link{wrsp-methods}}
 #' @family PlotUtilities
-#' 
-#' @examples
-#' # dummy example: get some lines on the figure
-#' n <- 10
-#' ones <- rep(1, n)
-#' fakeResp <- data.frame(f=2*pi*10**seq(-4, 0, length.out=n), amp=1e6*ones, phs=.9*pi*ones)
-#' kitplot(fakeResp)
-#' # focus in on a certain range:
-#' fakeResp.foc <- kitplot(fakeResp, xlim.=c(-3, -1), ylims=list(amp=c(5.5, 6.5), phs=180*c(0, 1)))
-#' kitplot(fakeResp.foc, prep.resp=FALSE) # fakeResp.foc has already been transformed
-kitplot <-
-  function(Resp., xlim.=c(-4,0), ylims=list(amp=c(5,7), phs=180*c(-1,1)), prep.resp=TRUE){
-    #
-    # reproduce plots as in Kitagawa
-    #
-    Resp. <- as.matrix(Resp.)
-    stopifnot(ncol(Resp.)>=3)
-    #...
-    #print(summary(Resp.))
-    #
-    if (prep.resp){
-      Resp.[,1] <- log10(Resp.[,1] / 2 / pi)
-      Resp.[,2] <- log10(Resp.[,2])
-      Resp.[,3] <- Resp.[,3]*180/pi
-    }
-    Resp. <- as.data.frame(Resp.)
-    names(Resp.) <- c("l10Freq","l10Amp","dPhs")
-    # subset data
-    xlim. <- sort(xlim.) # make sure order is correct
-    Resp. <- subset(Resp., (l10Freq>=xlim.[1]) & (l10Freq<=xlim.[2]) )
-    # 
-    # CRAN check NOTE otherwise (a hack, to be sure)
-    l10Freq<-NULL
-    rm(l10Freq)
-    ##
-    origpar <- par(no.readonly = TRUE)
-    par(mar=c(3.5,3.5,1,1), oma=rep(0,4), mgp=c(2.3, 1, 0))
-    layout(matrix(c(1,2), 2, 1, byrow = TRUE))
-    # amplitude
-    ylim. <- ylims$amp
-    plot(Resp.$l10Freq, Resp.$l10Amp,
-         type="l",
-         ylim=ylim.,
-         yaxs="i", ylab="Amplitude [log10 m/strain]", 
-         xlim=xlim.,
-         xaxs="i", xlab=""
-    )
-    # phase shift
-    ylim. <- ylims$phs
-    plot(Resp.$l10Freq, Resp.$dPhs,
-         type="l",
-         ylim=ylim.,
-         yaxs="i", ylab="Phase Shift [degrees]",
-         xlim=xlim.,
-         xaxs="i", xlab=""
-    )
-    mtext(text="Frequency [log10 Hz]",side=1,line=2)
-    par(origpar)
-    return(invisible(Resp.))
-  }
+kitplot <- function(object, ...) UseMethod("kitplot")
+#' @rdname wrsp-methods
+#' @alias kitplot.wrsp
+#' @method kitplot wrsp
+#' @S3method kitplot wrsp
+kitplot.wrsp <- function(object, ...){
+  plot(object, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)), ...)
+}
 
 
 #' Quickly check for \code{NULL} and \code{NA}
@@ -110,12 +35,9 @@ kitplot <-
 #' @name .nullchk
 #' @rdname nullchk
 #' @export
-#' 
 #' @param X   something to be checked (vector, scalar, ...)
-#'
-# @return NULL
 #' 
-#' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' @family utilities
 #' @examples
 #' \dontrun{
@@ -139,9 +61,7 @@ kitplot <-
 #' 
 #' @param X   something to be checked (vector, scalar, ...)
 #'
-# @return NULL
-#' 
-#' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' @family utilities
 #' @examples
 #' \dontrun{
@@ -168,6 +88,8 @@ kitplot <-
 #' frequency?
 #' @return Dimensionless frequency unless \code{invert=TRUE}, which will
 #' return radial frequency.
+#' 
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' @family utilities
 #' @seealso \code{\link{open_well_response}}, \code{\link{kitagawa-package}}
 #' @export
@@ -228,9 +150,9 @@ omega_norm <- function(omega, Diffusiv, z, invert=FALSE){
 #' 
 #' @return scalar, with units of \eqn{[m^3]}
 #' 
-#' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' @family utilities
-#' @seealso \code{\link{well_response}}, \code{\link{kitplot}}
+#' @seealso \code{\link{well_response}}
 #' 
 #' @examples
 #' #### dummy example
@@ -281,6 +203,8 @@ sensing_volume <- function(rad_grout, len_grout, rad_screen, len_screen){
 #' @param major.ticks numeric; the axis limits.
 #' @param base numeric; the base of the logarithm (somewhat experimental)
 #' @param ... additional parameters passed to the \code{axis} call for the major ticks.
+#' 
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' @references 
 #' This was modified from a post on StackOverflow:
 #' \url{http://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}
@@ -344,6 +268,7 @@ log10_ticks <- function(...) logticks(base="ten", ...)
 #' \code{\link{well_response}}.
 #' @param Obj the object to test
 #' @export
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' @family utilities
 #' @seealso \code{\link{kitagawa-package}}
 is.wrsp <- function(Obj) inherits(Obj, c("wrsp","owrsp"))

@@ -74,15 +74,14 @@
   Roeloffs (1996).
 }
 \author{
-  Andrew Barbour <andy.barbour@gmail.com>
+  A. J. Barbour <andy.barbour@gmail.com>
 }
 \seealso{
   \code{\link{well_response}}, and
   \code{\link{kitagawa-package}} for references and more
   background.
 
-  Other WellResponseFunctions: \code{\link{print.wrsp}},
-  \code{\link{well_response}},
+  Other WellResponseFunctions: \code{\link{well_response}},
   \code{\link{well_response.default}}
 }
 

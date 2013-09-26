@@ -37,7 +37,7 @@
 #'
 #' @section Scientific background:
 #'
-#' The model is based upon the assumption that fluid flows radially
+#' The underlying model is based upon the assumption that fluid flows radially
 #' through an homogeneous, isotropic, confined aquifer.
 #'
 #' The underlying principle is as follows.  When a harmonic wave induces
@@ -70,33 +70,40 @@
 #' @name kitagawa-package
 #' @aliases kitagawa
 #' @title Spectral response of a water well to harmonic strains at seismic frequencies 
-#' @author Andrew Barbour <andy.barbour@@gmail.com> 
+#' @author Andrew J. Barbour <andy.barbour@@gmail.com> 
 #' 
 #' @import kelvin
 #' 
+#' @references Abramowitz, M. and Stegun, I. A. (Eds.). "Kelvin Functions." 
+#' \eqn{\S 9.9} in Handbook of Mathematical Functions with Formulas, Graphs, 
+#' and Mathematical Tables, 9th printing. New York: Dover, pp. 379-381, 1972.
+#' 
 #' @references Cooper, H. H., Bredehoeft, J. D., Papadopulos, I. S., and Bennett, R. R. (1965),
 #' The response of well-aquifer systems to seismic waves, 
-#' \emph{J. Geophys. Res.}, \strong{70} (16):3915-3926, doi:
+#' \emph{J. Geophys. Res.}, \strong{70} (16)
 #' 
 #' @references Hsieh, P. A., J. D. Bredehoeft, and J. M. Farr (1987),
 #' Determination of aquifer transmissivity from Earth tide analysis,
-#' \emph{Water Resour. Res.}, \strong{23} (10), 1824-1832, doi:10.1029/WR023i010p01824
+#' \emph{Water Resour. Res.}, \strong{23} (10)
 #
 #' @references Kitagawa, Y., S. Itaba, N. Matsumoto, and N. Koisumi (2011),
 #' Frequency characteristics of the response of water pressure in a closed well to volumetric strain 
 #' in the high-frequency domain,
-#' \emph{J. Geophys. Res.}, \strong{116}, B08301, doi:10.1029/2010JB007794
+#' \emph{J. Geophys. Res.}, \strong{116}, B08301
 #'
 #' @references Liu, L.-B., Roeloffs, E., and Zheng, X.-Y. (1989),
 #' Seismically Induced Water Level Fluctuations in the Wali Well, Beijing, China,
-#' \emph{J. Geophys. Res.}, \strong{94} (B7):9453-9462, doi:
+#' \emph{J. Geophys. Res.}, \strong{94} (B7)
 #'
 #' @references Roeloffs, E. (1996),
 #' Poroelastic techniques in the study of earthquake-related hydrologic phenomena,
-#' \emph{Advances in Geophysics}, \strong{37}:135-195, Elsevier, doi:
+#' \emph{Advances in Geophysics}, \strong{37}
 #' 
-#' @seealso \code{\link{well_response}}, \code{\link{open_well_response}}, \code{\link{sensing_volume}}, \code{\link{kitplot}}
-#'
+#' @seealso \code{\link{well_response}}, 
+#' \code{\link{open_well_response}}, 
+#' \code{\link{sensing_volume}}, 
+#' \code{\link{wrsp-methods}}
+NULL
 .kitEnvName = ".kitEnv"
 .kitEnv = new.env()
 .constants_in = ".kitConstants"
@@ -130,8 +137,10 @@
 #' }
 #' }
 #' @name kitagawa-constants
-#' @seealso 
-#' \code{\link{well_response}} and \code{\link{open_well_response}}, \code{\link{kitagawa-package}}
+#' @seealso \code{\link{well_response}} and \code{\link{open_well_response}}
+#' 
+#' \code{\link{kitagawa-package}}
+#' @family ConstantsCalculators
 NULL
 
 #' @rdname kitagawa-constants

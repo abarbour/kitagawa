@@ -57,6 +57,9 @@ y <- 1:9
 plot(log10(x),y,xaxt="n",xlab="x",xlim=c(0,9))
 logticks()
 }
+\author{
+  A. J. Barbour <andy.barbour@gmail.com>
+}
 \references{
   This was modified from a post on StackOverflow:
   \url{http://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}

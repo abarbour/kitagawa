@@ -43,15 +43,13 @@
 #' @param grav  local gravitational acceleration \eqn{[m/s^2]}
 #' @param freq.units  set the units of \code{omega}
 #'
-#' @return Matrix with three columns: radial frequency, amplitude, and phase 
-#' [\eqn{\omega}), \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}]
-#' where the units of \eqn{\omega} will be as they were input,
-#' \eqn{A_\alpha (\omega)} in meters per strain, 
-#' and \eqn{\Phi_\alpha (\omega)} in radians.
+#' @return An object with class 'wrsp'
 #' 
-#' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #'
 #' @seealso 
+#' \code{\link{wrsp-methods}} for a description of the class 'wrsp' and its methods
+#' 
 #' \code{\link{sensing_volume}} to estimate the volume \code{Vw.}
 #' 
 #' \code{\link{kitplot}} to plot the results.
@@ -178,32 +176,3 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
     class(toret) <- "wrsp"
     return(toret)
 }
-
-#' @rdname well_response
-#' @aliases print.wrsp
-#' @method print wrsp
-#' @S3method print wrsp
-print.wrsp <- function(X, ...){
-  stopifnot(is.wrsp(X))
-  message("Sealed well response:")
-  Xm <- as.data.frame(X$Response)
-  print(head(Xm,3))
-  message("\t...")
-  print(tail(Xm,3))
-}
-# 
-# #' @rdname well_response
-# #' @aliases as.data.frame.wrsp
-# #' @method as.data.frame wrsp
-# #' @S3method as.data.frame wrsp
-# as.data.frame.wrsp <- function(X, ...){
-#   df <- as.data.frame.numeric(X)
-#   dfn <- as.vector(attributes(X)$dimnames[[2]])
-#   print(colnames(df)) # <- dfn
-#   return(df)
-# }
-# #' @rdname well_response
-# #' @aliases data.frame.wrsp
-# #' @method data.frame wrsp
-# #' @S3method data.frame wrsp
-# data.frame.wrsp <- as.data.frame.wrsp

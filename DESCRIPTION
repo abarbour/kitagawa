@@ -32,3 +32,4 @@ Collate:
     'alpha_constants.R'
     'utilities.R'
     'zzz.R'
+    'methods.R'

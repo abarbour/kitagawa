@@ -52,7 +52,7 @@
 # \eqn{A_\alpha (\omega)} in meters per strain, 
 # and \eqn{\Phi_\alpha (\omega)} in radians.
 #' 
-#' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' 
 #' @seealso \code{\link{well_response}}, and
 #' \code{\link{kitagawa-package}} for references and more background.

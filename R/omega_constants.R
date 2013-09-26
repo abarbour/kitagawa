@@ -55,11 +55,12 @@
 #' @return Values of the constant repesented by \code{c.type} for the given
 #' parameters
 #' 
-#' @author Andrew Barbour <andy.barbour@@gmail.com>
+#' @author A. J. Barbour <andy.barbour@@gmail.com>
 #'
 #' @seealso \code{\link{alpha_constants}}, \code{\link{well_response}}, and
 #' \code{\link{kitagawa-package}} for references and more background.
-#' 
+#' @family ConstantsCalculators
+#'  
 #' @examples
 #' # alpha
 #' omega_constants() # default is alpha, but will give warnings about S., T., Rs.
