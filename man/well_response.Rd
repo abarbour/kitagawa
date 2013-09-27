@@ -4,11 +4,13 @@
 \title{Spectral response for a sealed well}
 \usage{
   well_response(omega, T., S., Vw., Rs., Ku., B., Avs, Aw,
-    rho, Kf, grav, freq.units = c("rad_per_sec", "Hz"))
+    rho, Kf, grav, freq.units = c("rad_per_sec", "Hz"),
+    as.pressure = TRUE)
 
   \method{well_response}{default} (omega, T., S., Vw., Rs.,
     Ku., B., Avs, Aw, rho, Kf, grav,
-    freq.units = c("rad_per_sec", "Hz"))
+    freq.units = c("rad_per_sec", "Hz"),
+    as.pressure = TRUE)
 }
 \arguments{
   \item{omega}{frequency, (see \code{freq.units})}
@@ -40,15 +42,16 @@
   \eqn{[m/s^2]}}
 
   \item{freq.units}{set the units of \code{omega}}
+
+  \item{as.pressure}{logical; should the response for water
+  pressure? (default is water heights)}
 }
 \value{
   An object with class 'wrsp'
 }
 \description{
-  This is the primary function for a sealed well. It
-  calculates the theoretical, complex well response, namely
-  \strong{Equation 17} in Kitagawa et al (2011). The
-  results, however, are expressed as amplitude and phase.
+  This is the primary function to calculate the response
+  for a sealed well.
 }
 \details{
   The response depends strongly on the physical properties
@@ -63,14 +66,20 @@
   \code{Aw} \tab 1 \tab \tab amplification factor for water
   well\cr }
 
-  \emph{Note that Skempton's coefficient, \code{B.}, is
-  bounded inclusively within \eqn{[0,1]}; an error is
-  thrown if it's not. }
+  The responses returned here are, effectively, the
+  amplification of water levels in a well, relative to the
+  aquifer strain; or \deqn{Z = \frac{z}{\epsilon} \equiv
+  \frac{p}{\rho g \epsilon}} If \code{as.pressure=TRUE},
+  then the responses are scaled by \code{rho*grav} so that
+  they represent water pressure relative to aquifer strain:
+  \deqn{Z = \frac{p}{\epsilon}}
 
-  Not all parameters need to be given, as some properties
-  can be assumed (say, for water).  \emph{The parameters
-  which do not end in \code{.} do not need to be specified
-  (they may be excluded).}
+  Not all parameters need to be given, but should be. For
+  example, if either \code{rho} or \code{grav} are not
+  specified, they are taken from \code{\link{constants}}.
+  \emph{Parameters which do not end in \code{.} do not need
+  to be specified (they may be excluded); if they are
+  missing, warnings will be thrown.}
 }
 \examples{
 #### dummy example
@@ -91,25 +100,19 @@ Volw <- sensing_volume(Rc, Lc, Rs, Ls) # m**3, ~= 1.8
 Frqs <- 10**seq.int(from=-4,to=0,by=0.1) # log10-space
 head(Rsp <- well_response(omega=Frqs, T.=1e-6, S.=1e-5,
 Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
-#
-#kitplot(Rsp)
+
+# Use plot.wrsp:
+plot(Rsp) # or kitplot(Rsp)
 }
 \author{
   A. J. Barbour <andy.barbour@gmail.com>
 }
 \seealso{
   \code{\link{wrsp-methods}} for a description of the class
-  'wrsp' and its methods
-
-  \code{\link{sensing_volume}} to estimate the volume
-  \code{Vw.}
-
-  \code{\link{kitplot}} to plot the results.
-
-  \code{\link{open_well_response}} for modeling an open
-  well.
-
-  \code{\link{constants}} for assumed constants.
+  'wrsp' and its methods, \code{\link{sensing_volume}} to
+  easily estimate the volume \code{Vw.}, and
+  \code{\link{kitagawa-package}} for references and more
+  background.
 
   Other WellResponseFunctions:
   \code{\link{open_well_response}},

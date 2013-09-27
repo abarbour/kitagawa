@@ -56,6 +56,36 @@ library(RColorBrewer, warn.conflicts=FALSE)
 Set1 <- brewer.pal(8, "Set1")
 library(signal, warn.conflicts=FALSE)
 library(kitagawa, warn.conflicts=FALSE)
+opts_knit$set(verbose = TRUE)
+@
+Setup some constants
+<<eval=TRUE, echo=TRUE, label=PARAMS>>= 
+S. <- 1e-5		# Storativity [nondimensional]
+T. <- 1e-4		# Transmissivity [m**2 / s]
+D. <- T./S.		# Diffusivity [m**2 / s]
+Ta <- 50			# Aquifer thickness [m] #100
+Hw <- z <- 50	# Depth to water table [m] #10
+
+# Using ANO1 stats from Kit Tbl 1
+Rc. <- 0.075		# Radius of cased portion of well [m]
+Lc. <- 570		# Length of cased portion of well [m]
+Rs. <- 0.135		# Radius of screened portion of well [m]
+Ls. <- 15		# Length of screened portion of well [m]
+Vw. <- sensing_volume(Rc., Lc., Rs., Ls.) 	# volume of fluid [m**3]
+#
+# parameters assumed by well_response:
+#	rho=1000		# density of rock [kg/m**3]
+#	Kf=2.2e9		# Bulk modulus of fluid [Pascals]
+#	grav=9.81	# gravitational acceleration [m/s**2]
+rhog <- 9.81*1000
+# Kitagawa Fig 7: Ku B / Kw Aw = 3 => Aw==4.8 at 40GPa
+Ku. <- 40e9		# Bulk modulus [Pascals]
+B. <- 0.5		# Skemptons ratio [nondimensional]
+
+# Frequencies
+Q <- 10**seq(-5,2,by=0.05)					# [nondimensional] == z**2 omega / 2 D
+lQ <- log10(Q)
+omega <- omega_norm(Q, z, D., invert=TRUE)		# [Hz] == Q * 2 * Diffus / z**2
 @
 
 \section{Sealed well response}
@@ -64,44 +94,12 @@ library(kitagawa, warn.conflicts=FALSE)
 \citet{kitagawa2011}
 
 <<eval=TRUE, echo=TRUE, label=KITRESP>>= 
-# some constants
-# Kitagawa Fig 7 and Tab 1
-S. <- 1e-6	# Storativity [nondimensional]
-T. <- 1e-6	# Transmissivity [m**2 / s]
-D. <- T./S.	# Diffusivity [m**2 / s]
-Rs. <- .135	# 
-
-z <- 1
-
-# Nondimensional frequencies
-Q <- 10**seq(-5,2,by=0.05) 					# == z**2 omega / 2 D
-lQ <- log10(Q)
-omega <- omega_norm(Q, z, D., invert=TRUE)		# == Q * 2 * Diffus / z**2
-
-# calculate response 
-# Fig 7
-# Ku B / Kw Aw = 3	=> Aw==4.8 at 40GPa
-#
-# Using ANO1 stats
-Rc. <- 0.075		# Radius of cased portion of well, m
-Lc. <- 570		# Length of cased portion of well, m
-Rs. <- 0.135		# Radius of screened portion of well, m
-Ls. <- 15		# Length of screened portion of well, m
-Vw. <- sensing_volume(Rc., Lc., Rs., Ls.) # m**3
-#
-# parameters assumed by well_response:
-#	rho=1000, kg/m**3
-#	Kf=2.2e9, Pa
-#	grav=9.81, m/s2
-#
-rhog <- 9.81*1000
-Ku. <- 40e9	# Bulk modulus
-B. <- 0.5	# Skemptons coeff
-wrsp <- well_response(omega, T.=T., S.=S., Vw.=Vw., Rs.=Rs.,	Ku.=Ku., B.=B., Avs=1, Aw=1) #4.8)
+asP <- FALSE
+wrsp <- well_response(omega, T.=T., S.=S., Vw.=Vw., Rs.=Rs., Ku.=Ku., B.=B., Avs=1, Aw=1, as.pressure=asP)
 crsp <- wrsp[["Response"]][,2]	# complex response
 #
 # Amplitude
-kGain <- Mod(crsp)*rhog/Ku./B.
+kGain <- Mod(crsp)/Ku./B.
 # Phase
 kPhs <- Arg(crsp) # will wrap to -pi/pi
 kuPhs <- signal::unwrap(kPhs, tol=pi/30)
@@ -117,11 +115,11 @@ par(mfrow=c(2,1),
     omi=rep(0.1,4), 
     las=1)
 
-plot(lQ, log10(kGain), type="l", #ylim=c(0, 1.15),
+plot(lQ, (kGain), type="l", #ylim=c(0, 1.15),
      xaxt="n", #yaxs="i",
      lwd=2,
-     ylab="", #" (cm/nanostrain)", 
-     xlab="", #Dimensionless frequency Q",
+     ylab=expression( Z / Epsilon * B * kappa[u] ), 
+     xlab="",
      main="")
 log10_ticks()
 mtext("Sealed Well Response (KITAGAWA): Harmonic Strain", font=2, line=1.5)
@@ -129,11 +127,12 @@ mtext("(a) Gain", adj=0)
 par(mar=c(4,4,1.1,2))
 plot(lQ, kPhs*180/pi, type="l", lty=3, #ylim=c(-190, -130), 
 	 xaxt="n",
-     ylab="degrees", xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
+     ylab=expression(Z ~ "rel." ~ Epsilon), 
+     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
 abline(h=-180, col="grey")
 lines(lQ, kuPhs*180/pi, type="l", lwd=2)
 log10_ticks()
-mtext("(b) Phase of pressure relative to strain", adj=0)
+mtext("(b) Phase", adj=0)
 #text(1.4, -140, "phase crossings", font=3, cex=0.8)
 @
 \caption{The response of a sealed well to harmonic areal strain using
@@ -151,10 +150,9 @@ the Kitagawa model.
 \citet{cooper1965}
 
 <<eval=TRUE, echo=TRUE, label=COOPERRESP>>= 
-wrsp <- open_well_response(omega, T.=T., S.=S., model = "cooper")
+ZasP <- FALSE
+wrsp <- open_well_response(omega, T.=T., S.=S., Ta=Ta, Hw=Hw, model = "cooper", as.pressure=ZasP)
 crsp <- wrsp[["Response"]][,2]	# complex response
-# invalid above Q ~ 30
-#crsp[Q>=30] <- NA
 #
 # Amplitude
 cGain <- Mod(crsp)
@@ -175,26 +173,26 @@ par(mfrow=c(2,1),
 plot(lQ, cGain, type="l", #ylim=c(0, 1.15),
      xaxt="n", #yaxs="i",
      lwd=2,
-     ylab="", #" (cm/nanostrain)", 
-     xlab="", #Dimensionless frequency Q",
+     ylab=expression( Z / H ),
+     xlab="",
      main="")
 log10_ticks()
 mtext("Open Well Response (COOPER): Harmonic Strain", font=2, line=1.5)
 mtext("(a) Gain", adj=0)
 par(mar=c(4,4,1.1,2))
-plot(lQ, cPhs*180/pi, type="l", lty=3, #ylim=c(-190, -130), 
+plot(lQ, cPhs*180/pi, type="l", lwd=2, #ylim=c(-190, -130), 
 	 xaxt="n",
-     ylab="degrees", xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
+     ylab=expression(Z ~ "rel." ~ H), 
+     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
 abline(h=-180, col="grey")
-lines(lQ, cuPhs*180/pi, type="l", lwd=2)
+lines(lQ, cuPhs*180/pi, type="l", lty=3)
 log10_ticks()
 mtext("(b) Phase", adj=0)
-#text(1.4, -140, "phase crossings", font=3, cex=0.8)
 @
 \caption{The response of an open well to harmonic areal strain using
 the Cooper model. 
 %Modified from \citet[][Fig.~3]{rojstaczer1988}.
-%Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
+Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 }
 \label{fig:owrsp-coop}
 \end{center}
@@ -204,10 +202,8 @@ the Cooper model.
 \citet{hsieh1987}
 
 <<eval=TRUE, echo=TRUE, label=HSIEHRESP>>= 
-wrsp <- open_well_response(omega, T.=T., S.=S., model = "hsieh")
+wrsp <- open_well_response(omega, T.=T., S.=S.,  Ta=Ta, Hw=Hw, model = "hsieh", as.pressure=ZasP)
 crsp <- wrsp[["Response"]][,2]	# complex response
-# invalid above Q ~ 30
-#crsp[Q>=30] <- NA
 #
 # Amplitude
 hGain <- Mod(crsp)
@@ -228,8 +224,8 @@ par(mfrow=c(2,1),
 plot(lQ, hGain, type="l", #ylim=c(0, 1.15),
      xaxt="n", #yaxs="i",
      lwd=2,
-     ylab="", #" (cm/nanostrain)", 
-     xlab="", #Dimensionless frequency Q",
+     ylab=expression( Z / H ), 
+     xlab="",
      main="")
 log10_ticks()
 mtext("Open Well Response (HSIEH): Harmonic Strain", font=2, line=1.5)
@@ -237,17 +233,17 @@ mtext("(a) Gain", adj=0)
 par(mar=c(4,4,1.1,2))
 plot(lQ, hPhs*180/pi, type="l", lty=3, #ylim=c(-190, -130), 
 	 xaxt="n",
-     ylab="degrees", xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
+     ylab=expression(Z ~ "rel." ~ H), 
+     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
 abline(h=-180, col="grey")
 lines(lQ, huPhs*180/pi, type="l", lwd=2)
 log10_ticks()
 mtext("(b) Phase", adj=0)
-#text(1.4, -140, "phase crossings", font=3, cex=0.8)
 @
 \caption{The response of an open well to harmonic areal strain using
 the Hsieh model. 
 %Modified from \citet[][Fig.~3]{rojstaczer1988}.
-%Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
+Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 }
 \label{fig:owrsp-hsi}
 \end{center}
@@ -257,10 +253,8 @@ the Hsieh model.
 \citet{liu1989}
 
 <<eval=TRUE, echo=TRUE, label=LIURESP>>= 
-wrsp <- open_well_response(omega, T.=T., S.=S., model = "liu")
+wrsp <- open_well_response(omega, T.=T., S.=S.,  Ta=Ta, Hw=Hw, model = "liu", as.pressure=ZasP)
 crsp <- wrsp[["Response"]][,2]	# complex response
-# invalid above Q ~ 30
-#crsp[Q>=30] <- NA
 #
 # Amplitude
 lGain <- Mod(crsp)
@@ -281,8 +275,8 @@ par(mfrow=c(2,1),
 plot(lQ, lGain, type="l", #ylim=c(0, 1.15),
      xaxt="n", #yaxs="i",
      lwd=2,
-     ylab="", #" (cm/nanostrain)", 
-     xlab="", #Dimensionless frequency Q",
+     ylab=expression( Z / H ),
+     xlab="",
      main="")
 log10_ticks()
 mtext("Open Well Response (LIU): Harmonic Strain", font=2, line=1.5)
@@ -290,17 +284,17 @@ mtext("(a) Gain", adj=0)
 par(mar=c(4,4,1.1,2))
 plot(lQ, lPhs*180/pi, type="l", lty=3, #ylim=c(-190, -130), 
 	 xaxt="n",
-     ylab="degrees", xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
+     ylab=expression(Z ~ "rel." ~ H),
+     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
 abline(h=-180, col="grey")
 lines(lQ, luPhs*180/pi, type="l", lwd=2)
 log10_ticks()
 mtext("(b) Phase", adj=0)
-#text(1.4, -140, "phase crossings", font=3, cex=0.8)
 @
 \caption{The response of an open well to harmonic areal strain using
 the Liu model. 
 %Modified from \citet[][Fig.~3]{rojstaczer1988}.
-%Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
+Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 }
 \label{fig:owrsp-liu}
 \end{center}
@@ -311,11 +305,10 @@ the Liu model.
 \citet{rojstaczer1988, rojstaczer1988b}
 
 <<eval=TRUE, echo=TRUE, label=ROJRESP>>= 
-wrsp <- open_well_response(omega, T.=T., S.=S., z=z, model = "rojstaczer", as.pressure=FALSE)
+wrsp <- open_well_response(omega, T.=T., S.=S., z=z, model = "rojstaczer", as.pressure=asP)
 crsp <- wrsp[["Response"]][,2]		# complex response
 #
 # Amplitude
-As <- 0.05 # cm/nE
 rGain <- Mod(crsp)
 # Phase
 rPhs <- Arg(crsp) # will wrap to -pi/pi
@@ -331,27 +324,27 @@ par(mfrow=c(2,1),
     omi=rep(0.1,4), 
     las=1)
 
-plot(lQ, log10(rGain), type="l", 
+plot(lQ, (rGain), type="l", 
 	 #ylim=c(0, 1.15),
      xaxt="n", 
-     #yaxs="i",
      lwd=2,
-     ylab="", #" (cm/nanostrain)", 
-     xlab="", #Dimensionless frequency Q",
+     ylab=expression( Z / Epsilon ),
+     xlab="", 
      main="")
 log10_ticks()
 mtext("Open Well Response (ROJSTACZER): Harmonic Strain", font=2, line=1.5)
-mtext("(a) Gain relative to static-confined areal strain response", adj=0)
+mtext("(a) Gain", adj=0)
+# relative to static-confined areal strain response", adj=0)
 #mtext(sprintf(" areal strain\nresponse: %.02f cm/ne",As), padj=1, adj=0.1, line=-1, cex=0.7)
 par(mar=c(4,4,1.1,2))
-plot(lQ, rPhs*180/pi, type="l", lty=3, ylim=c(-180, -130), 
+plot(lQ, rPhs*180/pi, type="l", lty=3, ylim=c(130, 180), 
 	 xaxt="n",
-     ylab="degrees", xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
+     ylab=expression(Z ~ "rel." ~ Epsilon), 
+     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
 abline(h=-180, col="grey")
 lines(lQ, ruPhs*180/pi, type="l", lwd=2)
 log10_ticks()
-mtext("(b) Phase of pressure relative to strain", adj=0)
-#text(1.4, -140, "phase crossings", font=3, cex=0.8)
+mtext("(b) Phase", adj=0)
 @
 \caption{The response of an open well to harmonic areal strain using
 the Rojstaczer model. Modified from \citet[][Fig.~3]{rojstaczer1988}.
@@ -374,38 +367,40 @@ par(mfrow=c(2,1),
     las=1)
 
 # kitagawa and rojstaczer
+alim <- range(pretty(log10(c(kGain,rGain))))
 plot(lQ, log10(kGain), col=Set1[1],
-	 type="l", 
-	 ylim=c(-2.5, 0.2),
-     xaxt="n", 
+	 type="l", ylim=alim, 
+	 #ylim=c(-2.5, 0.2),
+     yaxt="n", xaxt="n", 
      lwd=2,
-     ylab="",
+     ylab=expression(log[10] ~ Z / Epsilon),
      xlab="",
      main="")
 lines(lQ, log10(rGain), lwd=2, col=Set1[2])
 legend("bottomright", 
 	c("Kitagawa et al (2011) -- sealed","Rojstaczer et al (1988) -- open"), 
-	lwd=3, col=Set1[1:2])
+	lwd=3, col=Set1[1:2], bty="n")
+log10_ticks(2, major.ticks=-2:2)
 log10_ticks()
 mtext("Harmonic Strain Well Responses", font=2, line=1.5)
 mtext("(a) Gain", adj=0)
 
 par(mar=c(4,4,1.1,2))
-plot(lQ, kPhs*180/pi, lty=3, lwd=1.5, col=Set1[1],
-	type="l", ylim=185*c(-1,1), 
+plot(lQ, kPhs*180/pi -180, lty=3, lwd=1.5, col=Set1[1],
+	type="l", ylim=90*c(0,-1), 
 	yaxt="n",
 	xaxt="n",
-    ylab="degrees", 
+    ylab=expression(Z ~ "rel. -180" ~ Epsilon), 
     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
-lbls <- ats <- seq(-180,180,by=30)
+lbls <- ats <- seq(-90,90,by=15)
 lbls[seq_along(lbls)%%2==0] <- ""
 axis(2, at=ats, labels=lbls)
-lines(lQ, rPhs*180/pi, lty=3, lwd=1.5, col=Set1[2])
+lines(lQ, rPhs*180/pi-180, lty=3, lwd=1.5, col=Set1[2])
 # unwrapped phase
-lines(lQ, kuPhs*180/pi, lwd=2, col=Set1[1])
-lines(lQ, ruPhs*180/pi, lwd=2, col=Set1[2])
+lines(lQ, kuPhs*180/pi-180, lwd=2, col=Set1[1])
+lines(lQ, ruPhs*180/pi-180, lwd=2, col=Set1[2])
 log10_ticks()
-mtext("(b) Phase", adj=0)
+mtext("(b) Anti-Phase", adj=0)
 @
 \caption{A comparison of harmonic strain well responses.}
 \label{fig:ewrsp-all}
@@ -423,42 +418,45 @@ par(mfrow=c(2,1),
     las=1)
 
 # cooper, liu, hsieh
-plot(lQ, log10(hGain/rhog), col=Set1[3],
-	 type="l", 
-     xaxt="n", 
+alim <- range(pretty(log10(c(hGain,cGain,lGain))))
+plot(lQ, log10(hGain), col=Set1[3],
+	 type="l", ylim=alim,
+     xaxt="n", yaxt="n", 
      lwd=2,
-     ylab="",
+     ylab=expression(log[10] ~ Z/H),
      xlab="",
      main="")
-lines(lQ, log10(cGain/rhog), lwd=2, col=Set1[1])
-lines(lQ, log10(lGain/rhog), lwd=2, col=Set1[2])
-legend("bottomright", 
+lines(lQ, log10(cGain), lwd=2, col=Set1[1])
+lines(lQ, log10(lGain), lwd=2, col=Set1[2])
+legend("bottomleft", 
 	c("Cooper et al (1965)","Liu et al (1989)","Hsieh et al (1987)"), 
-	lwd=3, col=Set1[1:3])
+	lwd=3, col=Set1[1:3], bty="n")
+log10_ticks(2, major.ticks=-7:4)
 log10_ticks()
 mtext("Harmonic Pressure-head Well Responses (Open)", font=2, line=1.5)
 mtext("(a) Gain", adj=0)
 
 par(mar=c(4,4,1.1,2))
-plot(lQ, cPhs*180/pi, lty=3, lwd=1.5, col=Set1[1],
-	type="l", ylim=185*c(-1,1), 
+plot(lQ, cuPhs*180/pi, lty=3, lwd=1.5, col=Set1[1],
+	type="l", ylim=185*c(0,-1), 
 	yaxt="n",
 	xaxt="n",
-    ylab="degrees", 
+    ylab=expression(Z ~ "rel." ~ H), 
     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
 lbls <- ats <- seq(-180,180,by=30)
 lbls[seq_along(lbls)%%2==0] <- ""
 axis(2, at=ats, labels=lbls)
-lines(lQ, lPhs*180/pi, lty=3, lwd=1.5, col=Set1[2])
-lines(lQ, hPhs*180/pi, lty=3, lwd=1.5, col=Set1[3])
+lines(lQ, luPhs*180/pi, lty=3, lwd=1.5, col=Set1[2])
+lines(lQ, huPhs*180/pi, lty=3, lwd=1.5, col=Set1[3])
 # unwrapped phase
-lines(lQ, cuPhs*180/pi, lwd=2, col=Set1[1])
-lines(lQ, luPhs*180/pi, lwd=2, col=Set1[2])
-lines(lQ, huPhs*180/pi, lwd=2, col=Set1[3])
+lines(lQ, cPhs*180/pi, lwd=2, col=Set1[1])
+lines(lQ, lPhs*180/pi, lwd=2, col=Set1[2])
+lines(lQ, hPhs*180/pi, lwd=2, col=Set1[3])
 log10_ticks()
 mtext("(b) Phase", adj=0)
 @
-\caption{A comparison of harmonic pressure-head well responses (all open).}
+\caption{A comparison of harmonic pressure-head well responses (all open)
+from \citet{cooper1965, hsieh1987, liu1989}.}
 \label{fig:owrsp-all}
 \end{center}
 \end{figure}

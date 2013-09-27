@@ -120,7 +120,40 @@ Load the necessary packages
 \end{verbatim}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'Rmpfr'\\\#\# \\\#\# The following object is masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  pnorm, print.integrate\\\#\# \\\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  cbind, pmax, pmin, rbind\\\#\# \\\#\# Loaded kelvin (1.2.2) -- Solutions to the Kelvin differential equation.\\\#\# Loaded kitagawa (2.1.0) -- Spectral response of water wells}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'Rmpfr'\\\#\# \\\#\# The following object is masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  pnorm, print.integrate\\\#\# \\\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  cbind, pmax, pmin, rbind\\\#\# \\\#\# Loaded kelvin (1.2.2) -- Solutions to the Kelvin differential equation.\\\#\# Loaded kitagawa (2.1.0) -- Spectral response of water wells}}\begin{alltt}
+\hlstd{opts_knit}\hlopt{$}\hlkwd{set}\hlstd{(}\hlkwc{verbose} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Setup some constants
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{S.} \hlkwb{<-} \hlnum{1e-05}  \hlcom{# Storativity [nondimensional]}
+\hlstd{T.} \hlkwb{<-} \hlnum{1e-04}  \hlcom{# Transmissivity [m**2 / s]}
+\hlstd{D.} \hlkwb{<-} \hlstd{T.}\hlopt{/}\hlstd{S.}  \hlcom{# Diffusivity [m**2 / s]}
+\hlstd{Ta} \hlkwb{<-} \hlnum{50}  \hlcom{# Aquifer thickness [m] #100}
+\hlstd{Hw} \hlkwb{<-} \hlstd{z} \hlkwb{<-} \hlnum{50}  \hlcom{# Depth to water table [m] #10}
+\hlcom{# Using ANO1 stats from Kit Tbl 1}
+\hlstd{Rc.} \hlkwb{<-} \hlnum{0.075}  \hlcom{# Radius of cased portion of well [m]}
+\hlstd{Lc.} \hlkwb{<-} \hlnum{570}  \hlcom{# Length of cased portion of well [m]}
+\hlstd{Rs.} \hlkwb{<-} \hlnum{0.135}  \hlcom{# Radius of screened portion of well [m]}
+\hlstd{Ls.} \hlkwb{<-} \hlnum{15}  \hlcom{# Length of screened portion of well [m]}
+\hlstd{Vw.} \hlkwb{<-} \hlkwd{sensing_volume}\hlstd{(Rc., Lc., Rs., Ls.)}  \hlcom{# volume of fluid [m**3]}
+\hlcom{# parameters assumed by well_response: rho=1000 # density of rock [kg/m**3]}
+\hlcom{# Kf=2.2e9 # Bulk modulus of fluid [Pascals] grav=9.81 # gravitational}
+\hlcom{# acceleration [m/s**2]}
+\hlstd{rhog} \hlkwb{<-} \hlnum{9.81} \hlopt{*} \hlnum{1000}
+\hlcom{# Kitagawa Fig 7: Ku B / Kw Aw = 3 => Aw==4.8 at 40GPa}
+\hlstd{Ku.} \hlkwb{<-} \hlnum{4e+10}  \hlcom{# Bulk modulus [Pascals]}
+\hlstd{B.} \hlkwb{<-} \hlnum{0.5}  \hlcom{# Skemptons ratio [nondimensional]}
+\hlcom{# Frequencies}
+\hlstd{Q} \hlkwb{<-} \hlnum{10}\hlopt{^}\hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{5}\hlstd{,} \hlnum{2}\hlstd{,} \hlkwc{by} \hlstd{=} \hlnum{0.05}\hlstd{)}  \hlcom{# [nondimensional] == z**2 omega / 2 D}
+\hlstd{lQ} \hlkwb{<-} \hlkwd{log10}\hlstd{(Q)}
+\hlstd{omega} \hlkwb{<-} \hlkwd{omega_norm}\hlstd{(Q, z, D.,} \hlkwc{invert} \hlstd{=} \hlnum{TRUE}\hlstd{)}  \hlcom{# [Hz] == Q * 2 * Diffus / z**2}
+\end{alltt}
+\end{kframe}
 \end{knitrout}
 
 
@@ -132,33 +165,12 @@ Load the necessary packages
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# some constants Kitagawa Fig 7 and Tab 1}
-\hlstd{S.} \hlkwb{<-} \hlnum{1e-06}  \hlcom{# Storativity [nondimensional]}
-\hlstd{T.} \hlkwb{<-} \hlnum{1e-06}  \hlcom{# Transmissivity [m**2 / s]}
-\hlstd{D.} \hlkwb{<-} \hlstd{T.}\hlopt{/}\hlstd{S.}  \hlcom{# Diffusivity [m**2 / s]}
-\hlstd{Rs.} \hlkwb{<-} \hlnum{0.135}  \hlcom{# }
-\hlstd{z} \hlkwb{<-} \hlnum{1}
-\hlcom{# Nondimensional frequencies}
-\hlstd{Q} \hlkwb{<-} \hlnum{10}\hlopt{^}\hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{5}\hlstd{,} \hlnum{2}\hlstd{,} \hlkwc{by} \hlstd{=} \hlnum{0.05}\hlstd{)}  \hlcom{# == z**2 omega / 2 D}
-\hlstd{lQ} \hlkwb{<-} \hlkwd{log10}\hlstd{(Q)}
-\hlstd{omega} \hlkwb{<-} \hlkwd{omega_norm}\hlstd{(Q, z, D.,} \hlkwc{invert} \hlstd{=} \hlnum{TRUE}\hlstd{)}  \hlcom{# == Q * 2 * Diffus / z**2}
-\hlcom{# calculate response Fig 7 Ku B / Kw Aw = 3 => Aw==4.8 at 40GPa Using ANO1}
-\hlcom{# stats}
-\hlstd{Rc.} \hlkwb{<-} \hlnum{0.075}  \hlcom{# Radius of cased portion of well, m}
-\hlstd{Lc.} \hlkwb{<-} \hlnum{570}  \hlcom{# Length of cased portion of well, m}
-\hlstd{Rs.} \hlkwb{<-} \hlnum{0.135}  \hlcom{# Radius of screened portion of well, m}
-\hlstd{Ls.} \hlkwb{<-} \hlnum{15}  \hlcom{# Length of screened portion of well, m}
-\hlstd{Vw.} \hlkwb{<-} \hlkwd{sensing_volume}\hlstd{(Rc., Lc., Rs., Ls.)}  \hlcom{# m**3}
-\hlcom{# parameters assumed by well_response: rho=1000, kg/m**3 Kf=2.2e9, Pa}
-\hlcom{# grav=9.81, m/s2}
-\hlstd{rhog} \hlkwb{<-} \hlnum{9.81} \hlopt{*} \hlnum{1000}
-\hlstd{Ku.} \hlkwb{<-} \hlnum{4e+10}  \hlcom{# Bulk modulus}
-\hlstd{B.} \hlkwb{<-} \hlnum{0.5}  \hlcom{# Skemptons coeff}
+\hlstd{asP} \hlkwb{<-} \hlnum{FALSE}
 \hlstd{wrsp} \hlkwb{<-} \hlkwd{well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{Vw.} \hlstd{= Vw.,} \hlkwc{Rs.} \hlstd{= Rs.,} \hlkwc{Ku.} \hlstd{= Ku.,}
-    \hlkwc{B.} \hlstd{= B.,} \hlkwc{Avs} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{Aw} \hlstd{=} \hlnum{1}\hlstd{)}  \hlcom{#4.8)}
+    \hlkwc{B.} \hlstd{= B.,} \hlkwc{Avs} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{Aw} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{as.pressure} \hlstd{= asP)}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}  \hlcom{# complex response}
 \hlcom{# Amplitude}
-\hlstd{kGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)} \hlopt{*} \hlstd{rhog}\hlopt{/}\hlstd{Ku.}\hlopt{/}\hlstd{B.}
+\hlstd{kGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}\hlopt{/}\hlstd{Ku.}\hlopt{/}\hlstd{B.}
 \hlcom{# Phase}
 \hlstd{kPhs} \hlkwb{<-} \hlkwd{Arg}\hlstd{(crsp)}  \hlcom{# will wrap to -pi/pi}
 \hlstd{kuPhs} \hlkwb{<-} \hlstd{signal::}\hlkwd{unwrap}\hlstd{(kPhs,} \hlkwc{tol} \hlstd{= pi}\hlopt{/}\hlnum{30}\hlstd{)}
@@ -192,13 +204,11 @@ the Kitagawa model.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{model} \hlstd{=} \hlstr{"cooper"}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: water column height 'Hw' not given. using default\\\#\# Warning: aquifer thickness 'Ta' not given. using default\\\#\# Warning: this model has not yet been verified.}}\begin{alltt}
+\hlstd{ZasP} \hlkwb{<-} \hlnum{FALSE}
+\hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{Ta} \hlstd{= Ta,} \hlkwc{Hw} \hlstd{= Hw,} \hlkwc{model} \hlstd{=} \hlstr{"cooper"}\hlstd{,}
+    \hlkwc{as.pressure} \hlstd{= ZasP)}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}  \hlcom{# complex response}
-\hlcom{# invalid above Q ~ 30 crsp[Q>=30] <- NA Amplitude}
+\hlcom{# Amplitude}
 \hlstd{cGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
 \hlcom{# Phase}
 \hlstd{cPhs} \hlkwb{<-} \hlkwd{Arg}\hlstd{(crsp)}  \hlcom{# will wrap to -pi/pi}
@@ -219,7 +229,7 @@ the Kitagawa model.
 \caption{The response of an open well to harmonic areal strain using
 the Cooper model. 
 %Modified from \citet[][Fig.~3]{rojstaczer1988}.
-%Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
+Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 }
 \label{fig:owrsp-coop}
 \end{center}
@@ -231,13 +241,10 @@ the Cooper model.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{model} \hlstd{=} \hlstr{"hsieh"}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: water column height 'Hw' not given. using default\\\#\# Warning: aquifer thickness 'Ta' not given. using default\\\#\# Warning: this model has not yet been verified.}}\begin{alltt}
+\hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{Ta} \hlstd{= Ta,} \hlkwc{Hw} \hlstd{= Hw,} \hlkwc{model} \hlstd{=} \hlstr{"hsieh"}\hlstd{,}
+    \hlkwc{as.pressure} \hlstd{= ZasP)}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}  \hlcom{# complex response}
-\hlcom{# invalid above Q ~ 30 crsp[Q>=30] <- NA Amplitude}
+\hlcom{# Amplitude}
 \hlstd{hGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
 \hlcom{# Phase}
 \hlstd{hPhs} \hlkwb{<-} \hlkwd{Arg}\hlstd{(crsp)}  \hlcom{# will wrap to -pi/pi}
@@ -258,7 +265,7 @@ the Cooper model.
 \caption{The response of an open well to harmonic areal strain using
 the Hsieh model. 
 %Modified from \citet[][Fig.~3]{rojstaczer1988}.
-%Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
+Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 }
 \label{fig:owrsp-hsi}
 \end{center}
@@ -270,13 +277,10 @@ the Hsieh model.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{model} \hlstd{=} \hlstr{"liu"}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: water column height 'Hw' not given. using default\\\#\# Warning: aquifer thickness 'Ta' not given. using default\\\#\# Warning: this model has not yet been verified.}}\begin{alltt}
+\hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{Ta} \hlstd{= Ta,} \hlkwc{Hw} \hlstd{= Hw,} \hlkwc{model} \hlstd{=} \hlstr{"liu"}\hlstd{,}
+    \hlkwc{as.pressure} \hlstd{= ZasP)}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}  \hlcom{# complex response}
-\hlcom{# invalid above Q ~ 30 crsp[Q>=30] <- NA Amplitude}
+\hlcom{# Amplitude}
 \hlstd{lGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
 \hlcom{# Phase}
 \hlstd{lPhs} \hlkwb{<-} \hlkwd{Arg}\hlstd{(crsp)}  \hlcom{# will wrap to -pi/pi}
@@ -297,7 +301,7 @@ the Hsieh model.
 \caption{The response of an open well to harmonic areal strain using
 the Liu model. 
 %Modified from \citet[][Fig.~3]{rojstaczer1988}.
-%Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
+Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 }
 \label{fig:owrsp-liu}
 \end{center}
@@ -311,10 +315,9 @@ the Liu model.
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{z} \hlstd{= z,} \hlkwc{model} \hlstd{=} \hlstr{"rojstaczer"}\hlstd{,}
-    \hlkwc{as.pressure} \hlstd{=} \hlnum{FALSE}\hlstd{)}
+    \hlkwc{as.pressure} \hlstd{= asP)}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}  \hlcom{# complex response}
 \hlcom{# Amplitude}
-\hlstd{As} \hlkwb{<-} \hlnum{0.05}  \hlcom{# cm/nE}
 \hlstd{rGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
 \hlcom{# Phase}
 \hlstd{rPhs} \hlkwb{<-} \hlkwd{Arg}\hlstd{(crsp)}  \hlcom{# will wrap to -pi/pi}
@@ -365,7 +368,8 @@ $D$.}
 
 \end{knitrout}
 
-\caption{A comparison of harmonic pressure-head well responses (all open).}
+\caption{A comparison of harmonic pressure-head well responses (all open)
+from \citet{cooper1965, hsieh1987, liu1989}.}
 \label{fig:owrsp-all}
 \end{center}
 \end{figure}

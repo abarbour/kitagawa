@@ -18,7 +18,7 @@
 #' @family PlotUtilities
 kitplot <- function(object, ...) UseMethod("kitplot")
 #' @rdname wrsp-methods
-#' @alias kitplot.wrsp
+#' @aliases kitplot.wrsp
 #' @method kitplot wrsp
 #' @S3method kitplot wrsp
 kitplot.wrsp <- function(object, ...){

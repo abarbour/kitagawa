@@ -1,7 +1,7 @@
 \name{logticks}
+\alias{log_ticks}
 \alias{log10_ticks}
 \alias{log2_ticks}
-\alias{log_ticks}
 \alias{logticks}
 \title{Add proper logarithm ticks to a plot axis.}
 \usage{

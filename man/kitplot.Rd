@@ -26,8 +26,8 @@
   \code{\link{well_response}} and
   \code{\link{wrsp-methods}}
 
-  Other PlotUtilities: \code{\link{log10_ticks}},
-  \code{\link{log2_ticks}}, \code{\link{log_ticks}},
+  Other PlotUtilities: \code{\link{log_ticks}},
+  \code{\link{log10_ticks}}, \code{\link{log2_ticks}},
   \code{\link{logticks}}
 }
 

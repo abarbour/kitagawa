@@ -58,7 +58,7 @@
 NULL
 
 #' @rdname wrsp-methods
-#' @alias as.data.frame.wrsp
+#' @aliases as.data.frame.wrsp
 #' @method as.data.frame wrsp
 #' @S3method as.data.frame wrsp
 as.data.frame.wrsp <- function(x, ...){
@@ -68,7 +68,7 @@ as.data.frame.wrsp <- function(x, ...){
   return(df)
 }
 #' @rdname wrsp-methods
-#' @alias data.frame.wrsp
+#' @aliases data.frame.wrsp
 #' @method data.frame wrsp
 #' @S3method data.frame wrsp
 data.frame.wrsp <- as.data.frame.wrsp
@@ -251,7 +251,7 @@ plot.wrsp <- function(x,
 NULL
 
 #' @rdname owrsp-methods
-#' @alias as.data.frame.owrsp
+#' @aliases as.data.frame.owrsp
 #' @method as.data.frame owrsp
 #' @S3method as.data.frame owrsp
 as.data.frame.owrsp <- function(x, ...){
@@ -261,7 +261,7 @@ as.data.frame.owrsp <- function(x, ...){
   return(df)
 }
 #' @rdname owrsp-methods
-#' @alias data.frame.owrsp
+#' @aliases data.frame.owrsp
 #' @method data.frame owrsp
 #' @S3method data.frame owrsp
 data.frame.owrsp <- as.data.frame.owrsp

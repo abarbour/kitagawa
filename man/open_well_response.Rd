@@ -43,15 +43,19 @@
   \item{freq.units}{character; setup the units of
   \code{omega}}
 
-  \item{model}{character; use the response model from}
+  \item{model}{character; use the response model from
+  either Rojstaczer (1988), Liu et al (1989), Cooper et al
+  (1965), or Hsieh et al (1987).}
 
-  \item{as.pressure}{logical; should the units of water
-  height be returned as pressure?  either Rojstaczer
-  (1988), Liu et al (1989), or Cooper et al (1965)}
+  \item{as.pressure}{logical; should the response be
+  relative to aquifer pressure? (default is aquifer head)}
+}
+\value{
+  An object with class 'owrsp'
 }
 \description{
-  This is the primary function for an open (exposed to air)
-  well.
+  This is the primary function to calculate the response
+  for an open (exposed to air) well.
 }
 \details{
   As opposed to \code{\link{well_response}}, this
@@ -65,33 +69,47 @@
   parameters, unless the function is used in an
   optimization scheme.
 
-  If \code{as.pressure=TRUE}, then the responses are scaled
-  by \code{rho*grav} so they represent hydrostatic
-  pressure; if either \code{rho} or \code{grav} are not
-  specified, they are taken from \code{\link{constants}}.
+  The responses returned here are, effectively, the
+  amplification of water levels in a well, relative to the
+  pressure head in the aquifer; or \deqn{Z = \frac{z}{h}
+  \equiv \frac{\rho g z}{p}} If \code{as.pressure=TRUE},
+  then the responses are scaled by \code{rho*grav} so that
+  they represent water levels relative to aquifer pressure:
+  \deqn{Z = \frac{z}{p}}
 
-  Not all parameters need to be given, but should be.
-  \emph{The parameters which do not end in \code{.} do not
-  need to be specified (they may be excluded); if missing
-  then warnings will be thrown.}
+  Not all parameters need to be given, but should be. For
+  example, if either \code{rho} or \code{grav} are not
+  specified, they are taken from \code{\link{constants}}.
+  \emph{Parameters which do not end in \code{.} do not need
+  to be specified (they may be excluded); if they are
+  missing, warnings will be thrown.}
 }
 \section{Models}{
-  Rojstaczer (1988) is based on measurements of water level
-  and strain from volumetric or areal strainmeters.
+  \subsection{\code{"rojstaczer"}}{ Rojstaczer (1988) is
+  based on measurements of water level and strain from
+  volumetric or areal strainmeters. }
+  \subsection{\code{"cooper"}, \code{"hsieh"}, and
+  \code{"liu"}}{ Cooper et al (1965), Hsieh et al (1987)
+  and Liu et al (1989) are based on measurements of water
+  level and displacements from seismometers; these models
+  are expressed succinctly in Roeloffs (1996).
 
-  Cooper et al (1965) and Liu et al (1989) are based on
-  measurements of water level and displacements from
-  seismometers; these models are expressed succinctly in
-  Roeloffs (1996).
+  The sense of the phase shift for the Liu and Rojstaczer
+  models are reversed from their original presentation, in
+  order to account for differences in sign convention. }
 }
 \examples{
 OWR <- open_well_response(1:10,1,1)
+plot(OWR)
+OWR <- open_well_response(1/(1:200),1,1,Ta=100,Hw=10,model="liu",freq.units="Hz")
+plot(OWR)
 }
 \author{
   A. J. Barbour <andy.barbour@gmail.com>
 }
 \seealso{
-  \code{\link{well_response}}, and
+  \code{\link{owrsp-methods}} for a description of the
+  class 'owrsp' and its methods, and
   \code{\link{kitagawa-package}} for references and more
   background.
 

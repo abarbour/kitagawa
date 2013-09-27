@@ -1,9 +1,7 @@
 #' Spectral response for a sealed well
 #'
-#' This is the primary function for a sealed well.
-#' It calculates the theoretical, complex
-#' well response, namely \strong{Equation 17} in Kitagawa et al (2011).
-#' The results, however, are expressed as amplitude and phase.
+#' This is the primary function to calculate the response
+#' for a sealed well.
 #' 
 #' @details
 #' The response depends strongly on the physical properties
@@ -18,13 +16,22 @@
 #' \code{Aw}   \tab 1 \tab \tab amplification factor for water well\cr
 #' }
 #' 
-#' \emph{Note that Skempton's coefficient, \code{B.}, is bounded inclusively
-#' within \eqn{[0,1]}; an error is thrown if it's not.
-#' }
+#' The responses returned here are,
+#' effectively, the amplification of water levels in a well, relative to 
+#' the aquifer strain; or
+#' \deqn{Z = \frac{z}{\epsilon} \equiv \frac{p}{\rho g \epsilon}}
+#' If \code{as.pressure=TRUE}, then the responses are scaled by
+#' \code{rho*grav} so that they represent water pressure relative to
+#' aquifer strain:
+#' \deqn{Z = \frac{p}{\epsilon}}
 #' 
-#' Not all parameters need to be given, as some properties can be assumed 
-#' (say, for water).  \emph{The parameters which do not end in \code{.} do
-#' not need to be specified (they may be excluded).}
+#' Not all parameters need to be given, but should be.  
+#' For example, if
+#' either \code{rho} or \code{grav} are not specified, they
+#' are taken from \code{\link{constants}}.
+#' \emph{Parameters which do not end in \code{.} do
+#' not need to be specified (they may be excluded); if
+#' they are missing, warnings will be thrown.}
 #'
 #' @name well_response
 #' @export
@@ -42,22 +49,16 @@
 #' @param Kf    bulk modulus of fluid,  \eqn{[Pa]}
 #' @param grav  local gravitational acceleration \eqn{[m/s^2]}
 #' @param freq.units  set the units of \code{omega}
+#' @param as.pressure logical; should the response for water pressure? (default is water heights)
 #'
 #' @return An object with class 'wrsp'
 #' 
 #' @author A. J. Barbour <andy.barbour@@gmail.com>
 #'
 #' @seealso 
-#' \code{\link{wrsp-methods}} for a description of the class 'wrsp' and its methods
-#' 
-#' \code{\link{sensing_volume}} to estimate the volume \code{Vw.}
-#' 
-#' \code{\link{kitplot}} to plot the results.
-#'
-#' \code{\link{open_well_response}} for modeling an open well.
-#' 
-#' \code{\link{constants}} for assumed constants.
-#' 
+#' \code{\link{wrsp-methods}} for a description of the class 'wrsp' and its methods,
+#' \code{\link{sensing_volume}} to easily estimate the volume \code{Vw.}, and
+#' \code{\link{kitagawa-package}} for references and more background.
 #' @family WellResponseFunctions
 #' 
 #' @examples
@@ -79,27 +80,22 @@
 #' Frqs <- 10**seq.int(from=-4,to=0,by=0.1) # log10-space
 #' head(Rsp <- well_response(omega=Frqs, T.=1e-6, S.=1e-5, 
 #' Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
-#' #
-#' #kitplot(Rsp)
+#' 
+#' # Use plot.wrsp:
+#' plot(Rsp) # or kitplot(Rsp)
 #'
 well_response <- function(omega, T., S., Vw., Rs., Ku., B., 
-           Avs,
-           Aw,
-           rho, 
-           Kf,
-           grav,
-           freq.units=c("rad_per_sec","Hz")) UseMethod("well_response")
+                          Avs, Aw, rho, Kf, grav,
+                          freq.units=c("rad_per_sec","Hz"),
+                          as.pressure=TRUE) UseMethod("well_response")
 
 #' @rdname well_response
 #' @method well_response default
 #' @S3method well_response default
-well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
-           Avs,
-           Aw,
-           rho, 
-           Kf,
-           grav,
-           freq.units=c("rad_per_sec","Hz")){
+well_response.default <- function(omega, T., S., Vw., Rs., Ku., B., 
+                                  Avs, Aw, rho, Kf, grav,
+                                  freq.units=c("rad_per_sec","Hz"),
+                                  as.pressure=TRUE){
     # Enforce units of omega to be radians/sec
     freq.units <- match.arg(freq.units)
     fc <- switch(freq.units, rad_per_sec=1, Hz=2*pi)
@@ -130,44 +126,36 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
     #   A1, and A2 (functions of Phi and Psi, calculated internally)
     Amat <- alpha_constants(Alpha., c.type="A")
     stopifnot(ncol(Amat)==7)
-    rm(Alpha.)  # cleanup
     #  A1,2 are in Mod(A.[,6:7]) 
     A12 <- matrix(Mod(Amat[,6:7]),ncol=2)  # is complex, but imag is zero, so == abs
     stopifnot(ncol(A12)==2)
-    rm(Amat)    # cleanup
     A1 <- A12[,1]
     A2 <- A12[,2]
-    rm(A12)     # cleanup
     #
     TVFRG <- 2 * pi * T. / omega / Vw. / rhog
     #
     #check Skemptons coefficient: it should be bound to [0,1]
     .in0to1(B.)
     #
-    # calculate amp and phase of response
+    XX. <- Ku. * B. / Aw * TVFRG - A2
+    rNum. <- XX. * XX. + A1 * A1
     #
-    tmpd. <- Ku. * B. / Aw * TVFRG - A2
-    rNum. <- tmpd. * tmpd. + A1 * A1
-    #
-    tmpd. <- Kf * TVFRG  -  A2
-    rDen. <- tmpd. * tmpd. + A1 * A1
-    rm(tmpd.)
+    YY. <- Kf * TVFRG  -  A2
+    rDen. <- YY. * YY. + A1 * A1
     ##
     ## complex response EQ 17
     cNum <- complex(real=(Ku. * B. / Aw * TVFRG - A2), imaginary=A1)
     cDen <- complex(real=(Kf * TVFRG  -  A2), imaginary=A1)
-    cResp <- -1 * Kf * Aw / Avs / rhog  *  cNum / cDen
-    ##
-    ## amplitude, Kitagawa equation 20
-    ##
-    ##Amp. <- Kf * Aw / Avs / rhog  *  sqrt(rNum. / rDen.)
-    ##
-    ## phase, Kitagawa equation 21
-    ##
-    ##Y. <- (Kf - Ku. * B. / Aw) * TVFRG * A1
-    ##X. <- (Ku. * B. / Aw * TVFRG - A2) * (Kf * TVFRG - A2) + A1 * A1
-    ##Phs. <- atan2(-1*Y.,-1*X.)
     #
+    # z / epsilon == p / epsilon * rho * g
+    # but is there a mistake?
+    # / rhog
+    wellresp <- -1 * Kf * Aw / Avs  *  cNum / cDen 
+    ##
+    # optionally scale to p/epsilon
+    rhog <- ifelse(as.pressure, rhog, 1)
+    wellresp <- wellresp * rhog
+    ##
     omega <- omega/fc
     toret <- list(Aquifer=list(Transmiss=T., Storativ=S., Diffusiv=T./S.),
                   Well=list(Volume=Vw., ScreenRad=Rs.),
@@ -176,7 +164,7 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
                   Amplification=list(Ekk=Avs, Well=Aw),
                   Omega=list(Units=freq.units),
                   Gravity=grav,
-                  Response=cbind(omega=omega, wellresp=cResp)
+                  Response=cbind(omega=omega, wellresp=wellresp)
     )
     class(toret) <- "wrsp"
     return(toret)

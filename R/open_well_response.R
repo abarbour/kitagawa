@@ -1,6 +1,7 @@
 #' Spectral response for an open well
 #'
-#' This is the primary function for an open (exposed to air) well.
+#' This is the primary function to calculate the response
+#' for an open (exposed to air) well.
 #' 
 #' @details
 #' As opposed to \code{\link{well_response}}, this
@@ -13,25 +14,38 @@
 #' should be invested in the choice of
 #' parameters, unless the function is used in an optimization scheme.
 #' 
+#' The responses returned here are,
+#' effectively, the amplification of water levels in a well, relative to 
+#' the pressure head in the aquifer; or
+#' \deqn{Z = \frac{z}{h} \equiv \frac{\rho g z}{p}}
 #' If \code{as.pressure=TRUE}, then the responses are scaled by
-#' \code{rho*grav} so they represent hydrostatic pressure; if
-#' either \code{rho} or \code{grav} are not specified, they
-#' are taken from \code{\link{constants}}.
+#' \code{rho*grav} so that they represent water levels relative to
+#' aquifer pressure:
+#' \deqn{Z = \frac{z}{p}}
 #' 
 #' Not all parameters need to be given, but should be.  
-#' \emph{The parameters which do not end in \code{.} do
-#' not need to be specified (they may be excluded); if missing
-#' then warnings will be thrown.}
+#' For example, if
+#' either \code{rho} or \code{grav} are not specified, they
+#' are taken from \code{\link{constants}}.
+#' \emph{Parameters which do not end in \code{.} do
+#' not need to be specified (they may be excluded); if
+#' they are missing, warnings will be thrown.}
 #' 
 #' @section Models:
-#' 
+#' \subsection{\code{"rojstaczer"}}{
 #' Rojstaczer (1988) is based on measurements of water level
 #' and strain from volumetric or areal strainmeters.
-#' 
-#' Cooper et al (1965) and Liu et al (1989) are based
+#' }
+#' \subsection{\code{"cooper"}, \code{"hsieh"}, and \code{"liu"}}{
+#' Cooper et al (1965), Hsieh et al (1987) and Liu et al (1989) are based
 #' on measurements of water level and 
-#' displacements from seismometers; these
+#' displacements from seismometers; these 
 #' models are expressed succinctly in Roeloffs (1996).
+#' 
+#' The sense of the phase shift 
+#' for the Liu and Rojstaczer models are reversed from their original presentation, 
+#' in order to account for differences in sign convention.
+#' }
 #'
 #' @name open_well_response
 #' @export
@@ -46,26 +60,27 @@
 #' @param Hw numeric; height of water column above confined surface (assumed if missing and if needed)
 #' @param Ta numeric; thickness of aquifer (assumed if missing and if needed)
 #' @param freq.units character; setup the units of \code{omega}
-#' @param model  character; use the response model from 
-#' @param as.pressure logical; should the units of water height be returned as pressure?
-#'    either
+#' @param model  character; use the response model from either
 #'    Rojstaczer (1988),
-#'    Liu et al (1989), or 
-#'    Cooper et al (1965)
-#'
-# @return Matrix with three columns: frequency, amplitude, and phase 
-# [\eqn{\omega}), \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}]
-# where the units of \eqn{\omega} are as they were input,
-# \eqn{A_\alpha (\omega)} in meters per strain, 
-# and \eqn{\Phi_\alpha (\omega)} in radians.
+#'    Liu et al (1989),
+#'    Cooper et al (1965), or
+#'    Hsieh et al (1987).
+#' @param as.pressure logical; should the response be relative to aquifer pressure? (default is aquifer head)
+#' 
+#' @return An object with class 'owrsp'
 #' 
 #' @author A. J. Barbour <andy.barbour@@gmail.com>
-#' 
-#' @seealso \code{\link{well_response}}, and
+#'
+#' @seealso 
+#' \code{\link{owrsp-methods}} for a description of the class 'owrsp' and its methods, and
 #' \code{\link{kitagawa-package}} for references and more background.
 #' @family WellResponseFunctions
+#' 
 #' @examples
 #' OWR <- open_well_response(1:10,1,1)
+#' plot(OWR)
+#' OWR <- open_well_response(1/(1:200),1,1,Ta=100,Hw=10,model="liu",freq.units="Hz")
+#' plot(OWR)
 open_well_response <- function(omega, T., S.,
                                Rs.=(8/12)*(1200/3937),
                                rho, grav, z, Hw, Ta,
@@ -96,8 +111,7 @@ open_well_response.default <- function(omega, T., S.,
   if (missing(grav)){
     grav <- const$gravity
   }
-  # scale by rhog for pressure over strain, relative to static response
-  rhog <- ifelse(as.pressure, rho*grav, 1)
+  rhog <- rho*grav
   #
   # Diffusiv time in unified framework
   Dtau. <- omega_constants(omega, c.type="diffusivity_time", S.=S., T.=T.)
@@ -111,9 +125,10 @@ open_well_response.default <- function(omega, T., S.,
   #     sqrt(Qp) == z * sqrt(omega / 2 / D) == z * Dtau
   #
   if (model=="rojstaczer"){
+    #
     # Rojstaczer 1988
     # Eq A3 - A4
-    # z is the xxx
+    #
     if (missing(z)){
       z <- 1
       warning("Depth from the water table 'z' not given. using default")
@@ -121,14 +136,23 @@ open_well_response.default <- function(omega, T., S.,
     sQp <- z * Dtau.
     exptau <- exp(-sQp)
     #
-    A. <- rhog*(exptau*cos(sQp) - 1)
-    B. <- -1*rhog*exptau*sin(sQp)
-    #
+    A. <- (exptau*cos(sQp) - 1)
+    B. <- -1*exptau*sin(sQp)
+    # Gain = [P / pg As epsilon] == [z / As epsilon]
     wellresp <- complex(real=A., imaginary=B.)
+    # scale by rhog for pressure over strain, relative to static response
+    rhog <- ifelse(as.pressure, rhog, 1)
+    wellresp <- wellresp * rhog
+    # fix a -1 sign convention in Rojstaczer (relative to Kitagawa)
+    amp <- Mod(wellresp)
+    phs <- -1*Arg(wellresp)
+    wellresp <- complex(modulus=amp, argument=phs)
     #
   } else if (model %in% c("liu","cooper","hsieh")){
     # 
-    # TODO: rhog scaling
+    # in units of pressure over pressure, so
+    # !as.pressure -> rhog
+    rhog <- ifelse(as.pressure, rhog, 1)
     # 
     # Calc various constants needed
     #
@@ -151,59 +175,61 @@ open_well_response.default <- function(omega, T., S.,
       Ta <- 1
       warning("aquifer thickness 'Ta' not given. using default")
     }
-    .NotYetTested <- function() warning("this model has not yet been verified.")
+    #.NotYetTested <- function() warning("this model has not yet been verified.")
     #
     if (model=="liu"){
-      .NotYetTested()
       #
       # from Liu et al (1989), expressed in Roeloffs 1996 eq 22
       #
+      # Eq A13
       U. <- (Ta/T.)*Kel0.
-      #4: In complex(imaginary = 2 * omega/(Rs.^2 * grav * U.)) :
-      #  imaginary parts discarded in coercion
-      gamma <- sqrt(2*omega/(Rs.**2 * grav * U.))
+      # Eq A16 (Beta)
+      onei <- complex(real=0,imaginary=1)
+      gamma <- sqrt(2*onei*omega/(Rs.**2 * grav * U.))
       expgam <- exp(-1*gamma*Ta)
       exp2gam <- exp(-2*gamma*Ta)
-      A. <- -1*omegsq/grav * (Hw + (1-expgam)/(1+expgam)/gamma)
-      #B. <- complex(imaginary=)
-      B. <- omega*U.*Rs.**2 * gamma*expgam/(1-exp2gam)
-      #wellresp <- 1 / (A. - B. + 1)
-      wellresp <- (A. - B. + 1)
+      A. <- -1 * omegsq / grav * (Hw + (1 - expgam)/(1 + expgam)/gamma)
+      B. <- -1 * onei * omega * U. * Rs.**2 * gamma * expgam / (1 - exp2gam)
+      # Eq A20 -- x / h
+      wellresp <- 1 / (A. + B. + 1)
+      # optionally scale to p / h
+      wellresp <- wellresp * rhog
+      # fix a -1 sign convention in Liu (relative to Hsieh/Cooper)
+      amp <- Mod(wellresp)
+      phs <- -1*Arg(wellresp)
+      wellresp <- complex(modulus=amp, argument=phs)
       #
     } else if (model=="hsieh"){
-      .NotYetTested()
       #
-      # from Hsieh et al (1987), Eq X
+      # from Hsieh et al (1987), Eq 12-16
       #
       # R = rc**2 * omega / 2 T
       R. <- Rs.**2 * (Dtau.**2 / S.)
       U1. <- Psi. * ker.  +  Phi. * kei.
-      U2. <- Phi. * ker.  +  Psi. * kei.
+      U2. <- Phi. * ker.  -  Psi. * kei.
       A. <- 1  -  R. * U1.
-      B. <- -1 * R. * U2.
-      wellresp <- complex(real=A., imaginary=B.)
+      B. <-       R. * U2.
+      # Eq 12 -- x / h
+      wellresp <- 1 / complex(real=A., imaginary=B.)
+      # optionally scale to p / h
+      wellresp <- wellresp * rhog
       #
     } else if (model=="cooper"){
-      .NotYetTested()
       #
-      # from Cooper et al (1965) eq 28, expressed in Roeloffs 1996 eq 20
+      # from Cooper et al (1965) eq 28, also 
+      # expressed in Roeloffs 1996 eq 20 or Liu eq 3
       #
       # the effective height of the water column in the well
       He. <- Hw + 3*Ta/8 
       cT. <- omega * Rs.**2 / 2 / T.
-      A. <- 1 - cT. * kei. + omegsq * He. / grav
+      A. <- 1  -  cT. * kei.  -  omegsq * He. / grav
       B. <- cT. * ker.
       # the amplification of water level in the well relative to 
       # pressure head in the aquifer
-      #wellresp <- sqrt(A.**2 + B.**2)  # |w/h| or Mod(w/h)
-      wellresp <- complex(real=A., imaginary=B.)
-      # eq 10
-      # h/e_kk
-      # h/e_areal ?
-      # wellresp <- wellresp * -2 * mu * B. * (1+nu_u) /(rho. * grav * 3 * (1-2 * nu_u)) # | w/h * h/e_kk|
-      #
-      ##omega_peak <- sqrt(grav/He.) # eq 21
-      #
+      # Eq 28 -- A == x / h == rho * g x / p
+      wellresp <- 1 / complex(real=A., imaginary=B.)
+      # optionally scale to p / h
+      wellresp <- wellresp * rhog
     }
   }
   #
