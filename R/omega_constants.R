@@ -3,19 +3,19 @@
 #' @description This function accesses the appropriate method to calculate the
 #' \eqn{\omega}-dependent constant associated with the choice of \code{c.type}.
 #' 
-#' @details
-#' 
 #' \emph{This function is not likely to be needed by the user.}
 #' 
+#' @details
+#' \subsection{What is \code{"omega"}?}{
 #' The name is in reference to
 #'  radial frequency \eqn{\omega}, which is defined as
 #' \deqn{\omega \equiv 2 \pi / \tau}
 #' where \eqn{\tau} is the period of oscillation.
-#' 
-#'  @section \code{"alpha"}
+#' }
+#' \subsection{What is the \code{"alpha"} calculation?}{
 #'  
 #'  The parameter \eqn{\alpha} is defined as
-#'  \deqn{\alpha \equiv r_w\sqrt{\omega S / T}}
+#'  \deqn{\alpha \equiv r_w \sqrt{\omega S / T}}
 #'  where \eqn{r_w} is the radius of the well,
 #'  where \eqn{S} is the storativity, and \eqn{T} is
 #'  transmissivity.  See the parameter \code{...} for details
@@ -26,31 +26,34 @@
 #' Because the computation of \eqn{\alpha} depends also on physical
 #' properties, additional parameters can be
 #' passed through (e.g. the transmissivity).  
+#' }
+#' \subsection{What is the \code{"diffusivity_time"} calculation?}{
+#' This is a similar calculation to \code{\link{omega_norm}}. It uses
+#' the effective hydraulic diffusivity \eqn{D}, which is defined in
+#' this case as the ratio of transmissivity to storativity:
+#' \deqn{D \equiv \frac{T}{S}}
+#' }
 #' 
-#' @section \code{"diffusivity_time"}:
+#' @section Warnings Issued:
 #' 
-#' @section Warnings:
-#' 
-#' \strong{In the case \code{c.type='alpha'}(the default), the 
-#' parameters \code{S.}, \code{T.},  and \code{Rs.} must
+#' In the case \code{c.type='alpha'}, the 
+#' parameters \code{S.}, \code{T.},  and \code{Rs.} should
 #' be passed; otherwise, values are assumed to ensure the 
-#' calculation does not fail, and the results are essentially meaningless.}
+#' calculation does not fail, and the results are essentially meaningless.
+#' 
 #' Warnings will be issued if any necessary parameters are missing, indicating
-#' default values 
-#' \code{S.=T.=Rs.=1} were used; these are physically
-#' unrealistic.
+#' default values were used.
 #'
 #' @name omega_constants
 #' @export
 #' 
 #' @param omega   frequency,  \eqn{[rad/sec]}
 #' @param c.type  the constant to calculate 
-#' @param ...     additional params passed to calculator.  For 
-#'   \code{ctype=="alpha"}, use 
-#'   \code{S., T., Rs.}, 
-#' and for 
-#'   \code{ctype=="diffusivity_time"}, use
-#'   \code{XXX}.
+#' @param ...     additional params passed to calculator.  In the case of 
+#'   \code{ctype="alpha"}, set 
+#'   \code{S., T., Rs.}; and, in the case of
+#'   \code{ctype="diffusivity_time"}, set
+#'   \code{D.} or \code{S., T.}.
 #'
 #' @return Values of the constant repesented by \code{c.type} for the given
 #' parameters
@@ -75,7 +78,6 @@
 omega_constants <-
 function(omega=0, c.type=c("alpha","diffusivity_time"), ...) UseMethod("omega_constants")
 
-# @return \code{NULL}
 #' @rdname omega_constants
 #' @method omega_constants default
 #' @S3method omega_constants default

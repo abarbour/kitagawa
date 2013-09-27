@@ -10,20 +10,22 @@
 \title{News for package 'kitagawa'}
 \encoding{UTF-8}
 
-\section{CHANGES IN kitagawa VERSION 2.1-0 (2013-09-25)}{
+\section{CHANGES IN kitagawa VERSION 2.1-0 (2013-09-26)}{
   \itemize{
+    \item New capability to model open well response: \code{open_well_response}
+    \item \code{well_response} now returns complex frequency response only, rather than
+    returnin amplitude and phase as separate vectors.
+    \item Substantial documentation improvements.
     \item Response functions now add attributes and class to output: 'wrsp' and 'owrsp'
     for sealed and open well response, respectively.
-    \item New methods for class 'wrsp', including \code{plot.wrsp}
+    \item New methods for 'wrsp' and 'owrsp', including \code{plot.wrsp}, for example.
     \item \code{kitplot} now uses \code{plot.wrsp}
-    \item Changes variable names in \code{well_response} and made defaults in case some
+    \item Changed variable names in \code{well_response} and added defaults in case some
     are missing.
-    \item Added a vignette highlighting models.
-    \item New capability to model open well response: \code{open_well_response}
+    \item Added a vignette highlighting model differences.
     \item New utility function \code{.in0to1} to test for existence between zero to one;
     this is useful to check if a parameter is valid (e.g. Skemptons ratio).
     \item New utility \code{constants} to access stored physical constants.
-    \item Substantial documentation improvements.
   }
 }
 \section{CHANGES IN kitagawa VERSION 1.1-1 (2013-03-12)}{

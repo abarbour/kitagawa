@@ -1,18 +1,21 @@
 \name{is.wrsp}
+\alias{is.owrsp}
 \alias{is.wrsp}
 \title{Reports whether an object has S3 class 'wrsp',
 or 'owrsp', as
-would one returned by, for example,
+would be returned by, for example,
 \code{\link{well_response}}.}
 \usage{
   is.wrsp(Obj)
+
+  is.owrsp(Obj)
 }
 \arguments{
   \item{Obj}{the object to test}
 }
 \description{
   Reports whether an object has S3 class 'wrsp', or
-  'owrsp', as would one returned by, for example,
+  'owrsp', as would be returned by, for example,
   \code{\link{well_response}}.
 }
 \author{

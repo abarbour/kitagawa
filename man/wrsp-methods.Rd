@@ -15,27 +15,31 @@
 \usage{
   \method{kitplot}{wrsp} (object, ...)
 
-  \method{as.data.frame}{wrsp} (object, ...)
+  \method{as.data.frame}{wrsp} (x, ...)
 
-  \method{data.frame}{wrsp} (object, ...)
+  \method{data.frame}{wrsp} (x, ...)
 
-  \method{print}{wrsp} (object, ...)
+  \method{print}{wrsp} (x, n = 3, ...)
 
   \method{summary}{wrsp} (object, ...)
 
-  \method{print}{summary.wrsp} (object, ...)
+  \method{print}{summary.wrsp} (x, ...)
 
-  \method{lines}{wrsp} (object, series = c("amp", "phs"),
-    ...)
+  \method{lines}{wrsp} (x, series = c("amp", "phs"), ...)
 
-  \method{points}{wrsp} (object, series = c("amp", "phs"),
+  \method{points}{wrsp} (x, series = c("amp", "phs"),
     pch = "+", ...)
 
-  \method{plot}{wrsp} (object, xlims = c(-3, 1),
+  \method{plot}{wrsp} (x, xlims = c(-3, 1),
     ylims = list(amp = NULL, phs = 185 * c(-1, 1)), ...)
 }
 \arguments{
-  \item{object}{wrsp object}
+  \item{x}{'wrsp' object}
+
+  \item{object}{'wrsp' object}
+
+  \item{n}{numeric; the number of \code{head} and
+  \code{tail} to print}
 
   \item{series}{character; the series to plot (amplitude or
   phase)}
@@ -53,15 +57,15 @@
 \description{
   An object with class 'wrsp' is a list containing the
   response information, and the mechanical, hydraulic, and
-  material properties used to generate the response.
+  material properties used to generate the response for a
+  sealed well.
 }
 \details{
-  The response information is a matrix with three columns:
-  frequency, amplitude, and phase [\eqn{\omega},
-  \eqn{A_\alpha (\omega)}, \eqn{\Phi_\alpha (\omega)}]
+  The response information is a matrix with frequency,
+  complex response [\eqn{\omega}, \eqn{Z_\alpha (\omega)}]
   where the units of \eqn{\omega} will be as they were
-  input, \eqn{A_\alpha (\omega)} is in meters per strain,
-  and \eqn{\Phi_\alpha (\omega)} is in radians.
+  input. The amplitude of \eqn{Z} is in meters per strain,
+  and the phase is in radians.
 }
 \examples{
 W <- well_response(1:10, T.=1, S.=1, Vw.=1, Rs.=1, Ku.=1, B.=1)
@@ -77,8 +81,8 @@ points(W)
 points(W, "phs")
 #
 Wdf <- as.data.frame(W)
-plot(Amp. ~ omega, Wdf)
-plot(Phs. ~ omega, Wdf)
+plot(Mod(wellresp) ~ omega, Wdf) # amplitude
+plot(Arg(wellresp) ~ omega, Wdf) # phase
 #
 # or use the builtin method
 plot(W)

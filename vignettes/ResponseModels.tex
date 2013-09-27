@@ -154,13 +154,13 @@ Load the necessary packages
 \hlstd{rhog} \hlkwb{<-} \hlnum{9.81} \hlopt{*} \hlnum{1000}
 \hlstd{Ku.} \hlkwb{<-} \hlnum{4e+10}  \hlcom{# Bulk modulus}
 \hlstd{B.} \hlkwb{<-} \hlnum{0.5}  \hlcom{# Skemptons coeff}
-\hlstd{WR} \hlkwb{<-} \hlkwd{well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{Vw.} \hlstd{= Vw.,} \hlkwc{Rs.} \hlstd{= Rs.,} \hlkwc{Ku.} \hlstd{= Ku.,}
+\hlstd{wrsp} \hlkwb{<-} \hlkwd{well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{Vw.} \hlstd{= Vw.,} \hlkwc{Rs.} \hlstd{= Rs.,} \hlkwc{Ku.} \hlstd{= Ku.,}
     \hlkwc{B.} \hlstd{= B.,} \hlkwc{Avs} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{Aw} \hlstd{=} \hlnum{1}\hlstd{)}  \hlcom{#4.8)}
-\hlstd{rsp} \hlkwb{<-} \hlstd{WR[[}\hlstr{"Response"}\hlstd{]]}
+\hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}  \hlcom{# complex response}
 \hlcom{# Amplitude}
-\hlstd{kGain} \hlkwb{<-} \hlstd{rsp[,} \hlnum{2}\hlstd{]} \hlopt{*} \hlstd{rhog}\hlopt{/}\hlstd{Ku.}\hlopt{/}\hlstd{B.}
+\hlstd{kGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)} \hlopt{*} \hlstd{rhog}\hlopt{/}\hlstd{Ku.}\hlopt{/}\hlstd{B.}
 \hlcom{# Phase}
-\hlstd{kPhs} \hlkwb{<-} \hlstd{rsp[,} \hlnum{3}\hlstd{]}  \hlcom{# will wrap to -pi/pi}
+\hlstd{kPhs} \hlkwb{<-} \hlkwd{Arg}\hlstd{(crsp)}  \hlcom{# will wrap to -pi/pi}
 \hlstd{kuPhs} \hlkwb{<-} \hlstd{signal::}\hlkwd{unwrap}\hlstd{(kPhs,} \hlkwc{tol} \hlstd{= pi}\hlopt{/}\hlnum{30}\hlstd{)}
 \end{alltt}
 \end{kframe}

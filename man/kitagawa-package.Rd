@@ -23,8 +23,8 @@
   aquifer-parameters, and frequencies at which to calculate
   the response functions. It accesses the
   constants-calculation routines where necessary; hence,
-  the user need not worry about those functions (i.e.
-  \code{\link{alpha_constants},\link{omega_constants}}).
+  the user need not worry about those functions (e.g.,
+  \code{\link{alpha_constants}}).
 
   There are also two helper functions included: \describe{
   \item{\code{\link{sensing_volume}}}{ to compute the

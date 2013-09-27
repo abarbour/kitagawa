@@ -84,6 +84,9 @@
   seismometers; these models are expressed succinctly in
   Roeloffs (1996).
 }
+\examples{
+OWR <- open_well_response(1:10,1,1)
+}
 \author{
   A. J. Barbour <andy.barbour@gmail.com>
 }

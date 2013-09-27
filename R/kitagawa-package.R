@@ -18,7 +18,7 @@
 #' at which to calculate the response functions.
 #' It accesses the constants-calculation routines 
 #' where necessary; hence, the user need not worry about those functions
-#' (i.e. \code{\link{alpha_constants},\link{omega_constants}}).
+#' (e.g., \code{\link{alpha_constants}}).
 #' 
 #' There are also two helper functions included: 
 #' \describe{

@@ -2,7 +2,7 @@ Package: kitagawa
 Type: Package
 Title: Spectral response of water wells to harmonic strains
 Version: 2.1-0
-Date: 2013-09-25
+Date: 2013-09-26
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response
@@ -32,5 +32,5 @@ Collate:
     'omega_constants.R'
     'alpha_constants.R'
     'utilities.R'
-    'zzz.R'
     'methods.R'
+    'zzz.R'

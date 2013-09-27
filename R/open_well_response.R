@@ -64,7 +64,8 @@
 #' @seealso \code{\link{well_response}}, and
 #' \code{\link{kitagawa-package}} for references and more background.
 #' @family WellResponseFunctions
-#'
+#' @examples
+#' OWR <- open_well_response(1:10,1,1)
 open_well_response <- function(omega, T., S.,
                                Rs.=(8/12)*(1200/3937),
                                rho, grav, z, Hw, Ta,
@@ -205,9 +206,17 @@ open_well_response.default <- function(omega, T., S.,
       #
     }
   }
+  #
   omega <- omega/fc
   toret <- list(
+    Aquifer=list(Transmiss=T., Storativ=S., Diffusiv=T./S., Thickness=ifelse(missing(Ta), 1, Ta)),
+    Well=list(ScreenRad=Rs., Z=ifelse(missing(z), 1, z), Zw=ifelse(missing(Hw), 1, Hw)),
+    Fluid=list(Density=rho),
+    Omega=list(Units=freq.units),
+    Gravity=grav,
+    Model=list(Model=model, Pressure=as.pressure),
     Response=cbind(omega, wellresp)
   )
+  class(toret) <- "owrsp"
   return(toret)
 }

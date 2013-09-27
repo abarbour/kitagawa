@@ -80,7 +80,7 @@
 #' head(Rsp <- well_response(omega=Frqs, T.=1e-6, S.=1e-5, 
 #' Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
 #' #
-#' kitplot(Rsp)
+#' #kitplot(Rsp)
 #'
 well_response <- function(omega, T., S., Vw., Rs., Ku., B., 
            Avs,
@@ -154,26 +154,20 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
     rm(tmpd.)
     ##
     ## complex response EQ 17
-    ## cNum <- complex(real=(Ku. * B. / Aw * TVFRG - A2), imaginary=A1)
-    ## cDen <- complex(real=(Kf * TVFRG  -  A2), imaginary=A1)
-    ## cResp <- -1 * Kf * Aw / Avs / rhog * cNum / cDen
-    ## amplitude
-    ## Amp. <- Mod(cResp)
-    ## Phs. <- Arg(cResp)
+    cNum <- complex(real=(Ku. * B. / Aw * TVFRG - A2), imaginary=A1)
+    cDen <- complex(real=(Kf * TVFRG  -  A2), imaginary=A1)
+    cResp <- -1 * Kf * Aw / Avs / rhog  *  cNum / cDen
     ##
     ## amplitude, Kitagawa equation 20
     ##
-    Amp. <- Kf * Aw / Avs / rhog * sqrt(rNum. / rDen.)
+    ##Amp. <- Kf * Aw / Avs / rhog  *  sqrt(rNum. / rDen.)
     ##
     ## phase, Kitagawa equation 21
     ##
-    Y. <- (Kf - Ku. * B. / Aw) * TVFRG * A1
-    X. <- (Ku. * B. / Aw * TVFRG - A2) * (Kf * TVFRG - A2) + A1 * A1
-    Phs. <- atan2(-1*Y.,-1*X.)
+    ##Y. <- (Kf - Ku. * B. / Aw) * TVFRG * A1
+    ##X. <- (Ku. * B. / Aw * TVFRG - A2) * (Kf * TVFRG - A2) + A1 * A1
+    ##Phs. <- atan2(-1*Y.,-1*X.)
     #
-    # TODO: Return complex only
-    #
-    # return results
     omega <- omega/fc
     toret <- list(Aquifer=list(Transmiss=T., Storativ=S., Diffusiv=T./S.),
                   Well=list(Volume=Vw., ScreenRad=Rs.),
@@ -182,7 +176,8 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
                   Amplification=list(Ekk=Avs, Well=Aw),
                   Omega=list(Units=freq.units),
                   Gravity=grav,
-                  Response=cbind(omega=omega, Amp.=Amp., Phs.=Phs.))
+                  Response=cbind(omega=omega, wellresp=cResp)
+    )
     class(toret) <- "wrsp"
     return(toret)
 }

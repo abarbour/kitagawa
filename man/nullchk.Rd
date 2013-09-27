@@ -29,7 +29,7 @@
 }
 \seealso{
   Other utilities: \code{\link{.in0to1}},
-  \code{\link{is.wrsp}}, \code{\link{omega_norm}},
-  \code{\link{sensing_volume}}
+  \code{\link{is.owrsp}}, \code{\link{is.wrsp}},
+  \code{\link{omega_norm}}, \code{\link{sensing_volume}}
 }
 

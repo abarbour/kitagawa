@@ -92,7 +92,7 @@ Frqs <- 10**seq.int(from=-4,to=0,by=0.1) # log10-space
 head(Rsp <- well_response(omega=Frqs, T.=1e-6, S.=1e-5,
 Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
 #
-kitplot(Rsp)
+#kitplot(Rsp)
 }
 \author{
   A. J. Barbour <andy.barbour@gmail.com>

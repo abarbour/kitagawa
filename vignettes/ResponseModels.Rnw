@@ -97,13 +97,13 @@ Vw. <- sensing_volume(Rc., Lc., Rs., Ls.) # m**3
 rhog <- 9.81*1000
 Ku. <- 40e9	# Bulk modulus
 B. <- 0.5	# Skemptons coeff
-WR <- well_response(omega, T.=T., S.=S., Vw.=Vw., Rs.=Rs.,	Ku.=Ku., B.=B., Avs=1, Aw=1) #4.8)
-rsp <- WR[["Response"]]
+wrsp <- well_response(omega, T.=T., S.=S., Vw.=Vw., Rs.=Rs.,	Ku.=Ku., B.=B., Avs=1, Aw=1) #4.8)
+crsp <- wrsp[["Response"]][,2]	# complex response
 #
 # Amplitude
-kGain <- rsp[,2]*rhog/Ku./B.
+kGain <- Mod(crsp)*rhog/Ku./B.
 # Phase
-kPhs <- rsp[,3] # will wrap to -pi/pi
+kPhs <- Arg(crsp) # will wrap to -pi/pi
 kuPhs <- signal::unwrap(kPhs, tol=pi/30)
 @
 

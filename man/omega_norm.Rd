@@ -35,7 +35,7 @@
   \code{\link{kitagawa-package}}
 
   Other utilities: \code{\link{.in0to1}},
-  \code{\link{.nullchk}}, \code{\link{is.wrsp}},
-  \code{\link{sensing_volume}}
+  \code{\link{.nullchk}}, \code{\link{is.owrsp}},
+  \code{\link{is.wrsp}}, \code{\link{sensing_volume}}
 }
 

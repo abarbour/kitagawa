@@ -1,5 +1,6 @@
 #' Calculate any constants depending on effective stress coefficient \eqn{\alpha}
 #' 
+#' @description
 #' This function accesses the appropriate method to calculate the
 #' \eqn{\alpha}-dependent constant associated with the choice of \code{c.type}.  
 #' There are currently four such constants, which correspond to
@@ -7,19 +8,23 @@
 #' 
 #' \emph{This function is not likely to be needed by the user.}
 #' 
+#' @details
+#' \subsection{What is \code{"alpha"}?}{
 #' The constant \eqn{\alpha} is a function of frequency \eqn{\omega} as well 
 #' as aquifer and well parameters; it is formally defined as
 #' \deqn{\alpha \equiv R_S \sqrt{\omega S / T}}
 #' where \eqn{S} is the storativity, \eqn{T} is the aquifer's effective
 #' transmissivity, and \eqn{R_S} is the radius of the screened portion
 #' of the well.
-#' 
-#' The various constants which may be calculated are
+#' }
+#' \subsection{What is calculated?}{
+#' The various constants which may be calculated with this function are
 #' \describe{
 #'   \item{\code{Phi}}{Given as \eqn{\Phi} in Eqn. 10}
 #'   \item{\code{Psi}}{Given as \eqn{\Psi} in Eqn. 11}
 #'   \item{\code{A}}{Given as \eqn{A_i, i=1,2} in Eqns. 18, 19}
-#'   \item{\code{Kel}}{\eqn{\mathcal{K}}, the complex Kelvin functions (see Abramowitz and Stegun, 1972)}
+#'   \item{\code{Kel}}{The complex Kelvin functions (see Abramowitz and Stegun, 1972)}
+#' }
 #' }
 #'
 #' @name alpha_constants

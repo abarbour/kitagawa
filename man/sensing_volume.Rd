@@ -64,7 +64,7 @@ sensing_volume(Rc, Lc, Rs, Ls) # m**3, ~= 1.8
   \code{\link{well_response}}
 
   Other utilities: \code{\link{.in0to1}},
-  \code{\link{.nullchk}}, \code{\link{is.wrsp}},
-  \code{\link{omega_norm}}
+  \code{\link{.nullchk}}, \code{\link{is.owrsp}},
+  \code{\link{is.wrsp}}, \code{\link{omega_norm}}
 }
 
