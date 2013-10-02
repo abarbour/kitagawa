@@ -1,7 +1,8 @@
 \docType{methods}
-\name{kitplot.wrsp}
+\name{wrsp-methods}
 \alias{as.data.frame.wrsp}
 \alias{data.frame.wrsp}
+\alias{kitplot}
 \alias{kitplot.wrsp}
 \alias{lines.wrsp}
 \alias{plot.wrsp}
@@ -13,8 +14,6 @@
 \alias{wrsp-methods}
 \title{Generic methods for objects with class \code{'wrsp'}.}
 \usage{
-  \method{kitplot}{wrsp} (object, ...)
-
   \method{as.data.frame}{wrsp} (x, ...)
 
   \method{data.frame}{wrsp} (x, ...)
@@ -31,7 +30,12 @@
     pch = "+", ...)
 
   \method{plot}{wrsp} (x, xlims = c(-3, 1),
-    ylims = list(amp = NULL, phs = 185 * c(-1, 1)), ...)
+    ylims = list(amp = NULL, phs = 185 * c(-1, 1)),
+    logamp = TRUE, ...)
+
+  kitplot(object, ...)
+
+  \method{kitplot}{wrsp} (object, ...)
 }
 \arguments{
   \item{x}{'wrsp' object}
@@ -52,6 +56,9 @@
   \item{ylims}{optional list of limits for y-axis (i.e.,
   \code{list(amp=c(..),phs=c(...))})}
 
+  \item{logamp}{logical; should the amplitude be in log10
+  units}
+
   \item{...}{optional arguments}
 }
 \description{
@@ -66,6 +73,11 @@
   where the units of \eqn{\omega} will be as they were
   input. The amplitude of \eqn{Z} is in meters per strain,
   and the phase is in radians.
+
+  \code{\link{kitplot}} uses \code{\link{plot.wrsp}} and
+  can be used to plot the response within limits in some of
+  the figures in Kitagawa et al (2011); it is designed to
+  be a diagnostic tool, and is thus not very flexible.
 }
 \examples{
 W <- well_response(1:10, T.=1, S.=1, Vw.=1, Rs.=1, Ku.=1, B.=1)
@@ -84,8 +96,12 @@ Wdf <- as.data.frame(W)
 plot(Mod(wellresp) ~ omega, Wdf) # amplitude
 plot(Arg(wellresp) ~ omega, Wdf) # phase
 #
-# or use the builtin method
+# or use the builtin method plot.wrsp
 plot(W)
+# change limits:
+plot(W, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)))
+# or use kitplot:
+kitplot(W)
 }
 \author{
   A. J. Barbour <andy.barbour@gmail.com>
@@ -94,5 +110,9 @@ plot(W)
   \code{\link{well_response}}
 
   \code{\link{kitagawa-package}}
+
+  Other PlotUtilities: \code{\link{log10_ticks}},
+  \code{\link{log2_ticks}}, \code{\link{log_ticks}},
+  \code{\link{logticks}}
 }
 

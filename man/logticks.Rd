@@ -1,7 +1,7 @@
 \name{logticks}
-\alias{log_ticks}
 \alias{log10_ticks}
 \alias{log2_ticks}
+\alias{log_ticks}
 \alias{logticks}
 \title{Add proper logarithm ticks to a plot axis.}
 \usage{
@@ -65,6 +65,12 @@ logticks()
   \url{http://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}
 }
 \seealso{
-  Other PlotUtilities: \code{\link{kitplot}}
+  Other PlotUtilities: \code{\link{as.data.frame.wrsp}},
+  \code{\link{data.frame.wrsp}}, \code{\link{kitplot}},
+  \code{\link{kitplot.wrsp}}, \code{\link{lines.wrsp}},
+  \code{\link{plot.wrsp}}, \code{\link{points.wrsp}},
+  \code{\link{print.summary.wrsp}},
+  \code{\link{print.wrsp}}, \code{\link{summary.wrsp}},
+  \code{\link{wrsp-methods}}
 }
 

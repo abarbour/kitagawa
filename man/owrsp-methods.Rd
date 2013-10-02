@@ -28,7 +28,8 @@
     pch = "+", ...)
 
   \method{plot}{owrsp} (x, xlims = c(-3, 1),
-    ylims = list(amp = NULL, phs = 185 * c(-1, 1)), ...)
+    ylims = list(amp = NULL, phs = 185 * c(-1, 1)),
+    logamp = TRUE, ...)
 }
 \arguments{
   \item{x}{'owrsp' object}
@@ -49,6 +50,9 @@
   \item{ylims}{optional list of limits for y-axis (i.e.,
   \code{list(amp=c(..),phs=c(...))})}
 
+  \item{logamp}{logical; should the amplitude be in log10
+  units}
+
   \item{...}{optional arguments}
 }
 \description{
@@ -63,6 +67,30 @@
   where the units of \eqn{\omega} will be as they were
   input. The amplitude of \eqn{Z} is in meters per strain,
   and the phase is in radians.
+}
+\examples{
+S. <- 1e-5  	# Storativity [nondimensional]
+T. <- 1e-4		# Transmissivity [m**2 / s]
+frq <- 1/(1:200)
+# Defaults to the Rojstaczer formulation
+W <- open_well_response(frq, T. = T., S. = S., Rs. = 0.12, freq.units="Hz")
+# (warning message about missing 'z')
+W <- open_well_response(frq, T. = T., S. = S., Rs. = 0.12, freq.units="Hz", z=1)
+str(W)
+print(W)
+print(summary(W))
+plot(rnorm(10), xlim=c(-1,11), ylim=c(-2,2))
+lines(W)
+lines(W, "phs", col="red")
+points(W)
+points(W, "phs")
+#
+Wdf <- as.data.frame(W)
+plot(Mod(wellresp) ~ omega, Wdf) # amplitude
+plot(Arg(wellresp) ~ omega, Wdf) # phase
+plot(W)
+# change limits:
+plot(W, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)))
 }
 \author{
   A. J. Barbour <andy.barbour@gmail.com>

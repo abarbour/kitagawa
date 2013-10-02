@@ -1,30 +1,3 @@
-#' Quickly plot the amplitude and phase spectra of sealed-well response
-#' 
-#' Reproduce plots of frequency response spectra, 
-#' as in Kitagawa et al (2011, Figs 7--9).
-#' 
-#' \emph{This is primarily a diagnostic tool, and is thus not very flexible in its 
-#' implementation.}
-#'
-#' @name kitplot
-#' @export
-#' 
-#' @param object the object to plot, with class 'wrsp', for example
-#' @param ... additional parameters send to the plot method; \code{\link{plot.wrsp}}, for example
-#'  
-#' @author A. J. Barbour <andy.barbour@@gmail.com>
-#'
-#' @seealso \code{\link{well_response}} and \code{\link{wrsp-methods}}
-#' @family PlotUtilities
-kitplot <- function(object, ...) UseMethod("kitplot")
-#' @rdname wrsp-methods
-#' @aliases kitplot.wrsp
-#' @method kitplot wrsp
-#' @S3method kitplot wrsp
-kitplot.wrsp <- function(object, ...){
-  plot(object, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)), ...)
-}
-
 
 #' Quickly check for \code{NULL} and \code{NA}
 #' 

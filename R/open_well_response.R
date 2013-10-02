@@ -126,6 +126,8 @@ open_well_response.default <- function(omega, T., S.,
   #
   if (model=="rojstaczer"){
     #
+    Zunits <- ifelse(as.pressure, "P/E", "Z/E")
+    #
     # Rojstaczer 1988
     # Eq A3 - A4
     #
@@ -140,19 +142,14 @@ open_well_response.default <- function(omega, T., S.,
     B. <- -1*exptau*sin(sQp)
     # Gain = [P / pg As epsilon] == [z / As epsilon]
     wellresp <- complex(real=A., imaginary=B.)
-    # scale by rhog for pressure over strain, relative to static response
-    rhog <- ifelse(as.pressure, rhog, 1)
-    wellresp <- wellresp * rhog
     # fix a -1 sign convention in Rojstaczer (relative to Kitagawa)
     amp <- Mod(wellresp)
     phs <- -1*Arg(wellresp)
     wellresp <- complex(modulus=amp, argument=phs)
     #
   } else if (model %in% c("liu","cooper","hsieh")){
-    # 
-    # in units of pressure over pressure, so
-    # !as.pressure -> rhog
-    rhog <- ifelse(as.pressure, rhog, 1)
+    #    
+    Zunits <- ifelse(as.pressure, "Z/P", "Z/H")
     # 
     # Calc various constants needed
     #
@@ -175,7 +172,6 @@ open_well_response.default <- function(omega, T., S.,
       Ta <- 1
       warning("aquifer thickness 'Ta' not given. using default")
     }
-    #.NotYetTested <- function() warning("this model has not yet been verified.")
     #
     if (model=="liu"){
       #
@@ -192,8 +188,6 @@ open_well_response.default <- function(omega, T., S.,
       B. <- -1 * onei * omega * U. * Rs.**2 * gamma * expgam / (1 - exp2gam)
       # Eq A20 -- x / h
       wellresp <- 1 / (A. + B. + 1)
-      # optionally scale to p / h
-      wellresp <- wellresp * rhog
       # fix a -1 sign convention in Liu (relative to Hsieh/Cooper)
       amp <- Mod(wellresp)
       phs <- -1*Arg(wellresp)
@@ -211,8 +205,6 @@ open_well_response.default <- function(omega, T., S.,
       B. <-       R. * U2.
       # Eq 12 -- x / h
       wellresp <- 1 / complex(real=A., imaginary=B.)
-      # optionally scale to p / h
-      wellresp <- wellresp * rhog
       #
     } else if (model=="cooper"){
       #
@@ -228,10 +220,12 @@ open_well_response.default <- function(omega, T., S.,
       # pressure head in the aquifer
       # Eq 28 -- A == x / h == rho * g x / p
       wellresp <- 1 / complex(real=A., imaginary=B.)
-      # optionally scale to p / h
-      wellresp <- wellresp * rhog
     }
   }
+  #
+  # optionally scale to Z/P from Z/H, or p/E from Z/E
+  rhog <- ifelse(as.pressure, 1/rhog, 1)
+  wellresp <- wellresp * rhog
   #
   omega <- omega/fc
   toret <- list(
@@ -241,7 +235,8 @@ open_well_response.default <- function(omega, T., S.,
     Omega=list(Units=freq.units),
     Gravity=grav,
     Model=list(Model=model, Pressure=as.pressure),
-    Response=cbind(omega, wellresp)
+    Response=cbind(omega, wellresp),
+    Response.units=Zunits
   )
   class(toret) <- "owrsp"
   return(toret)

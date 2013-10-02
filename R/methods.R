@@ -34,6 +34,7 @@
 #' @param pch point character, as in \code{\link{par}}
 #' @param xlims limits for x-axis (applies to both amp and phs frames)
 #' @param ylims optional list of limits for y-axis (i.e., \code{list(amp=c(..),phs=c(...))})
+#' @param logamp logical; should the amplitude be in log10 units
 #' @param ... optional arguments
 #' 
 #' @examples
@@ -53,8 +54,12 @@
 #' plot(Mod(wellresp) ~ omega, Wdf) # amplitude
 #' plot(Arg(wellresp) ~ omega, Wdf) # phase
 #' #
-#' # or use the builtin method
+#' # or use the builtin method plot.wrsp
 #' plot(W)
+#' # change limits:
+#' plot(W, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)))
+#' # or use kitplot:
+#' kitplot(W)
 NULL
 
 #' @rdname wrsp-methods
@@ -142,20 +147,27 @@ points.wrsp <- function(x, series=c("amp","phs"), pch="+", ...){
 #' @S3method plot wrsp
 plot.wrsp <- function(x, 
                       xlims=c(-3,1), 
-                      ylims=list(amp=NULL, phs=185*c(-1,1)), ...){
+                      ylims=list(amp=NULL, phs=185*c(-1,1)), logamp=TRUE, ...){
   #
   stopifnot(is.wrsp(x))
   WR <- x[["Response"]]
+  au <- x[["Response.units"]]
   fu <- x[["Omega"]][["Units"]]
+  mdl <- x[["Model"]][["Model"]]
+  # enforce freq units in Hz
   fc <- switch(fu, rad_per_sec=2*pi, Hz=1)
   stopifnot(!is.null(fc))
   frq <- log10(WR[,1] / fc)
-  amp <- log10(Mod(WR[,2]))
+  amp <- Mod(WR[,2])
+  if (logamp){
+    amp <- log10(amp)
+    au <- paste("log10",au)
+  }
   phs <- Arg(WR[,2])*180/pi
   ##
   origpar <- par(no.readonly = TRUE)
-  par(mar=c(2,4,0,1), 
-      oma=c(2,0.1,2,0.1), 
+  par(mar=c(2,4,1,1), 
+      oma=c(2,0.1,1,0.1), 
       tcl=-0.3,
       mgp=c(2.5, 0.5, 0), las=1)
   layout(matrix(c(1,2), ncol=1), heights=c(0.5,0.5))
@@ -164,14 +176,14 @@ plot.wrsp <- function(x,
   if (is.null(alims)) alims <- range(pretty(amp))
   plot(0,0,col=NA,
        ylim=alims,
-       yaxs="i", ylab="[log10 meters/strain]", 
+       yaxs="i", ylab=sprintf("[%s]",au),
        xlim=xlims,
        xaxs="i", xaxt="n", xlab=""
   )
   lines(frq, amp, type="l", lwd=1.5, ...)
   log10_ticks()
-  mtext("Sealed well-response", font=2)
-  mtext("(a) Amplitude", adj=0.015, font=4, line=-1.2)
+  mtext(sprintf("Sealed well-response (%s)",mdl), font=2, line=1.0, cex=1.0)
+  mtext("(a) Amplitude", adj=0.015, font=4, line=0.1, cex=0.8)
   # phase shift
   plot(0,0,col=NA,
        ylim=ylims[["phs"]],
@@ -185,10 +197,26 @@ plot.wrsp <- function(x,
   lbls[seq_along(lbls)%%2==0] <- ""
   axis(2, at=ats, labels=lbls)
   log10_ticks()
-  mtext("(b) Phase rel. strain", adj=0.015, font=4, line=-1.2)
+  mtext("(b) Phase", adj=0.015, font=4, line=0.1, cex=0.8)
   mtext("Frequency [Hz]", side=1, line=2)
   on.exit(par(origpar))
   return(invisible(NULL))
+}
+
+#' @details \code{\link{kitplot}} uses \code{\link{plot.wrsp}} and
+#' can be used to plot the response within limits
+#' in some of the figures in Kitagawa et al (2011); it is designed to
+#' be a diagnostic tool, and is thus not very flexible.
+#' @rdname wrsp-methods
+#' @export
+#' @family PlotUtilities
+kitplot <- function(object, ...) UseMethod("kitplot")
+#' @rdname wrsp-methods
+#' @aliases kitplot.wrsp
+#' @method kitplot wrsp
+#' @S3method kitplot wrsp
+kitplot.wrsp <- function(object, ...){
+  plot(object, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)), ...)
 }
 
 #' @title Generic methods for objects with class \code{'owrsp'}.
@@ -227,27 +255,36 @@ plot.wrsp <- function(x,
 #' @param pch point character, as in \code{\link{par}}
 #' @param xlims limits for x-axis (applies to both amp and phs frames)
 #' @param ylims optional list of limits for y-axis (i.e., \code{list(amp=c(..),phs=c(...))})
+#' @param logamp logical; should the amplitude be in log10 units
 #' @param ... optional arguments
 #' 
-# @examples
-# W <- open_well_response(1:10, T.=1, S.=1, Vw.=1, Rs.=1, Ku.=1, B.=1)
-# str(W)
-# print(W)
-# print(summary(W))
+#' @examples
+#' S. <- 1e-5  	# Storativity [nondimensional]
+#' T. <- 1e-4		# Transmissivity [m**2 / s]
+#' frq <- 1/(1:200)
+#' # Defaults to the Rojstaczer formulation
+#' W <- open_well_response(frq, T. = T., S. = S., Rs. = 0.12, freq.units="Hz")
+#' # (warning message about missing 'z')
+#' W <- open_well_response(frq, T. = T., S. = S., Rs. = 0.12, freq.units="Hz", z=1)
+#' str(W)
+#' print(W)
+#' print(summary(W))
 # #
 # # Plot the response
-# plot(rnorm(10), xlim=c(-1,11), ylim=c(-2,2))
-# lines(W)
-# lines(W, "phs", col="red")
-# points(W)
-# points(W, "phs")
-# #
-# Wdf <- as.data.frame(W)
-# plot(Mod(wellresp) ~ omega, Wdf) # amplitude
-# plot(Arg(wellresp) ~ omega, Wdf) # phase
+#' plot(rnorm(10), xlim=c(-1,11), ylim=c(-2,2))
+#' lines(W)
+#' lines(W, "phs", col="red")
+#' points(W)
+#' points(W, "phs")
+#' #
+#' Wdf <- as.data.frame(W)
+#' plot(Mod(wellresp) ~ omega, Wdf) # amplitude
+#' plot(Arg(wellresp) ~ omega, Wdf) # phase
 # #
 # # or use the builtin method
-# plot(W)
+#' plot(W)
+#' # change limits:
+#' plot(W, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)))
 NULL
 
 #' @rdname owrsp-methods
@@ -335,20 +372,27 @@ points.owrsp <- function(x, series=c("amp","phs"), pch="+", ...){
 #' @S3method plot owrsp
 plot.owrsp <- function(x, 
                       xlims=c(-3,1), 
-                      ylims=list(amp=NULL, phs=185*c(-1,1)), ...){
+                      ylims=list(amp=NULL, phs=185*c(-1,1)), logamp=TRUE, ...){
   #
   stopifnot(is.owrsp(x))
   WR <- x[["Response"]]
+  au <- x[["Response.units"]]
   fu <- x[["Omega"]][["Units"]]
+  mdl <- x[["Model"]][["Model"]]
+  # enforce freq units in Hz
   fc <- switch(fu, rad_per_sec=2*pi, Hz=1)
   stopifnot(!is.null(fc))
   frq <- log10(WR[,1] / fc)
-  amp <- log10(Mod(WR[,2]))
+  amp <- Mod(WR[,2])
+  if (logamp){
+    amp <- log10(amp)
+    au <- paste("log10",au)
+  }
   phs <- Arg(WR[,2])*180/pi
   ##
   origpar <- par(no.readonly = TRUE)
-  par(mar=c(2,4,0,1), 
-      oma=c(2,0.1,2,0.1), 
+  par(mar=c(2,4,1,1), 
+      oma=c(2,0.1,1,0.1), 
       tcl=-0.3,
       mgp=c(2.5, 0.5, 0), las=1)
   layout(matrix(c(1,2), ncol=1), heights=c(0.5,0.5))
@@ -357,14 +401,14 @@ plot.owrsp <- function(x,
   if (is.null(alims)) alims <- range(pretty(amp))
   plot(0,0,col=NA,
        ylim=alims,
-       yaxs="i", ylab="[log10 XXX/XXX]", 
+       yaxs="i", ylab=sprintf("[%s]",au), 
        xlim=xlims,
        xaxs="i", xaxt="n", xlab=""
   )
   lines(frq, amp, type="l", lwd=1.5, ...)
   log10_ticks()
-  mtext("Open well-response", font=2)
-  mtext("(a) Amplitude", adj=0.015, font=4, line=-1.2)
+  mtext(sprintf("Open well-response (%s)",mdl), font=2, line=1.0, cex=1.0)
+  mtext("(a) Amplitude", adj=0.015, font=4, line=0.1, cex=0.8)
   # phase shift
   plot(0,0,col=NA,
        ylim=ylims[["phs"]],
@@ -378,7 +422,7 @@ plot.owrsp <- function(x,
   lbls[seq_along(lbls)%%2==0] <- ""
   axis(2, at=ats, labels=lbls)
   log10_ticks()
-  mtext("(b) Phase rel. strain", adj=0.015, font=4, line=-1.2)
+  mtext("(b) Phase", adj=0.015, font=4, line=0.1, cex=0.8)
   mtext("Frequency [Hz]", side=1, line=2)
   on.exit(par(origpar))
   return(invisible(NULL))

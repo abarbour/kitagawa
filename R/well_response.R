@@ -154,6 +154,7 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
     ##
     # optionally scale to p/epsilon
     rhog <- ifelse(as.pressure, rhog, 1)
+    Zunits <- ifelse(as.pressure, "P/E", "Z/E")
     wellresp <- wellresp * rhog
     ##
     omega <- omega/fc
@@ -164,7 +165,9 @@ well_response.default <- function(omega, T., S., Vw., Rs., Ku., B.,
                   Amplification=list(Ekk=Avs, Well=Aw),
                   Omega=list(Units=freq.units),
                   Gravity=grav,
-                  Response=cbind(omega=omega, wellresp=wellresp)
+                  Model=list(Model="kitagwawa", Pressure=as.pressure),
+                  Response=cbind(omega=omega, wellresp=wellresp),
+                  Response.units=Zunits
     )
     class(toret) <- "wrsp"
     return(toret)
