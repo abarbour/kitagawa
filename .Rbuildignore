@@ -1,12 +1,14 @@
+README.md
+WISHLIST
 BUGS
 NOBUILD
+TODO
 rsrc
 tests
 .RData
 .git
 .git/*
 .gitignore
-TODO
 ^\.Rproj\.user$
 kitagawa.Rproj
 $\.Rout

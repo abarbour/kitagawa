@@ -8,6 +8,9 @@
 \arguments{
   \item{do.str}{logical; should the structure be printed?}
 }
+\value{
+  The constants, invisibly.
+}
 \description{
   The response of an aquifer depends on its mechanical and
   hydrological properties; if these are not known or
@@ -25,7 +28,7 @@
 }
 \examples{
 constants()
-#constants(FALSE) # returns invisibly
+constants(FALSE) # returns invisibly
 }
 \seealso{
   \code{\link{well_response}} and

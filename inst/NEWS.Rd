@@ -10,12 +10,12 @@
 \title{News for package 'kitagawa'}
 \encoding{UTF-8}
 
-\section{CHANGES IN kitagawa VERSION 2.1-0 (2013-09-26)}{
+\section{CHANGES IN kitagawa VERSION 2.1-0 (2013-10-03)}{
   \itemize{
     \item New capability to model open well response: \code{open_well_response}
     \item \code{well_response} now returns complex frequency response only, rather than
     returnin amplitude and phase as separate vectors.
-    \item Substantial documentation improvements.
+    \item Substantial documentation improvements (and shuffling around).
     \item Response functions now add attributes and class to output: 'wrsp' and 'owrsp'
     for sealed and open well response, respectively.
     \item New methods for 'wrsp' and 'owrsp', including \code{plot.wrsp}, for example.

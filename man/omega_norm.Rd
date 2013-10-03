@@ -15,8 +15,10 @@
   normalized frequency?}
 }
 \value{
-  Dimensionless frequency unless \code{invert=TRUE}, which
-  will return radial frequency.
+  \code{\link{omega_norm}} returns dimensionless frequency,
+  unless \code{invert=TRUE} where it will assume
+  \code{omega} is dimensionless frequency, and return
+  radial frequency.
 }
 \description{
   Dimensionless frequency from diffusivity and depth
@@ -34,8 +36,6 @@
   \code{\link{open_well_response}},
   \code{\link{kitagawa-package}}
 
-  Other utilities: \code{\link{.in0to1}},
-  \code{\link{.nullchk}}, \code{\link{is.owrsp}},
-  \code{\link{is.wrsp}}, \code{\link{sensing_volume}}
+  Other utilities: \code{\link{sensing_volume}}
 }
 

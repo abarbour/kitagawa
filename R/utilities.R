@@ -1,17 +1,28 @@
-
-#' Quickly check for \code{NULL} and \code{NA}
+#' @title General utility functions
 #' 
-#' Checks \code{NULL} and \code{NA} status, and raises an error if \code{TRUE}.
+#' @description
+#' General utility functions
 #' 
+#' @details
+#' \code{\link{.nullchk}} quickly checks for \code{NULL} and \code{NA},
+#' and raises an error if \code{TRUE}; 
 #' \emph{This function is not likely to be needed by the user.}
 #' 
-#' @name .nullchk
-#' @rdname nullchk
-#' @export
-#' @param X   something to be checked (vector, scalar, ...)
+#' \code{\link{.in0to1}} checks if values are numeric and in [0,1] (inclusive).
+#' 
+#' \code{\link{is.wrsp}} and \code{\link{is.owrsp}} report whether an object 
+#' has S3 class 'wrsp' or 'owrsp', respectively.  Such an object
+#' would be returned by, for example, \code{\link{well_response}}.
+#' 
+#' @name kitagawa-utilities
+#' @docType methods
+#'
+#' @seealso \code{\link{kitagawa-package}}
 #' 
 #' @author A. J. Barbour <andy.barbour@@gmail.com>
-#' @family utilities
+#' 
+#' @param X  something to be checked (vector, scalar, wrsp object, ...)
+#' 
 #' @examples
 #' \dontrun{
 #' .nullchk(1:10) # OK
@@ -19,32 +30,42 @@
 #' .nullchk(c(1:10,NULL)) # error
 #' .nullchk(NA) # error
 #' .nullchk(c(1:10,NA)) # error
-#' }
-.nullchk <-
-  function(X){stopifnot(!is.null(X) & !(NA %in% X))}
-
-
-#' Check if in [0,1]
 #' 
-# \emph{This function is not likely to be needed by the user.}
-#' 
-#' @name .in0to1
-#' @rdname in0to1
-#' @export
-#' 
-#' @param X   something to be checked (vector, scalar, ...)
-#'
-#' @author A. J. Barbour <andy.barbour@@gmail.com>
-#' @family utilities
-#' @examples
-#' \dontrun{
 #' .in0to1(1:10) # error
 #' .in0to1(NULL) # error
 #' .in0to1(c(1:10,NULL)) # error
 #' .in0to1(NA) # error
 #' .in0to1(c(1:10,NA)) # error
+#' .in0to1(c(1,NA)) # error
+#' 
+#' is.wrsp(1) # FALSE
 #' }
-.in0to1 <- function(X){stopifnot((X>=0) & (X<=1))}
+NULL
+
+#' @name .nullchk
+#' @rdname kitagawa-utilities
+#' @export
+.nullchk <- function(X){
+  stopifnot(!is.null(X) & !(NA %in% X))
+}
+
+#' @name .in0to1
+#' @rdname kitagawa-utilities
+#' @export
+.in0to1 <- function(X){
+  X <- as.numeric(X)
+  stopifnot((X >= 0) & (X <= 1))
+}
+
+#' @name is.wrsp
+#' @rdname kitagawa-utilities
+#' @export
+is.wrsp <- function(X) inherits(X, "wrsp")
+
+#' @name is.owrsp
+#' @rdname kitagawa-utilities
+#' @export
+is.owrsp <- function(X) inherits(X, "owrsp")
 
 #' Dimensionless frequency from diffusivity and depth
 #' @details
@@ -59,8 +80,8 @@
 #' @param z numeric; depth
 #' @param invert logical; should \code{omega} be taken as normalized
 #' frequency?
-#' @return Dimensionless frequency unless \code{invert=TRUE}, which will
-#' return radial frequency.
+#' @return \code{\link{omega_norm}} returns dimensionless frequency, unless \code{invert=TRUE}
+#' where it will assume \code{omega} is dimensionless frequency, and return radial frequency.
 #' 
 #' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' @family utilities
@@ -234,17 +255,3 @@ log2_ticks <- function(...) logticks(base="two", ...)
 #' @rdname logticks
 #' @export
 log10_ticks <- function(...) logticks(base="ten", ...)
-
-#' Reports whether an object has S3 class 'wrsp',
-#' or 'owrsp', as
-#' would be returned by, for example, 
-#' \code{\link{well_response}}.
-#' @param Obj the object to test
-#' @export
-#' @author A. J. Barbour <andy.barbour@@gmail.com>
-#' @family utilities
-#' @seealso \code{\link{kitagawa-package}}
-is.wrsp <- function(Obj) inherits(Obj, c("wrsp","owrsp"))
-#' @rdname is.wrsp
-#' @export
-is.owrsp <- function(Obj) is.wrsp(Obj)

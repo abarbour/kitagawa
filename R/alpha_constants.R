@@ -82,7 +82,6 @@ alpha_constants.default <-
         return(toret)
     } # end .ac_A
     .ac_Kel.default <- function(alpha){
-        require(kelvin)
         # nu is order of Kelvin function
         Kel <- kelvin::Keir(alpha, nu.=0, nSeq.=2, return.list=FALSE)
         # returns K0,K1 (complex matrix)

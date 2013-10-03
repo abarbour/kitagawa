@@ -1,38 +1,27 @@
-#' Provides tools to calculate the
-#' theoretical hydrodynamic response of an
-#' aquifer undergoing harmonic straining.
-#' There are two classes of models here:
-#'  (1) for sealed wells, based on the model of Kitagawa et al (2011), and
-#'  (2) for open wells, based on the model of Cooper et al (1965) and Liu et al (1989).
-#' Both models treat strain as an input to the physical system,
-#' and fluid-pressure (or water height) as the output.
-#' The applicable frequency band of the models
-#' is characteristic of seismic waves.
+#' Provides tools to calculate the theoretical hydrodynamic response
+#' of an aquifer undergoing harmonic straining or pressurization. There are
+#' two classes of models here: (1) for sealed wells, based on the model of
+#' Kitagawa et al (2011), and (2) for open wells, based on the models of
+#' Cooper et al (1965), Hsieh et al (1987), Rojstaczer (1988), and Liu et al
+#' (1989). These models treat strain (or aquifer head) as an input to the
+#' physical system, and fluid-pressure (or water height) as the output. The
+#' applicable frequency band of these models is characteristic of seismic
+#' waves, atmospheric pressure fluctuations, and solid earth tides.
 #' 
 #' @details
-#' The following functions are the primary features of the package:
+#' The following functions provide the primary features of the package:
 #' 
-#' \subsection{Sealed wells}{
-#' \code{\link{well_response}}, which takes in
-#' arguments for well- and aquifer-parameters, and frequencies
+#' \code{\link{well_response}} and \code{\link{open_well_response}}, which 
+#' take in arguments for well- and aquifer-parameters, and the frequencies
 #' at which to calculate the response functions.
-#' It accesses the constants-calculation routines 
-#' where necessary; hence, the user need not worry about those functions
+#' They both access the constants-calculation routines as necessary, meaning
+#' the user need not worry about those functions
 #' (e.g., \code{\link{alpha_constants}}).
 #' 
-#' There are also two helper functions included: 
+#' Helper functions: 
 #' \describe{
-#' \item{\code{\link{sensing_volume}}}{ to compute the
+#' \item{\code{\link{sensing_volume}}}{ can be used to compute the
 #' sensing volume of fluid, for the specified well dimensions.}
-#' \item{\code{\link{kitplot}}}{ to subset and plot
-#' the resulting response information.  It is meant to mimic the
-#' format of figures
-#' published in Kitagawa et al (2011).}
-#' }
-#' }
-#' 
-#' \subsection{Open wells}{
-#' \code{\link{open_well_response}}
 #' }
 #'
 #' @section Scientific background:
@@ -129,7 +118,7 @@ NULL
 #' the namespace.
 #' 
 #' \subsection{Values}{
-# The constants set here include:
+# The constants here include:
 #' \describe{
 #' \item{For water: }{Density and bulk modulus}
 #' \item{Gravity: }{Standard gravitational acceleration at 6371km radius (Earth)}
@@ -147,9 +136,10 @@ NULL
 #' @param do.str logical; should the structure be printed?
 #' @name constants
 #' @export
+#' @return The constants, invisibly.
 #' @examples
 #' constants()
-#' #constants(FALSE) # returns invisibly
+#' constants(FALSE) # returns invisibly
 constants <- function(do.str=TRUE){
   const <- .kitConstants
   if (do.str) str(const, comp.str = "++++++++\n\t", no.list=TRUE, digits.d = 9)
