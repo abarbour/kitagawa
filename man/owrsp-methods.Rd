@@ -90,7 +90,7 @@ plot(Mod(wellresp) ~ omega, Wdf) # amplitude
 plot(Arg(wellresp) ~ omega, Wdf) # phase
 plot(W)
 # change limits:
-plot(W, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)))
+plot(W, xlims=c(-4,0), ylims=list(amp=c(-7,-3), phs=185*c(-1,1)))
 }
 \author{
   A. J. Barbour <andy.barbour@gmail.com>

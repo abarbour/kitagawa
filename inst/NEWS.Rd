@@ -19,7 +19,7 @@
     \item Response functions now add attributes and class to output: 'wrsp' and 'owrsp'
     for sealed and open well response, respectively.
     \item New methods for 'wrsp' and 'owrsp', including \code{plot.wrsp}, for example.
-    \item \code{kitplot} now uses \code{plot.wrsp}
+    \item \code{kitplot} is simply a link to \code{plot.wrsp}
     \item Changed variable names in \code{well_response} and added defaults in case some
     are missing.
     \item Added a vignette highlighting model differences.

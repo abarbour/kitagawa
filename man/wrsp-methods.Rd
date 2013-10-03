@@ -33,9 +33,11 @@
     ylims = list(amp = NULL, phs = 185 * c(-1, 1)),
     logamp = TRUE, ...)
 
-  kitplot(object, ...)
+  kitplot(x, ...)
 
-  \method{kitplot}{wrsp} (object, ...)
+  \method{kitplot}{wrsp} (x, xlims = c(-3, 1),
+    ylims = list(amp = NULL, phs = 185 * c(-1, 1)),
+    logamp = TRUE, ...)
 }
 \arguments{
   \item{x}{'wrsp' object}
@@ -74,10 +76,9 @@
   input. The amplitude of \eqn{Z} is in meters per strain,
   and the phase is in radians.
 
-  \code{\link{kitplot}} uses \code{\link{plot.wrsp}} and
-  can be used to plot the response within limits in some of
-  the figures in Kitagawa et al (2011); it is designed to
-  be a diagnostic tool, and is thus not very flexible.
+  \code{\link{kitplot}} was previously a standalone
+  function, but is now simply a reference to
+  \code{\link{plot.wrsp}}.
 }
 \examples{
 W <- well_response(1:10, T.=1, S.=1, Vw.=1, Rs.=1, Ku.=1, B.=1)
@@ -99,9 +100,7 @@ plot(Arg(wellresp) ~ omega, Wdf) # phase
 # or use the builtin method plot.wrsp
 plot(W)
 # change limits:
-plot(W, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)))
-# or use kitplot:
-kitplot(W)
+plot(W, xlims=c(-1,1), ylims=list(amp=c(5,8), phs=185*c(-1,1)))
 }
 \author{
   A. J. Barbour <andy.barbour@gmail.com>

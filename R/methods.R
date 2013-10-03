@@ -57,9 +57,7 @@
 #' # or use the builtin method plot.wrsp
 #' plot(W)
 #' # change limits:
-#' plot(W, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)))
-#' # or use kitplot:
-#' kitplot(W)
+#' plot(W, xlims=c(-1,1), ylims=list(amp=c(5,8), phs=185*c(-1,1)))
 NULL
 
 #' @rdname wrsp-methods
@@ -203,21 +201,17 @@ plot.wrsp <- function(x,
   return(invisible(NULL))
 }
 
-#' @details \code{\link{kitplot}} uses \code{\link{plot.wrsp}} and
-#' can be used to plot the response within limits
-#' in some of the figures in Kitagawa et al (2011); it is designed to
-#' be a diagnostic tool, and is thus not very flexible.
+#' @details \code{\link{kitplot}} was previously a standalone function, but
+#' is now simply a reference to \code{\link{plot.wrsp}}.
 #' @rdname wrsp-methods
 #' @export
 #' @family PlotUtilities
-kitplot <- function(object, ...) UseMethod("kitplot")
+kitplot <- function(x, ...) UseMethod("kitplot")
 #' @rdname wrsp-methods
 #' @aliases kitplot.wrsp
 #' @method kitplot wrsp
 #' @S3method kitplot wrsp
-kitplot.wrsp <- function(object, ...){
-  plot(object, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)), ...)
-}
+kitplot.wrsp <- plot.wrsp
 
 #' @title Generic methods for objects with class \code{'owrsp'}.
 #' 
@@ -284,7 +278,7 @@ kitplot.wrsp <- function(object, ...){
 # # or use the builtin method
 #' plot(W)
 #' # change limits:
-#' plot(W, xlims=c(-4,0), ylims=list(amp=c(5,7), phs=185*c(-1,1)))
+#' plot(W, xlims=c(-4,0), ylims=list(amp=c(-7,-3), phs=185*c(-1,1)))
 NULL
 
 #' @rdname owrsp-methods

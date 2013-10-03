@@ -81,8 +81,8 @@
 #' head(Rsp <- well_response(omega=Frqs, T.=1e-6, S.=1e-5, 
 #' Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
 #' 
-#' # Use plot.wrsp:
-#' plot(Rsp) # or kitplot(Rsp)
+#' # Access plot.wrsp:
+#' plot(Rsp)
 #'
 well_response <- function(omega, T., S., Vw., Rs., Ku., B., 
                           Avs, Aw, rho, Kf, grav,
