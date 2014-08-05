@@ -24,3 +24,4 @@ vignettes/.sweave*
 vignettes/Rplots.pdf
 vignettes/ResponseModels.tex
 vignettes/ResponseModels.pdf
+^packrat/
