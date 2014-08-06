@@ -24,12 +24,3 @@ Suggests:
     RColorBrewer,
     signal
 VignetteBuilder: knitr
-Collate:
-    'kitagawa-package.R'
-    'alpha_constants.R'
-    'omega_constants.R'
-    'open_well_response.R'
-    'well_response.R'
-    'utilities.R'
-    'methods.R'
-    'zzz.R'

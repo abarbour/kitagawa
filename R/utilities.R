@@ -73,7 +73,7 @@ is.owrsp <- function(X) inherits(X, "owrsp")
 #' where 
 #' \eqn{z} is the well depth,
 #' \eqn{\omega} is the angular frequency
-#' and \eqn{D} is the hydraulic diffusivity
+#' and \eqn{D} is the hydraulic diffusivity.
 #' 
 #' @param omega numeric; angular frequency
 #' @param Diffusiv numeric; hydraulic diffusivity
@@ -95,9 +95,8 @@ omega_norm <- function(omega, Diffusiv, z, invert=FALSE){
   stopifnot(Diffusiv>0)
   #
   z2 <- z*z
-  if (invert){
-    Q <- omega
-    frq <- Q * 2 * Diffusiv / z2
+  frq <- if (invert){
+    omega * 2 * Diffusiv / z2
   } else {
     # Diffusiv time in unified framework
     Dtau. <- omega_constants(omega, c.type="diffusivity_time", D.=Diffusiv)
@@ -108,7 +107,7 @@ omega_norm <- function(omega, Diffusiv, z, invert=FALSE){
     #     sqrt( omega / 2 / D.) == sqrt (omega * S / 2 / T)
     #   so
     #     sqrt(Qp) == z * sqrt(omega / 2 / D) == z * Dtau
-    frq <- Dtau.**2  * z2
+    Dtau.**2  * z2
   }
   return(frq)
 }
