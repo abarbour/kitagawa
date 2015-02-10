@@ -4,21 +4,17 @@ Tools to calculate the theoretical spectral response
 of fluid-pressure in an open, or sealed, water well
 to harmonic straining.
 
-## Sealed Well
+## Models
 
-The theoretical model for the sealed well
-is from Kitagawa et al (2011). 
-This package 
-is named after the author, Y. Kitagawa.
+Currently there is support for the response at two types of wells:
 
-### Abstract of Original Article
+###Sealed Well
 
-*Online:* http://dx.doi.org/10.1029/2010JB007794
+The theoretical model for a sealed well, where fluids are isolated from atmospheric pressure, is from (http://dx.doi.org/10.1029/2010JB007794)(Kitagawa et al (2011)), which this package is named after; the abstract of original article:
 
-	Frequency characteristics of the response of water pressure in a closed well to
-	volumetric strain in the high-frequency domain
+	*Frequency characteristics of the response of water pressure in a closed well to volumetric strain in the high-frequency domain*
 
-	Yuichi Kitagawa, Satoshi Itaba, Norio Matsumoto, and Naoji Koizumi
+	_Yuichi Kitagawa, Satoshi Itaba, Norio Matsumoto, and Naoji Koizumi_
 
 	Oscillations of water pressures and crustal strains due to the seismic waves of
 	the 2010 Chile earthquake were observed in Japan. The oscillations of water
@@ -34,19 +30,14 @@ is named after the author, Y. Kitagawa.
 
 	J. Geophys. Res., 116, B08301, doi:10.1029/2010JB007794, 2011.
 
-## Open Well
+### Open Well
 
-The theoretical model for the sealed well
-is from Cooper et al (1965). 
+The theoretical model for the sealed well is from (http://dx.doi.org/10.1029/JZ070i016p03915)(Cooper et al (1965)); the abstract of original article:
 
-### Abstract of Original Article
+	*The response of well-aquifer systems to seismic waves*
 
-*Online:* http://dx.doi.org/10.1029/JZ070i016p03915
-
-	The response of well-aquifer systems to seismic waves
-
-	Hilton H. Cooper Jr., John D. Bredehoeft, Istavros S. Papadopulos,
-	and Robert R. Bennett
+	_Hilton H. Cooper Jr., John D. Bredehoeft, Istavros S. Papadopulos,
+	and Robert R. Bennett_
 
 	The degree to which the water level in an open well fluctuates in response to a
 	seismic wave is determined by the dimensions of the well, the transmissibility,
