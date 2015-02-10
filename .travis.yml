@@ -27,7 +27,7 @@ before_install:
 
 install:
   - ./travis-tool.sh install_aptget r-cran-runit
-  - ./travis-tool.sh install_r kelvin
+  - ./travis-tool.sh install_r gmp Rmpfr gsl Bessel kelvin
   - ./travis-tool.sh install_r knitr RColorBrewer signal
 #  - ./travis-tool.sh install_github hadley/devtools
 
