@@ -89,7 +89,7 @@ open_well_response <- function(omega, T., S.,
                                as.pressure=TRUE) UseMethod("open_well_response")
 #' @rdname open_well_response
 #' @method open_well_response default
-#' @S3method open_well_response default
+#' @export
 open_well_response.default <- function(omega, T., S., 
                                        Rs.=(8/12)*(1200/3937),
                                        rho, grav, z, Hw, Ta,

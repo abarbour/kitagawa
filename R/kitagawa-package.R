@@ -61,7 +61,7 @@
 #' @title Spectral response of a water well to harmonic strains at seismic frequencies 
 #' @author Andrew J. Barbour <andy.barbour@@gmail.com> 
 #' 
-#' @import kelvin
+#' @importFrom kelvin Keir Beir
 #' 
 #' @references Abramowitz, M. and Stegun, I. A. (Eds.). "Kelvin Functions." 
 #' \eqn{\S 9.9} in Handbook of Mathematical Functions with Formulas, Graphs, 

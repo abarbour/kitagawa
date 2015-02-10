@@ -4,12 +4,22 @@
 %%\newcommand{\PR}{\Sexpr[results=rd]{tools:::Rd_expr_PR(#1)}}
 %%\newcommand{\Rlogo}{\if{html}{\figure{../../html/logo.jpg}}\if{latex}{\figure{logo.jpg}{options:
 %width=0.5in}}}
-\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\newcommand{\GITpkg}{\href{http://www.github.com/abarbour/#1}{github}}
+\newcommand{\CRANpkg}{\href{http://cran.r-project.org/package=#1}{CRAN}}
+\newcommand{\kitagawa}{\pkg{kitagawa}}
+\newcommand{\gitkit}{\GITpkg{kitagawa} page}
 
 \name{kitagawa}
-\title{News for package 'kitagawa'}
-\encoding{UTF-8}
+\title{News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} -- \href{https://travis-ci.org/abarbour/kitagawa}{Travis-CI}}
 
+\encoding{UTF-8}
+\section{CHANGES IN kitagawa VERSION 2.1-1 (2015-02-10)}{
+  \itemize{
+    \item Mostly a maintenance release.
+    \item \href{https://travis-ci.org/abarbour/kitagawa}{Travis-CI} is now used to track builds; see 
+    also the \gitkit{}.
+  }
+}
 \section{CHANGES IN kitagawa VERSION 2.1-0 (2013-10-03)}{
   \itemize{
     \item New capability to model open well response: \code{open_well_response}

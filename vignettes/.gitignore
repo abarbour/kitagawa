@@ -1,5 +1,6 @@
-ResponseModels*.tex
-ResponseModels*.pdf
+ResponseModels-concordance.tex
+ResponseModels.tex
+ResponseModels.pdf
 *.synctex.gz
 *.ilg
 *.out

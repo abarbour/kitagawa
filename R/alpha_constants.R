@@ -44,7 +44,7 @@
 #' @family ConstantsCalculators
 #' 
 #' @examples
-#' alpha_constants() # kelvin::Keir gives warning
+#' alpha_constants()   # kelvin::Keir gives warning
 #' alpha_constants(1)  # defaults to constant 'Phi' (note output also has Kel)
 #' alpha_constants(1:10, c.type="A")  # constant 'A' (again, note output)
 alpha_constants <-
@@ -52,7 +52,7 @@ function(alpha=0, c.type=c("Phi","Psi","A","Kel")) UseMethod("alpha_constants")
 
 #' @rdname alpha_constants
 #' @method alpha_constants default
-#' @S3method alpha_constants default
+#' @export
 alpha_constants.default <-
   function(alpha=0, c.type=c("Phi","Psi","A","Kel")){
     #
@@ -83,7 +83,7 @@ alpha_constants.default <-
     } # end .ac_A
     .ac_Kel.default <- function(alpha){
         # nu is order of Kelvin function
-        Kel <- kelvin::Keir(alpha, nu.=0, nSeq.=2, return.list=FALSE)
+        Kel <- Keir(alpha, nu.=0, nSeq.=2, return.list=FALSE)
         # returns K0,K1 (complex matrix)
         toret <- base::cbind(alpha, Kel)
         colnames(toret) <- c("alpha","Kel0","Kel1")

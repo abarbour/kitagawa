@@ -91,7 +91,7 @@ well_response <- function(omega, T., S., Vw., Rs., Ku., B.,
 
 #' @rdname well_response
 #' @method well_response default
-#' @S3method well_response default
+#' @export
 well_response.default <- function(omega, T., S., Vw., Rs., Ku., B., 
                                   Avs, Aw, rho, Kf, grav,
                                   freq.units=c("rad_per_sec","Hz"),

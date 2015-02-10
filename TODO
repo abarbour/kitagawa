@@ -2,17 +2,10 @@
 *** Optimization of params B084--Tohoku
 
 [ ] Functions:
-*** Dimensionless frequency: Q=z^2 omega / 2 Diffusiv
 *** Diffusivity/Transmiss/Storativ calculations
 
-[ ] Methods for
-*** 'wrsp'  class [ ]
-
-[ ] cleanup directory structure
-*** Reorganize files: [ ]
-	utilities.R <-- kitplot.R, .in0to1.R, kitplot.R, sensing_volume.R
-
 [ ] Add environment to store global or default constants
+*** options()?
 
 [ ] Frequency units of output should be consistent with frequency units of input
     (currently only Hz is returned)
@@ -24,12 +17,6 @@
     to Amp/Phs (for 'wrsp')
 *** open_well_response [X]
 *** well_response [ ]
-
-[ ] add models:
-*** Liu et al 1989 [ ]
-*** Hsieh et al 1987 [ ]
-*** Cooper et al 1965 [ ]
-
 
 [ ] Method to estimate transfer function between two series
 *** MT CSD <-- perhaps include in  psd

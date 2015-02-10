@@ -1,3 +1,6 @@
+.travis.yml
+packrat
+
 README.md
 WISHLIST
 BUGS

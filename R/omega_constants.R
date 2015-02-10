@@ -80,7 +80,7 @@ function(omega=0, c.type=c("alpha","diffusivity_time"), ...) UseMethod("omega_co
 
 #' @rdname omega_constants
 #' @method omega_constants default
-#' @S3method omega_constants default
+#' @export
 omega_constants.default <-
   function(omega=0, c.type=c("alpha","diffusivity_time"), ...){
     #
