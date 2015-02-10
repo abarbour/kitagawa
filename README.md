@@ -10,11 +10,9 @@ Currently there is support for the response at two types of wells:
 
 ###Sealed Well
 
-The theoretical model for a sealed well, where fluids are isolated from atmospheric pressure, is from (http://dx.doi.org/10.1029/2010JB007794)(Kitagawa et al (2011)), which this package is named after; the abstract of original article:
-
-	*Frequency characteristics of the response of water pressure in a closed well to volumetric strain in the high-frequency domain*
-
-	_Yuichi Kitagawa, Satoshi Itaba, Norio Matsumoto, and Naoji Koizumi_
+The theoretical model for a sealed well, where fluids are isolated from atmospheric pressure, 
+responding to dilational strains from seismic waves is from 
+[Kitagawa et al (2011)](http://dx.doi.org/10.1029/2010JB007794 "Frequency characteristics of the response of water pressure in a closed well to volumetric strain in the high-frequency domain") which this package is named after; the abstract of original article is:
 
 	Oscillations of water pressures and crustal strains due to the seismic waves of
 	the 2010 Chile earthquake were observed in Japan. The oscillations of water
@@ -32,12 +30,8 @@ The theoretical model for a sealed well, where fluids are isolated from atmosphe
 
 ### Open Well
 
-The theoretical model for the sealed well is from (http://dx.doi.org/10.1029/JZ070i016p03915)(Cooper et al (1965)); the abstract of original article:
-
-	*The response of well-aquifer systems to seismic waves*
-
-	_Hilton H. Cooper Jr., John D. Bredehoeft, Istavros S. Papadopulos,
-	and Robert R. Bennett_
+The first theoretical model for a sealed well responding to seimic displacements is from 
+[Cooper et al (1965)](http://dx.doi.org/10.1029/JZ070i016p03915 "The response of well-aquifer systems to seismic waves"); the abstract of original article is:
 
 	The degree to which the water level in an open well fluctuates in response to a
 	seismic wave is determined by the dimensions of the well, the transmissibility,
@@ -57,6 +51,12 @@ The theoretical model for the sealed well is from (http://dx.doi.org/10.1029/JZ0
 	constants.
 
 	J. Geophys. Res., 70(16), 3915–3926, doi:10.1029/JZ070i016p03915, 1965.
+
+
+This package also includes support for the models in
+[Hsieh et al. (1987)](http://dx.doi.org/10.1029/WR023i010p01824 "Determination of aquifer transmissivity from Earth tide analysis").
+[Rojstaczer (1988)](http://dx.doi.org/10.1029/JB093iB11p13619 "Intermediate period response of water levels in wells to crustal strain: Sensitivity and noise level"), and
+[Liu et al. (1989)](http://dx.doi.org/10.1029/JB094iB07p09453 "Seismically induced water level fluctuations in the Wali Well, Beijing, China"), which are based on various sources (i.e., tides, atmospheric pressure, and seismic waves); the Rojstaczer (1988) model is the well response to strain.
 
 ##Getting Started##
 
