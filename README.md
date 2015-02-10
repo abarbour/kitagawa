@@ -1,10 +1,8 @@
-#K I T A G A W A
+#kitagawa [![Build Status](https://travis-ci.org/abarbour/kitagawa.png?branch=master)](https://travis-ci.org/abarbour/kitagawa) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
 Tools to calculate the theoretical spectral response 
-of
-fluid-pressure in an open, or sealed, water well
-to
-harmonic straining.
+of fluid-pressure in an open, or sealed, water well
+to harmonic straining.
 
 ## Sealed Well
 
@@ -69,3 +67,27 @@ is from Cooper et al (1965).
 
 	J. Geophys. Res., 70(16), 3915–3926, doi:10.1029/JZ070i016p03915, 1965.
 
+##Getting Started##
+
+Firstly you'll need to install the package and it's dependencies
+from [CRAN](http://cran.r-project.org/package=kitagawa)
+(from within the `R` environment):
+
+    install.packages("kitagawa", dependencies=TRUE)
+
+then load the package library and take a look at the vignette
+
+    library(kitagawa)
+    vignette(package='kitagawa')
+    
+##Installing the Development Version##
+
+Should you wish to install the development version
+of this software, the [devtools][2] library
+will be useful:
+
+    install.packages("devtools", dependencies=TRUE)
+    library(devtools)
+    install_github("abarbour/kitagawa")
+
+[2]: http://cran.r-project.org/web/packages/devtools
