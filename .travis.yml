@@ -25,8 +25,9 @@ before_install:
 
 install:
   - ./travis-tool.sh install_aptget r-cran-runit
-  - ./travis-tool.sh r_binary_install gmp Rmpfr gsl Bessel kelvin
-  - ./travis-tool.sh install_r knitr RColorBrewer signal
+  - ./travis-tool.sh r_binary_install gmp Rmpfr gsl Bessel knitr RColorBrewer signal
+  - wget -O kelvin.tar.gz http://cran.r-project.org/src/contrib/kelvin_1.2-2.tar.gz
+  - R CMD INSTALL kelvin.tar.gz
   - ./travis-tool.sh install_deps
 
 script: 
