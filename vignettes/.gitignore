@@ -1,5 +1,12 @@
-ResponseModels.tex
-ResponseModels.ilg
-ResponseModels.out
-ResponseModels.aux
-ResponseModels.toc
+ResponseModels*.tex
+ResponseModels*.pdf
+*.synctex.gz
+*.ilg
+*.out
+*.aux
+*.toc
+*.bbl
+*.blg
+*.log
+Rplots.pdf
+figure/

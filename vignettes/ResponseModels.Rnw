@@ -1,26 +1,31 @@
 \documentclass[12pt]{article}
-%%
 % !Rnw weave = knitr
+%
+%\makeatletter
 % \VignetteIndexEntry{Comparison of response functions}
 % \VignetteEngine{knitr}
+%\makeatother
 %
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage[font=sf, labelfont={sf,bf}, margin=2cm]{caption}
+
+%\usepackage{url}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyvrb}
-\usepackage{float}
-\usepackage{geometry}
-\geometry{verbose,tmargin=3cm,bmargin=5cm,lmargin=2.5cm,rmargin=2.5cm}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{bookmark}
+\usepackage{url}
+\usepackage{upquote}
 \usepackage{graphicx}
 \usepackage{grffile}
-\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{float}
 \usepackage{natbib}
-\usepackage{makeidx}
-%\makeindex % comment to have no index
-\usepackage{upquote}
-\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{verbose,tmargin=3cm,bmargin=5cm,lmargin=2.5cm,rmargin=2.5cm}
+\usepackage[font=sf, labelfont={sf,bf}, margin=2cm]{caption}
+\usepackage{color}
 \raggedright
 %
 \author{Andrew J. Barbour}
@@ -95,7 +100,7 @@ water height as a function of aquifer head $H$ or pressure.
 <<eval=TRUE, echo=FALSE>>= 
 library(knitr)
 options(width=69)
-opts_chunk$set(tidy = TRUE, size="small")
+knitr::opts_chunk$set(tidy = TRUE, size="small")
 @
 %opts_knit$set(verbose = TRUE)
 
@@ -111,11 +116,11 @@ library(kitagawa)
 Setup some constants:
 
 <<eval=TRUE, echo=TRUE, label=PARAMS1>>= 
-S. <- 1e-5		# Storativity [nondimensional]
-T. <- 1e-4		# Transmissivity [m**2 / s]
-D. <- T./S.		# Diffusivity [m**2 / s]
-Ta <- 50			# Aquifer thickness [m] #100
-Hw <- z <- 50	# Depth to water table [m] #10
+S. <- 1e-5    # Storativity [nondimensional]
+T. <- 1e-4    # Transmissivity [m**2 / s]
+D. <- T./S.   # Diffusivity [m**2 / s]
+Ta <- 50      # Aquifer thickness [m] #100
+Hw <- z <- 50 # Depth to water table [m] #10
 
 # Using ANO1 stats from Kit Tbl 1
 Rc. <- 0.075		# Radius of cased portion of well [m]
@@ -160,7 +165,7 @@ And onto the response functions...
 \clearpage
 \section{Sealed well response}
 
-\subsection{Strain: \citet{kitagawa2011}}
+\subsection{Strain: Kitagawa et al. (2011)}
 %
 <<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=KITRESP>>= 
 wrsp <- well_response(omega, T.=T., S.=S., Vw.=Vw., Rs.=Rs., Ku.=Ku., B.=B., Avs=1, Aw=1, as.pressure=asP)
@@ -209,7 +214,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \clearpage
 \section{Open well response}
 
-\subsection{Pressure head: \citet{cooper1965}}
+\subsection{Pressure head: Cooper et al. (1965)}
 
 <<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=COOPERRESP>>= 
 wrsp <- open_well_response(omega, T.=T., S.=S., Ta=Ta, Hw=Hw, 
@@ -256,7 +261,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{figure}
 
 \clearpage
-\subsection{Pressure head: \citet{hsieh1987}}
+\subsection{Pressure head: Hsieh et al. (1987)}
 
 <<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=HSIEHRESP>>= 
 wrsp <- open_well_response(omega, T.=T., S.=S.,  Ta=Ta, Hw=Hw, model = "hsieh", as.pressure=ZasP)
@@ -302,7 +307,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{figure}
 
 \clearpage
-\subsection{Pressure head: \citet{liu1989}}
+\subsection{Pressure head: Liu et al. (1989)}
 
 <<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=LIURESP>>= 
 wrsp <- open_well_response(omega, T.=T., S.=S.,  Ta=Ta, Hw=Hw, model = "liu", as.pressure=ZasP)
@@ -348,7 +353,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{figure}
 
 \clearpage
-\subsection{Strain: \citet{rojstaczer1988}}
+\subsection{Strain: Rojstaczer (1988)}
 
 <<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=ROJRESP>>= 
 wrsp <- open_well_response(omega, T.=T., S.=S., z=z, model = "rojstaczer", as.pressure=asP)
@@ -507,7 +512,5 @@ from \citet{cooper1965, hsieh1987, liu1989} (all for unsealed).}
 
 \bibliographystyle{apalike}
 \bibliography{REFS}
-
-\printindex
 
 \end{document}

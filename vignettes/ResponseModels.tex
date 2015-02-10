@@ -48,28 +48,33 @@
 \newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
 
 \usepackage{alltt}
-%%
 % !Rnw weave = knitr
+%
+%\makeatletter
 % \VignetteIndexEntry{Comparison of response functions}
 % \VignetteEngine{knitr}
+%\makeatother
 %
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage[font=sf, labelfont={sf,bf}, margin=2cm]{caption}
+
+%\usepackage{url}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{fancyvrb}
-\usepackage{float}
-\usepackage{geometry}
-\geometry{verbose,tmargin=3cm,bmargin=5cm,lmargin=2.5cm,rmargin=2.5cm}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{bookmark}
+\usepackage{url}
+\usepackage{upquote}
 \usepackage{graphicx}
 \usepackage{grffile}
-\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{float}
 \usepackage{natbib}
-\usepackage{makeidx}
-%\makeindex % comment to have no index
-\usepackage{upquote}
-\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{verbose,tmargin=3cm,bmargin=5cm,lmargin=2.5cm,rmargin=2.5cm}
+\usepackage[font=sf, labelfont={sf,bf}, margin=2cm]{caption}
+\usepackage{color}
 \raggedright
 %
 \author{Andrew J. Barbour}
@@ -143,7 +148,6 @@ water height as a function of aquifer head $H$ or pressure.
 \section{Preliminaries}
 
 
-
 %opts_knit$set(verbose = TRUE)
 
 Load the necessary packages:
@@ -157,19 +161,13 @@ Load the necessary packages:
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: MASS\\\#\# \\\#\# Attaching package: 'signal'\\\#\# \\\#\# The following object is masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  filter, poly}}\begin{alltt}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'signal'\\\#\# \\\#\# The following objects are masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  filter, poly}}\begin{alltt}
 \hlkwd{library}\hlstd{(kitagawa)}
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: kelvin\\\#\# Loading required package: Bessel\\\#\# Loading required package: Rmpfr\\\#\# Loading required package: gmp\\\#\# \\\#\# Attaching package: 'gmp'\\\#\# \\\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  \%*\%, apply, crossprod, matrix, tcrossprod}}\begin{verbatim}
-## Loading C code of R package 'Rmpfr': GMP using 64 bits per limb
-\end{verbatim}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'Rmpfr'\\\#\# \\\#\# The following object is masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  pnorm, print.integrate\\\#\# \\\#\# The following object is masked from 'package:base':\\\#\# \\\#\#\ \ \ \  cbind, pmax, pmin, rbind\\\#\# \\\#\# Loaded kelvin (1.2.2) -- Solutions to the Kelvin differential equation.\\\#\# Loaded kitagawa (2.1.0) -- Spectral response of water wells}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: kelvin\\\#\# Loading required package: Bessel\\\#\# Loading required package: Rmpfr\\\#\# Loading required package: gmp\\\#\# \\\#\# Attaching package: 'gmp'\\\#\# \\\#\# The following objects are masked from 'package:base':\\\#\# \\\#\#\ \ \ \  \%*\%, apply, crossprod, matrix, tcrossprod\\\#\# \\\#\# C code of R package 'Rmpfr': GMP using 64 bits per limb\\\#\# \\\#\# \\\#\# Attaching package: 'Rmpfr'\\\#\# \\\#\# The following objects are masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  dbinom, dnorm, dpois, pnorm\\\#\# \\\#\# The following objects are masked from 'package:base':\\\#\# \\\#\#\ \ \ \  cbind, pmax, pmin, rbind\\\#\# \\\#\# Loaded kelvin (1.2.2) -- Solutions to the Kelvin differential equation.\\\#\# Loaded kitagawa (2.1.0) -- Spectral response of water wells}}\end{kframe}
 \end{knitrout}
-
 
 Setup some constants:
 
@@ -181,6 +179,7 @@ Setup some constants:
 \hlstd{D.} \hlkwb{<-} \hlstd{T.}\hlopt{/}\hlstd{S.}  \hlcom{# Diffusivity [m**2 / s]}
 \hlstd{Ta} \hlkwb{<-} \hlnum{50}  \hlcom{# Aquifer thickness [m] #100}
 \hlstd{Hw} \hlkwb{<-} \hlstd{z} \hlkwb{<-} \hlnum{50}  \hlcom{# Depth to water table [m] #10}
+
 \hlcom{# Using ANO1 stats from Kit Tbl 1}
 \hlstd{Rc.} \hlkwb{<-} \hlnum{0.075}  \hlcom{# Radius of cased portion of well [m]}
 \hlstd{Lc.} \hlkwb{<-} \hlnum{570}  \hlcom{# Length of cased portion of well [m]}
@@ -198,7 +197,6 @@ Setup some constants:
 \end{kframe}
 \end{knitrout}
 
-
 And create the dimensionless frequencies, 
 defined by $z^2 \omega / 2 D$,
 where $D$ is the hydraulic diffusivity:
@@ -210,11 +208,13 @@ where $D$ is the hydraulic diffusivity:
 \hlstd{Q} \hlkwb{<-} \hlnum{10}\hlopt{^}\hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{5}\hlstd{,} \hlnum{2}\hlstd{,} \hlkwc{by} \hlstd{=} \hlnum{0.05}\hlstd{)}  \hlcom{# [nondimensional]}
 \hlstd{lQ} \hlkwb{<-} \hlkwd{log10}\hlstd{(Q)}
 \hlstd{omega} \hlkwb{<-} \hlkwd{omega_norm}\hlstd{(Q, z, D.,} \hlkwc{invert} \hlstd{=} \hlnum{TRUE}\hlstd{)}  \hlcom{# [Hz]}
+
 \hlstd{Phase} \hlkwb{<-} \hlkwa{function}\hlstd{(}\hlkwc{Z}\hlstd{) \{}
     \hlstd{Phs.} \hlkwb{<-} \hlkwd{Arg}\hlstd{(Z)}  \hlcom{# will wrap to -pi/pi}
-    \hlstd{uPhs.} \hlkwb{<-} \hlstd{signal::}\hlkwd{unwrap}\hlstd{(Phs.,} \hlkwc{tol} \hlstd{= pi}\hlopt{/}\hlnum{30}\hlstd{)}
+    \hlstd{uPhs.} \hlkwb{<-} \hlstd{signal}\hlopt{::}\hlkwd{unwrap}\hlstd{(Phs.,} \hlkwc{tol} \hlstd{= pi}\hlopt{/}\hlnum{30}\hlstd{)}
     \hlkwd{return}\hlstd{(}\hlkwd{data.frame}\hlstd{(}\hlkwc{Phs} \hlstd{= Phs.,} \hlkwc{uPhs} \hlstd{= uPhs.))}
 \hlstd{\}}
+
 \hlcom{# Responses converted to pressure if TRUE}
 \hlstd{asP} \hlkwb{<-} \hlnum{FALSE}
 \hlstd{ZasP} \hlkwb{<-} \hlnum{FALSE}
@@ -222,13 +222,12 @@ where $D$ is the hydraulic diffusivity:
 \end{kframe}
 \end{knitrout}
 
-
 And onto the response functions...
 
 \clearpage
 \section{Sealed well response}
 
-\subsection{Strain: \citet{kitagawa2011}}
+\subsection{Strain: Kitagawa et al. (2011)}
 %
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -238,7 +237,7 @@ And onto the response functions...
 \hlkwd{plot}\hlstd{(wrsp)}  \hlcom{# uses plot.wrsp method}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/KITRESP} 
+\includegraphics[width=\maxwidth]{figure/KITRESP-1} 
 \begin{kframe}\begin{alltt}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}  \hlcom{# Complex response}
 \hlstd{kGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}\hlopt{/}\hlstd{Ku.}\hlopt{/}\hlstd{B.}  \hlcom{# Amplitude (or Gain)}
@@ -247,15 +246,13 @@ And onto the response functions...
 \end{kframe}
 \end{knitrout}
 
-
 \begin{figure}[htb!]
 \begin{center}
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/KITRESPFIG} 
+\includegraphics[width=\maxwidth]{figure/KITRESPFIG-1} 
 
 \end{knitrout}
-
 \caption{The response of a sealed well to harmonic areal strain using
 the Kitagawa model. The amplitude is normalized by Skempton's coefficient $B$
 and the undrained bulk modulus $\kappa_u$.
@@ -268,7 +265,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \clearpage
 \section{Open well response}
 
-\subsection{Pressure head: \citet{cooper1965}}
+\subsection{Pressure head: Cooper et al. (1965)}
 
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -278,7 +275,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \hlkwd{plot}\hlstd{(wrsp)}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/COOPERRESP} 
+\includegraphics[width=\maxwidth]{figure/COOPERRESP-1} 
 \begin{kframe}\begin{alltt}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}
 \hlstd{cGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
@@ -287,15 +284,13 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{kframe}
 \end{knitrout}
 
-
 \begin{figure}[htb!]
 \begin{center}
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/COOPERRESPFIG} 
+\includegraphics[width=\maxwidth]{figure/COOPERRESPFIG-1} 
 
 \end{knitrout}
-
 \caption{The response of an open well to harmonic areal strain using
 the Cooper model. 
 Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
@@ -305,7 +300,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{figure}
 
 \clearpage
-\subsection{Pressure head: \citet{hsieh1987}}
+\subsection{Pressure head: Hsieh et al. (1987)}
 
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -315,7 +310,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \hlkwd{plot}\hlstd{(wrsp)}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/HSIEHRESP} 
+\includegraphics[width=\maxwidth]{figure/HSIEHRESP-1} 
 \begin{kframe}\begin{alltt}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}
 \hlstd{hGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
@@ -324,15 +319,13 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{kframe}
 \end{knitrout}
 
-
 \begin{figure}[htb!]
 \begin{center}
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/HSIEHRESPFIG} 
+\includegraphics[width=\maxwidth]{figure/HSIEHRESPFIG-1} 
 
 \end{knitrout}
-
 \caption{The response of an open well to harmonic areal strain using
 the Hsieh model. 
 Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
@@ -342,7 +335,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{figure}
 
 \clearpage
-\subsection{Pressure head: \citet{liu1989}}
+\subsection{Pressure head: Liu et al. (1989)}
 
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -352,7 +345,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \hlkwd{plot}\hlstd{(wrsp)}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/LIURESP} 
+\includegraphics[width=\maxwidth]{figure/LIURESP-1} 
 \begin{kframe}\begin{alltt}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}
 \hlstd{lGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
@@ -361,15 +354,13 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{kframe}
 \end{knitrout}
 
-
 \begin{figure}[htb!]
 \begin{center}
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/LIURESPFIG} 
+\includegraphics[width=\maxwidth]{figure/LIURESPFIG-1} 
 
 \end{knitrout}
-
 \caption{The response of an open well to harmonic areal strain using
 the Liu model. 
 Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
@@ -379,7 +370,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{figure}
 
 \clearpage
-\subsection{Strain: \citet{rojstaczer1988}}
+\subsection{Strain: Rojstaczer (1988)}
 
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -389,7 +380,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \hlkwd{plot}\hlstd{(wrsp)}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/ROJRESP} 
+\includegraphics[width=\maxwidth]{figure/ROJRESP-1} 
 \begin{kframe}\begin{alltt}
 \hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}
 \hlstd{rGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
@@ -398,15 +389,13 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{kframe}
 \end{knitrout}
 
-
 \begin{figure}[htb!]
 \begin{center}
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/ROJRESPFIG} 
+\includegraphics[width=\maxwidth]{figure/ROJRESPFIG-1} 
 
 \end{knitrout}
-
 \caption{The response of an open well to harmonic areal strain using
 the Rojstaczer model. Modified from \citet[][Fig.~3]{rojstaczer1988}.
 Frequency is dimensionless, based on the well-depth $z$ and the diffusivity
@@ -423,10 +412,9 @@ $D$.}
 \begin{center}
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/ALLRESPFIG} 
+\includegraphics[width=\maxwidth]{figure/ALLRESPFIG-1} 
 
 \end{knitrout}
-
 \caption{A comparison of well responses to harmonic strain. 
 The phase of the water level is relative to $-180^\circ$ the phase of strain.}
 \label{fig:ewrsp-all}
@@ -439,10 +427,9 @@ The phase of the water level is relative to $-180^\circ$ the phase of strain.}
 \begin{center}
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/ALLORESPFIG} 
+\includegraphics[width=\maxwidth]{figure/ALLORESPFIG-1} 
 
 \end{knitrout}
-
 \caption{A comparison of well responses to harmonic pressure-head, 
 from \citet{cooper1965, hsieh1987, liu1989} (all for unsealed).}
 \label{fig:owrsp-all}
@@ -451,7 +438,5 @@ from \citet{cooper1965, hsieh1987, liu1989} (all for unsealed).}
 
 \bibliographystyle{apalike}
 \bibliography{REFS}
-
-\printindex
 
 \end{document}
