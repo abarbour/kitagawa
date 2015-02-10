@@ -25,6 +25,4 @@ vignettes/.knitr*
 vignettes/.knitr2*
 vignettes/.sweave*
 vignettes/Rplots.pdf
-vignettes/ResponseModels.tex
-vignettes/ResponseModels.pdf
 ^packrat/

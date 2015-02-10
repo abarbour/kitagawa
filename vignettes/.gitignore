@@ -1,6 +1,4 @@
 ResponseModels-concordance.tex
-ResponseModels.tex
-ResponseModels.pdf
 *.synctex.gz
 *.ilg
 *.out
@@ -10,4 +8,3 @@ ResponseModels.pdf
 *.blg
 *.log
 Rplots.pdf
-figure/
