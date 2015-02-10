@@ -109,7 +109,7 @@ Load the necessary packages:
 <<eval=TRUE, echo=TRUE, label=PRELIM>>= 
 library(RColorBrewer)
 Set1 <- brewer.pal(8, "Set1")
-library(signal)
+library(signal, warn.conflicts=FALSE)
 library(kitagawa)
 @
 
