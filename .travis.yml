@@ -30,7 +30,7 @@ install:
   # This works but is not foolproof
   # - wget -O kelvin.tar.gz http://cran.r-project.org/src/contrib/kelvin_1.2-2.tar.gz
   # - R CMD INSTALL kelvin.tar.gz
-  - Rscript -e 'args <- commandArgs(TRUE); install.packages(args[1], dependencies=TRUE, repos=args[2])' "kelvin" "${CRAN}"
+  - Rscript -e 'args <- commandArgs(TRUE); install.packages(args[1], dependencies=TRUE, repos=args[2], type=args[3])' "kelvin" "${CRAN}" "source"
   - ./travis-tool.sh install_deps
 
 script: 
