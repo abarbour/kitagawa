@@ -49,11 +49,12 @@
 #' @param Kf    bulk modulus of fluid,  \eqn{[Pa]}
 #' @param grav  local gravitational acceleration \eqn{[m/s^2]}
 #' @param freq.units  set the units of \code{omega}
-#' @param as.pressure logical; should the response for water pressure? (default is water heights)
+#' @param as.pressure logical; should the response for water pressure? (default is water height)
+#' @param ... additional arguments
 #'
 #' @return An object with class 'wrsp'
 #' 
-#' @author A. J. Barbour <andy.barbour@@gmail.com>
+#' @author A. J. Barbour
 #'
 #' @seealso 
 #' \code{\link{wrsp-methods}} for a description of the class 'wrsp' and its methods,
@@ -84,18 +85,14 @@
 #' # Access plot.wrsp:
 #' plot(Rsp)
 #'
-well_response <- function(omega, T., S., Vw., Rs., Ku., B., 
-                          Avs, Aw, rho, Kf, grav,
-                          freq.units=c("rad_per_sec","Hz"),
-                          as.pressure=TRUE) UseMethod("well_response")
+well_response <- function(omega, T., S., Vw., Rs., Ku., B., ...) UseMethod("well_response")
 
 #' @rdname well_response
-#' @method well_response default
 #' @export
 well_response.default <- function(omega, T., S., Vw., Rs., Ku., B., 
                                   Avs, Aw, rho, Kf, grav,
                                   freq.units=c("rad_per_sec","Hz"),
-                                  as.pressure=TRUE){
+                                  as.pressure=TRUE, ...){
     # Enforce units of omega to be radians/sec
     freq.units <- match.arg(freq.units)
     fc <- switch(freq.units, rad_per_sec=1, Hz=2*pi)

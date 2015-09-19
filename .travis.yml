@@ -1,7 +1,7 @@
 # .travis.yml for kitagawa
 
 language: r
-warnings_are_errors: true
+warnings_are_errors: false
 sudo: required
 
 apt_packages:

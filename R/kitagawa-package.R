@@ -58,10 +58,12 @@
 #' @docType package
 #' @name kitagawa-package
 #' @aliases kitagawa
-#' @title Spectral response of a water well to harmonic strains at seismic frequencies 
+#' @title Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
 #' @author Andrew J. Barbour <andy.barbour@@gmail.com> 
 #' 
 #' @importFrom kelvin Keir Beir
+#' @importFrom graphics abline axis layout lines mtext par plot
+#' @importFrom utils head str tail
 #' 
 #' @references Abramowitz, M. and Stegun, I. A. (Eds.). "Kelvin Functions." 
 #' \eqn{\S 9.9} in Handbook of Mathematical Functions with Formulas, Graphs, 
