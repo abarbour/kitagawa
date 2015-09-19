@@ -9,7 +9,7 @@ sudo: required
 # - libmpfr 
 
 r_binary_packages:
-  - kelvin
+# until v2.0 binaries are on cran #  - kelvin
   - knitr
   - RColorBrewer
   - signal
@@ -17,6 +17,8 @@ r_binary_packages:
   
 r_github_packages:
   - jimhester/covr
+  - abarbour/kelvin
+  
 
 notifications:
   email:
