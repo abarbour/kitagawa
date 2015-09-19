@@ -1,8 +1,8 @@
 Package: kitagawa
 Type: Package
-Title: Spectral response of water wells to harmonic strain and pressure
-Version: 2.1-1
-Date: 2015-02-10
+Title: Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
+Version: 2.2-0
+Date: 2015-09-19
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response
@@ -24,5 +24,6 @@ Imports:
 Suggests:
     knitr,
     RColorBrewer,
-    signal
+    signal,
+    testthat
 VignetteBuilder: knitr

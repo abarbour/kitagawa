@@ -1,0 +1,48 @@
+# Sample .travis.yml for R projects.
+#
+# See README.md for instructions, or for more configuration options,
+# see the wiki:
+#   https://github.com/craigcitro/r-travis/wiki
+
+# Nabbed from https://github.com/RcppCore/Rcpp/blob/master/.travis.yml
+# modified from devtools
+
+# this is a temporary hack at a solution, until R is supported by Travis
+language: c
+
+env:
+  global:
+    # set to force failure with warnings
+    - BOOTSTRAP_LATEX=1
+    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
+    - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
+    - CRAN="http://cran.us.r-project.org"
+
+before_install:
+  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+  - chmod 755 ./travis-tool.sh
+  - ./travis-tool.sh bootstrap
+
+install:
+  - ./travis-tool.sh install_aptget r-cran-runit libgmp3-dev libmpfr-dev
+  - ./travis-tool.sh r_install gmp Rmpfr Bessel kelvin
+  # uses apt-get r-cran-*
+  - ./travis-tool.sh r_binary_install knitr RColorBrewer signal
+  # This works but is not foolproof
+  # - wget -O kelvin.tar.gz http://cran.r-project.org/src/contrib/kelvin_1.2-2.tar.gz
+  # - R CMD INSTALL kelvin.tar.gz
+  # This is still failing because of 
+  # system requirements- Rscript -e 'args <- commandArgs(TRUE); install.packages(args[1], dependencies=TRUE, repos=args[2], type=args[3])' "kelvin" "${CRAN}" "source"
+  - ./travis-tool.sh install_deps
+
+script: 
+  - ./travis-tool.sh run_tests
+
+after_failure:
+  - ./travis-tool.sh dump_logs
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+

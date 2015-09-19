@@ -1,8 +1,8 @@
-#kitagawa [![Build Status](https://travis-ci.org/abarbour/kitagawa.png?branch=master)](https://travis-ci.org/abarbour/kitagawa) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+#kitagawa [![Build Status](https://travis-ci.org/abarbour/kitagawa.svg)](https://travis-ci.org/abarbour/kitagawa) [![codecov.io](http://codecov.io/github/abarbour/kitagawa/coverage.svg?branch=master)](http://codecov.io/github/abarbour/kitagawa?branch=master) [![License](http://img.shields.io/badge/license-GPL-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
 Tools to calculate the theoretical spectral response 
 of fluid-pressure in an open, or sealed, water well
-to harmonic straining.
+to harmonic strains (e.g., tides, long-period seismic waves).
 
 ## Models
 
