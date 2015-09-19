@@ -4,9 +4,9 @@ language: r
 warnings_are_errors: true
 sudo: required
 
-#apt_packages:
-# - libgmp3-dev
-# - libmpfr 
+apt_packages:
+ - libgmp3-dev
+ - libmpfr 
 
 r_binary_packages:
 # until v2.0 binaries are on cran #  - kelvin
