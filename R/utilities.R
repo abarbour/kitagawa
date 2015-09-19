@@ -42,29 +42,21 @@
 #' }
 NULL
 
-#' @name .nullchk
 #' @rdname kitagawa-utilities
-#' @export
 .nullchk <- function(X){
   stopifnot(!is.null(X) & !(NA %in% X))
 }
 
-#' @name .in0to1
 #' @rdname kitagawa-utilities
-#' @export
 .in0to1 <- function(X){
   X <- as.numeric(X)
   stopifnot((X >= 0) & (X <= 1))
 }
 
-#' @name is.wrsp
 #' @rdname kitagawa-utilities
-#' @export
 is.wrsp <- function(X) inherits(X, "wrsp")
 
-#' @name is.owrsp
 #' @rdname kitagawa-utilities
-#' @export
 is.owrsp <- function(X) inherits(X, "owrsp")
 
 #' Dimensionless frequency from diffusivity and depth

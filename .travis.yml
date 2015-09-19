@@ -6,7 +6,7 @@ sudo: required
 
 apt_packages:
  - libgmp3-dev
- - libmpfr 
+ - libmpfr-dev
 
 r_binary_packages:
 # until v2.0 binaries are on cran #  - kelvin

@@ -66,10 +66,11 @@
 #'    Cooper et al (1965), or
 #'    Hsieh et al (1987).
 #' @param as.pressure logical; should the response be relative to aquifer pressure? (default is aquifer head)
+#' @param ... additional arguments
 #' 
-#' @return An object with class 'owrsp'
+#' @return An object with class \code{'owrsp'}
 #' 
-#' @author A. J. Barbour <andy.barbour@@gmail.com>
+#' @author A. J. Barbour
 #'
 #' @seealso 
 #' \code{\link{owrsp-methods}} for a description of the class 'owrsp' and its methods, and
@@ -81,21 +82,16 @@
 #' plot(OWR)
 #' OWR <- open_well_response(1/(1:200),1,1,Ta=100,Hw=10,model="liu",freq.units="Hz")
 #' plot(OWR)
-open_well_response <- function(omega, T., S.,
-                               Rs.=(8/12)*(1200/3937),
-                               rho, grav, z, Hw, Ta,
-                               freq.units=c("rad_per_sec","Hz"),
-                               model=c("rojstaczer","liu","cooper","hsieh"),
-                               as.pressure=TRUE) UseMethod("open_well_response")
+open_well_response <- function(omega, T., S., ...) UseMethod("open_well_response")
+
 #' @rdname open_well_response
-#' @method open_well_response default
 #' @export
 open_well_response.default <- function(omega, T., S., 
                                        Rs.=(8/12)*(1200/3937),
                                        rho, grav, z, Hw, Ta,
                                        freq.units=c("rad_per_sec","Hz"),
                                        model=c("rojstaczer","liu","cooper","hsieh"),
-                                       as.pressure=TRUE){
+                                       as.pressure=TRUE, ...){
   # Pick a model
   model <- match.arg(model)
   # Enforce units of omega to be radians/sec
@@ -133,7 +129,7 @@ open_well_response.default <- function(omega, T., S.,
     #
     if (missing(z)){
       z <- 1
-      warning("Depth from the water table 'z' not given. using default")
+      warning("Depth from the water table 'z' not given. using default: ", z)
     }
     sQp <- z * Dtau.
     exptau <- exp(-sQp)
