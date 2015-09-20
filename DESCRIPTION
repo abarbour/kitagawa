@@ -23,7 +23,9 @@ Imports:
     kelvin (>= 1.2-0)
 Suggests:
     knitr,
+    psd,
     RColorBrewer,
+    sapa,
     signal,
     testthat
 VignetteBuilder: knitr
