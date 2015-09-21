@@ -10,22 +10,22 @@ vignette: >
 bibliography: REFS.bib
 ---
 
-Here I show how the modeling tools in kitagawa can be
-used to study actual data.  Specifcally, I will show
+Here I show how the modeling tools in **kitagawa** can be
+used to study actual data.  Specifically, I will show
 records of strain and pore-pressure from borehole
-stations in the Plate Boundary Observatory.
-
-For more information see @barbour2011 and @barbour2015.
+stations in the [Plate Boundary Observatory](http://pbo.unavco.org/)
+in a manner similar to the approaches taken in @barbour2011 and @barbour2015.
 
 ```{r, echo=TRUE}
 library(kitagawa)
 ```
 
-We first load the psd package, which includes the dataset:
-and the spectral estimation tools. We're interested in
-the spectral relationship between pore pressure $p$ and
-_areal_ strain $E_A$ -- the change in borehole
-diameter, which can be related to volume strain, during the seismic
+## Pore Pressure Changes from Teleseismic Strains
+
+We first load the psd package, which includes the dataset. We're 
+interested in the spectral relationship between pore pressure $p$ and
+_areal_ strain $E_A$^[the change in borehole
+diameter, which can be related to volume strain], during the seismic
 portion of the record.
 
 ```{r, echo=TRUE}
@@ -39,28 +39,35 @@ toh.dat <- with(subset(Tohoku, epoch=='seismic'),{
 colnames(toh.dat) <- c('input','output')
 ```
 
-Note how the records look like mirrow images of each other:
+Note how the records^[of the 2011 $M_W 9$ Tohoku-oki earthquake some thousands of
+kilometers away] very nearly look like a mirror image of each other:
 ```{r, echo=FALSE, fig.show='hold', fig.width=7., fig.height=4.5}
+library(RColorBrewer)
+Set1 <- brewer.pal(8, 'Set1')
 par(mar=c(3,3,0.2,0.2))
 plot(ts(toh.dat), yax.flip = TRUE)
 ```
-This is consistent with the theory of linear poroelasticity,
-which says
+This indicates that energy in the seismic waves is predominately at long
+periods and very nearly harmonic, and is consistent with the 
+theory of linear poroelasticity, which predicts that
 $$
 p \approx - \frac{4}{3} B \mu E_A
 $$
 for an undrained Poisson's ratio of $1/3$, where
-$B$ is Skempton's ratio, and $\mu$ is the elastic
-shear modulus. In this case the _apparent_ proportionality is 
+$B$ is the Skempton's ratio and $\mu$ is the elastic
+shear modulus of the fluid-saturated rock. In 
+this case the _apparent_ proportionality is 
 `r round(coef(lm(output ~ input-1, as.data.frame(toh.dat)))/1e9, 3)` $GPa / \epsilon$, 
 but we will see how this value is actually frequency dependent.
 
-First let's use Don Percival's package `sapa`
-to estimate a multitaper cross spectrum
+First let's use Don Percival's package **sapa**
+to estimate a cross spectrum between pressure and strain,
+treating strain as the input to the system yielding
+pressure as the output:
 ```{r, echo=TRUE, fig.show='hold', fig.width=7., fig.height=5.5}
 library(sapa)
-k <- 15
-print(toh.cs <- sapa::SDF((toh.dat), method='multitaper', n.taper=k, sampling.interval=1))
+k <- 25
+print(toh.cs <- sapa::SDF(toh.dat, method='multitaper', n.taper=k, sampling.interval=1))
 plot(toh.cs, xscale='log')
 ```
 with the following Hanning tapers:
@@ -69,7 +76,7 @@ par(mar=c(3,2,1,0.2))
 matplot(t(unclass(attr(toh.cs,'taper'))), type='l', lty=1, xlab='', ylab='time, seconds')
 ```
 
-### Coherence, Admittance, and Phase
+### Estimating the Coherence, Admittance, and Phase
 
 If the results of the `SDF` computation give
 a matrix of complex spectra $[S_{11}, S_{12}, S_{22}]$, 
@@ -99,8 +106,8 @@ S22 <- S[,'S22']
 Coh <- abs(Mod(S12)^2 / (S11 * S22))
 gam <- seq(0,1,by=0.001)
 Pgam <- pf(2*k*gam/(1-gam), 2, 4*k)
-coh.99 <- max(gam[Pgam <= 0.99])
-G <- sqrt(Coh * S22 / S11)
+coh.99 <- max(gam[Pgam <= 0.995])
+G <- abs(sqrt(Coh * S22 / S11))
 G.err <- sqrt((1 - Coh) / k)
 Phi <- atan2(x = Re(S12), y = Im(S12))
 Phi2 <- Arg(S12)
@@ -116,22 +123,37 @@ csd.f <- subset(csd, p <= 200)
 is.sig <- csd.f$Coh > coh.99
 ```
 
-```{r, echo=TRUE, fig.show='hold', fig.width=7., fig.height=5.5}
+```{r, echo=TRUE, fig.show='hold', fig.width=7., fig.height=6.5}
 layout(matrix(1:3), heights=c(1.3,2,2))
-par(mar=c(0.5, 3, 0.1, 0.1), oma=c(4,0.1,2,0.1), cex=0.8, las=1)
-# Coherence
-plot(Coh ~ lf, csd.f, type='l', xaxt='n')
-abline(h=coh.99, lty=2, col='blue')
-# Admittance
-plot(G ~ lf, csd.f, type='l', xaxt='n', col='lightgrey')
+par(mar=c(1, 3, 0.0, 0.1), oma=c(4,0.1,2,0.1), cex=0.8, las=1)
+#
+plot(Coh ~ lf, csd.f, type='l', xaxt='n', ylim=c(0,1), yaxs='i')
+abline(h=coh.99, col=Set1[2])
+text(-1.3, coh.99, expression(3*sigma ~ "conf."), pos=3, col=Set1[2])
+mtext('Coherence', font=2, line=-2.5, adj=0.1)
+axis(1, labels=FALSE)
+#
+plot(G ~ lf, csd.f, type='l', xaxt='n', col=NA, log='y')
+lines(G ~ lf, csd.f, col='lightgrey')
+lines(3*G.err ~ lf, csd.f, col=Set1[1]) # uncertainty
 Gna <- csd.f$G
 Gna[!is.sig] <- NA
 points(csd.f$lf, Gna, pch=15, cex=0.2)
 dg <- round(coef(lm(output ~ input-1, as.data.frame(toh.dat)))/1e9, 3)
-abline(h=abs(dg), col='red')
-# Phase
-plot(Phi ~ lf, csd.f, type='l', col='lightgrey')
+abline(h=abs(dg), lty=2)
+text(-1.3, min(csd.f$G.err)*3 - 0.01, expression(3*sigma ~ "uncert."), pos=1, col=Set1[1])
+mtext('Admittance', font=2, line=-2.8, adj=0.1)
+axis(1, labels=FALSE)
+#
+plot(Phi ~ lf, csd.f, 
+     type='l', col='lightgrey', ylim=181*c(-1,1), yaxs='i', yaxt='n', xaxt='n')
+yat <- 180*(-2:2)/2
+abline(h=yat, lty=3)
 Phina <- csd.f$Phi
 Phina[!is.sig] <- NA
 points(csd.f$lf, Phina, pch=15, cex=0.2)
+mtext('Phase', font=2, line=-2.0, adj=0.1)
+axis(2, at=yat)
+logticks(1, major.ticks = -3:1)
+axis(1, at=-3:1, labels=paste0("(",c(1000,100,10,1,"1/10"),'s)'), line=1.6, lwd=0)
 ```
