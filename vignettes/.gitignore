@@ -8,3 +8,4 @@ ResponseModels-concordance.tex
 *.blg
 *.log
 Rplots.pdf
+^figure/
