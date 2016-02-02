@@ -1,4 +1,4 @@
-#kitagawa [![Build Status](https://travis-ci.org/abarbour/kitagawa.svg)](https://travis-ci.org/abarbour/kitagawa) [![codecov.io](http://codecov.io/github/abarbour/kitagawa/coverage.svg?branch=master)](http://codecov.io/github/abarbour/kitagawa?branch=master) [![License](http://img.shields.io/badge/license-GPL-lightgrey.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Downloads](http://cranlogs.r-pkg.org/badges/kitagawa?color=orange)](http://www.r-pkg.org/pkg/kitagawa)
+#kitagawa [![Build Status](https://travis-ci.org/abarbour/kitagawa.svg)](https://travis-ci.org/abarbour/kitagawa) [![codecov.io](http://codecov.io/github/abarbour/kitagawa/coverage.svg?branch=master)](http://codecov.io/github/abarbour/kitagawa?branch=master) [![License](http://img.shields.io/badge/license-GPL-orange.svg)](http://www.gnu.org/licenses/gpl-2.0.html) [![Downloads](http://cranlogs.r-pkg.org/badges/kitagawa)](http://www.r-pkg.org/pkg/kitagawa)
 
 Tools to calculate the theoretical spectral response 
 of fluid-pressure in a water well
