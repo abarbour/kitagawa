@@ -11,6 +11,7 @@ apt_packages:
 r_binary_packages:
 # until v2.0 binaries are on cran #  - kelvin
   - knitr
+  - rmarkdown
   - psd
   - RColorBrewer
   - sapa
