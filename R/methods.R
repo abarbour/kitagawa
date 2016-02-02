@@ -66,7 +66,6 @@ NULL
 as.data.frame.wrsp <- function(x, ...){
   WR <- x[["Response"]]
   df <- as.data.frame(WR)
-  #names(df) <- "n.wrsp"
   return(df)
 }
 #' @rdname wrsp-methods
@@ -78,20 +77,18 @@ data.frame.wrsp <- as.data.frame.wrsp
 #' @aliases print.wrsp
 #' @export
 print.wrsp <- function(x, n=3, ...){
-  stopifnot(is.wrsp(x))
   message("Sealed well response:")
-  WR <- x[["Response"]]
-  WR <- as.data.frame(WR)
+  WR <- as.data.frame(x)
   print(head(WR, n))
   message("\t...")
   print(tail(WR, n))
+  return(invisible(x))
 }
 
 #' @rdname wrsp-methods
 #' @aliases summary.wrsp
 #' @export
 summary.wrsp <- function(object, ...){
-  stopifnot(is.wrsp(object))
   WR <- object[["Response"]]
   toret <- summary.default(WR)
   class(toret) <- "summary.wrsp"
@@ -110,7 +107,6 @@ print.summary.wrsp <- function(x, ...){
 #' @aliases lines.wrsp
 #' @export
 lines.wrsp <- function(x, series=c("amp","phs"), ...){
-  stopifnot(is.wrsp(x))
   series <- match.arg(series)
   WR <- x[["Response"]]
   x <- WR[,1]
@@ -123,7 +119,6 @@ lines.wrsp <- function(x, series=c("amp","phs"), ...){
 #' @aliases points.wrsp
 #' @export
 points.wrsp <- function(x, series=c("amp","phs"), pch="+", ...){
-  stopifnot(is.wrsp(x))
   series <- match.arg(series)
   WR <- x[["Response"]]
   x <- WR[,1]
@@ -138,8 +133,6 @@ points.wrsp <- function(x, series=c("amp","phs"), pch="+", ...){
 plot.wrsp <- function(x, 
                       xlims=c(-3,1), 
                       ylims=list(amp=NULL, phs=185*c(-1,1)), logamp=TRUE, ...){
-  #
-  stopifnot(is.wrsp(x))
   WR <- x[["Response"]]
   au <- x[["Response.units"]]
   fu <- x[["Omega"]][["Units"]]
@@ -278,7 +271,6 @@ NULL
 as.data.frame.owrsp <- function(x, ...){
   WR <- x[["Response"]]
   df <- as.data.frame(WR)
-  #names(df) <- "n.owrsp"
   return(df)
 }
 #' @rdname owrsp-methods
@@ -290,20 +282,18 @@ data.frame.owrsp <- as.data.frame.owrsp
 #' @aliases print.owrsp
 #' @export
 print.owrsp <- function(x, n=3, ...){
-  stopifnot(is.owrsp(x))
   message("Open well response:")
-  WR <- x[["Response"]]
-  WR <- as.data.frame(WR)
+  WR <- as.data.frame(x)
   print(head(WR, n))
   message("\t...")
   print(tail(WR, n))
+  return(invisible(x))
 }
 
 #' @rdname owrsp-methods
 #' @aliases summary.owrsp
 #' @export
 summary.owrsp <- function(object, ...){
-  stopifnot(is.owrsp(object))
   WR <- object[["Response"]]
   toret <- summary.default(WR)
   class(toret) <- "summary.owrsp"
@@ -322,7 +312,6 @@ print.summary.owrsp <- function(x, ...){
 #' @aliases lines.owrsp
 #' @export
 lines.owrsp <- function(x, series=c("amp","phs"), ...){
-  stopifnot(is.owrsp(x))
   series <- match.arg(series)
   WR <- x[["Response"]]
   x <- WR[,1]
@@ -335,7 +324,6 @@ lines.owrsp <- function(x, series=c("amp","phs"), ...){
 #' @aliases points.owrsp
 #' @export
 points.owrsp <- function(x, series=c("amp","phs"), pch="+", ...){
-  stopifnot(is.owrsp(x))
   series <- match.arg(series)
   WR <- x[["Response"]]
   x <- WR[,1]
@@ -351,7 +339,6 @@ plot.owrsp <- function(x,
                       xlims=c(-3,1), 
                       ylims=list(amp=NULL, phs=185*c(-1,1)), logamp=TRUE, ...){
   #
-  stopifnot(is.owrsp(x))
   WR <- x[["Response"]]
   au <- x[["Response.units"]]
   fu <- x[["Omega"]][["Units"]]

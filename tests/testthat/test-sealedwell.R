@@ -17,3 +17,16 @@ resp <- well_response(frq, Transmiss, Storativ,
 test_that("class is correct",{
   expect_is(resp,'wrsp')
 })
+
+test_that("method dispatch appropriate",{
+  
+  expect_is(as.data.frame(resp),'data.frame')
+  
+  expect_is(print(resp),'wrsp')
+  expect_message(print(resp))
+  
+  expect_is(summary(resp),'summary.wrsp')
+  expect_is(print(summary(resp)),'summary.wrsp')
+  expect_message(print(summary(resp)))
+  
+})
