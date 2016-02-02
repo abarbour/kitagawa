@@ -54,9 +54,11 @@ NULL
 }
 
 #' @rdname kitagawa-utilities
+#' @export
 is.wrsp <- function(X) inherits(X, "wrsp")
 
 #' @rdname kitagawa-utilities
+#' @export
 is.owrsp <- function(X) inherits(X, "owrsp")
 
 #' Dimensionless frequency from diffusivity and depth
