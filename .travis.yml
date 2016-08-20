@@ -1,8 +1,9 @@
-# .travis.yml for kitagawa
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: r
+language: R
+sudo: false
+cache: packages
 warnings_are_errors: false
-sudo: required
 
 apt_packages:
  - libgmp3-dev
@@ -17,16 +18,13 @@ r_binary_packages:
   - sapa
   - signal
   - testthat
-  
-r_github_packages:
-  - jimhester/covr
-  - abarbour/kelvin
-  
-
+  - covr
+  - kelvin
+ 
 notifications:
   email:
     on_success: change
     on_failure: change
-    
+
 after_success:
-  - Rscript -e 'library(covr);codecov()'
+  - Rscript -e 'covr::codecov()'
