@@ -18,7 +18,9 @@ r_binary_packages:
  - signal
  - testthat
  - covr
- - kelvin
+
+r_github_packages:
+ - abarbour/kelvin
  
 notifications:
  email:
