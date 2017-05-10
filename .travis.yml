@@ -1,32 +1,31 @@
-# .travis.yml for kitagawa
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: r
-warnings_are_errors: false
+language: R
 sudo: required
+cache: packages
+warnings_are_errors: false
 
 apt_packages:
  - libgmp3-dev
  - libmpfr-dev
 
 r_binary_packages:
-# until v2.0 binaries are on cran #  - kelvin
-  - knitr
-  - rmarkdown
-  - psd
-  - RColorBrewer
-  - sapa
-  - signal
-  - testthat
-  
-r_github_packages:
-  - jimhester/covr
-  - abarbour/kelvin
-  
+ - knitr
+ - rmarkdown
+ - psd
+ - RColorBrewer
+ - sapa
+ - signal
+ - testthat
+ - covr
 
+r_github_packages:
+ - abarbour/kelvin
+ 
 notifications:
-  email:
-    on_success: change
-    on_failure: change
-    
+ email:
+  on_success: change
+  on_failure: change
+
 after_success:
-  - Rscript -e 'library(covr);codecov()'
+  - Rscript -e 'covr::codecov()'
