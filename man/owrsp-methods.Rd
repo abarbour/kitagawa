@@ -2,16 +2,16 @@
 % Please edit documentation in R/methods.R
 \docType{methods}
 \name{owrsp-methods}
+\alias{owrsp-methods}
+\alias{owrsp}
 \alias{as.data.frame.owrsp}
 \alias{data.frame.owrsp}
-\alias{lines.owrsp}
-\alias{owrsp}
-\alias{owrsp-methods}
-\alias{plot.owrsp}
-\alias{points.owrsp}
 \alias{print.owrsp}
-\alias{print.summary.owrsp}
 \alias{summary.owrsp}
+\alias{print.summary.owrsp}
+\alias{lines.owrsp}
+\alias{points.owrsp}
+\alias{plot.owrsp}
 \title{Generic methods for objects with class \code{'owrsp'}.}
 \usage{
 \method{as.data.frame}{owrsp}(x, ...)
@@ -89,12 +89,11 @@ plot(W)
 # change limits:
 plot(W, xlims=c(-4,0), ylims=list(amp=c(-7,-3), phs=185*c(-1,1)))
 }
-\author{
-A. J. Barbour <andy.barbour@gmail.com>
-}
 \seealso{
 \code{\link{open_well_response}}
 
 \code{\link{kitagawa-package}}
 }
-
+\author{
+A. J. Barbour <andy.barbour@gmail.com>
+}

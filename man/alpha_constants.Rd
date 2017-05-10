@@ -53,13 +53,12 @@ alpha_constants()   # kelvin::Keir gives warning
 alpha_constants(1)  # defaults to constant 'Phi' (note output also has Kel)
 alpha_constants(1:10, c.type="A")  # constant 'A' (again, note output)
 }
-\author{
-A. J. Barbour <andy.barbour@gmail.com>
-}
 \seealso{
 \code{\link{omega_constants}}, \code{\link{well_response}}
 
 Other ConstantsCalculators: \code{\link{kitagawa-constants}},
   \code{\link{omega_constants}}
 }
-
+\author{
+A. J. Barbour <andy.barbour@gmail.com>
+}

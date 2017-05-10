@@ -2,18 +2,18 @@
 % Please edit documentation in R/methods.R
 \docType{methods}
 \name{wrsp-methods}
+\alias{wrsp-methods}
+\alias{wrsp}
 \alias{as.data.frame.wrsp}
 \alias{data.frame.wrsp}
-\alias{kitplot}
-\alias{kitplot.wrsp}
-\alias{lines.wrsp}
-\alias{plot.wrsp}
-\alias{points.wrsp}
-\alias{print.summary.wrsp}
 \alias{print.wrsp}
 \alias{summary.wrsp}
-\alias{wrsp}
-\alias{wrsp-methods}
+\alias{print.summary.wrsp}
+\alias{lines.wrsp}
+\alias{points.wrsp}
+\alias{plot.wrsp}
+\alias{kitplot}
+\alias{kitplot.wrsp}
 \title{Generic methods for objects with class \code{'wrsp'}.}
 \usage{
 \method{as.data.frame}{wrsp}(x, ...)
@@ -97,9 +97,6 @@ plot(W)
 # change limits:
 plot(W, xlims=c(-1,1), ylims=list(amp=c(5,8), phs=185*c(-1,1)))
 }
-\author{
-A. J. Barbour <andy.barbour@gmail.com>
-}
 \seealso{
 \code{\link{well_response}}
 
@@ -107,4 +104,6 @@ A. J. Barbour <andy.barbour@gmail.com>
 
 Other PlotUtilities: \code{\link{logticks}}
 }
-
+\author{
+A. J. Barbour <andy.barbour@gmail.com>
+}
