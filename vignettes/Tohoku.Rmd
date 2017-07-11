@@ -230,3 +230,11 @@ axis(2)
 logticks(1, major.ticks = -3:1)
 axis(1, at=-3:1, labels=paste0("(",c(1000,100,10,1,"1/10"),'s)'), line=1.6, lwd=0)
 ```
+
+This is now implemented in the function `cross_spectrum`:
+```{r}
+cross_spectrum(toh.dat)
+```
+
+
+## References

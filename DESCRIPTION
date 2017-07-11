@@ -2,7 +2,7 @@ Package: kitagawa
 Type: Package
 Title: Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
 Version: 2.2-0
-Date: 2016-02-01
+Date: 2017-07-11
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response
@@ -18,10 +18,12 @@ License: GPL (>= 2)
 URL: https://github.com/abarbour/kitagawa
 BugReports: https://github.com/abarbour/kitagawa/issues
 Depends:
-    R (>= 2.10.1)
+    R (>= 2.10.1),
+    stats
 Imports:
     kelvin (>= 1.2-0)
 Suggests:
+    dplyr,
     knitr,
     psd,
     rmarkdown,
