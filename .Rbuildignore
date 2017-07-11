@@ -8,7 +8,6 @@ tests
 .git
 .git/*
 .gitignore
-
 ^\.Rproj\.user$
 kitagawa.Rproj
 $\.Rout
@@ -16,16 +15,13 @@ Rplots.pdf
 Rout$
 .Rhistory
 ^.*\.Rproj$
-
 vignettes/.Rhistory
 vignettes/.knitr*
 vignettes/.knitr2*
 vignettes/.sweave*
 vignettes/Rplots.pdf
 vignettes/figure
-
 ^packrat/
-
 ^\.travis\.yml$
-
 ^revdep$
+^appveyor\.yml$
