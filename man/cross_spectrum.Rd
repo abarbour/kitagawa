@@ -2,10 +2,13 @@
 % Please edit documentation in R/cross.R
 \name{cross_spectrum}
 \alias{cross_spectrum}
+\alias{cross_spectrum.mts}
 \alias{cross_spectrum.default}
 \title{Calculate the cross-spectrum of two timeseries}
 \usage{
 cross_spectrum(x, ...)
+
+\method{cross_spectrum}{mts}(x, ...)
 
 \method{cross_spectrum}{default}(x, y, k = 10, samp = 1, q, ...)
 }
@@ -18,9 +21,10 @@ cross_spectrum(x, ...)
 
 \item{k}{integer; the number of sine multitapers}
 
-\item{samp}{numeric; the sampling rate (Hz) of the data; must be the same for \code{x} and \code{y}}
+\item{samp}{numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}}
 
-\item{q}{numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a pre-specificed sequence is returned.}
+\item{q}{numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
+pre-specified sequence is included.}
 }
 \description{
 Calculate the cross-spectrum of two timeseries

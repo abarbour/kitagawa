@@ -2,7 +2,7 @@
 #' @param x numeric; timeseries
 #' @param y numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}
 #' @param k integer; the number of sine multitapers
-#' @param samp numeric; the sampling rate (Hz) of the data; must be the same for \code{x} and \code{y}
+#' @param samp numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}
 #' @param q numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
 #' pre-specified sequence is included.
 #' @param ... additional arguments
@@ -56,7 +56,7 @@ cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 
 #' @rdname cross_spectrum
 #' @export
-cross_spectrum.ts <- function(x, ...){
+cross_spectrum.mts <- function(x, ...){
     xsamp <- deltat(x)
     cross_spectrum(x=as.matrix(x), samp=xsamp, ...)
 }
