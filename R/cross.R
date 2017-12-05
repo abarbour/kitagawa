@@ -3,7 +3,8 @@
 #' @param y numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}
 #' @param k integer; the number of sine multitapers
 #' @param samp numeric; the sampling rate (Hz) of the data; must be the same for \code{x} and \code{y}
-#' @param q numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a pre-specificed sequence is returned.
+#' @param q numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
+#' pre-specified sequence is included.
 #' @param ... additional arguments
 #' 
 #' @export
@@ -55,6 +56,13 @@ cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 
 #' @rdname cross_spectrum
 #' @export
+cross_spectrum.ts <- function(x, ...){
+    xsamp <- deltat(x)
+    cross_spectrum(x=as.matrix(x), samp=xsamp, ...)
+}
+
+#' @rdname cross_spectrum
+#' @export
 cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
   
   XY <- if (missing(y)){
@@ -96,13 +104,16 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
   csd. <- dplyr::data_frame(Frequency=freq, Period=1/freq, 
                            Coherence=Coh, 
                            Admittance=G, Admittance.stderr=G.err, 
-                           Phase=Phi)
+                           Phase=Phi,
+                           S11, S12, S22)
 
   # Calculate minimum coherence significance levels
-  if (missing(q)) q <- seq(0.55,0.95,by=0.05)
+  if (missing(q)) q <- c(0.01, seq(0.05,0.95,by=0.05), 0.99)
   mtcsa[['Coh.probs']] <- data.frame(q, coh.sig=stats::pf(q, 2, 4*k))
   attr(csd., 'mtcsd') <- mtcsa
-    
+  
+  class(csd.) <- c('mtcsd', class(csd.))
+  
   return(csd.)
 }
 
