@@ -2,8 +2,8 @@
 % Please edit documentation in R/cross.R
 \name{cross_spectrum}
 \alias{cross_spectrum}
-\alias{cross_spectrum.default}
 \alias{cross_spectrum.mts}
+\alias{cross_spectrum.default}
 \title{Calculate the cross-spectrum of two timeseries}
 \usage{
 cross_spectrum(x, ...)
@@ -78,4 +78,3 @@ with(csd,{
 wcsd <- cross_spectrum(X, Y, k=NULL)
 
 }
-

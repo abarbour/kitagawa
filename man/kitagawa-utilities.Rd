@@ -2,11 +2,11 @@
 % Please edit documentation in R/utilities.R
 \docType{methods}
 \name{kitagawa-utilities}
-\alias{.in0to1}
-\alias{.nullchk}
-\alias{is.owrsp}
-\alias{is.wrsp}
 \alias{kitagawa-utilities}
+\alias{.nullchk}
+\alias{.in0to1}
+\alias{is.wrsp}
+\alias{is.owrsp}
 \title{General utility functions}
 \usage{
 .nullchk(X)
@@ -52,10 +52,9 @@ would be returned by, for example, \code{\link{well_response}}.
 is.wrsp(1) # FALSE
 }
 }
-\author{
-A. J. Barbour <andy.barbour@gmail.com>
-}
 \seealso{
 \code{\link{kitagawa-package}}
 }
-
+\author{
+A. J. Barbour <andy.barbour@gmail.com>
+}
