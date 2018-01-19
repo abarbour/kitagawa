@@ -79,12 +79,16 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
   # Calculate sine-mt CS
   do.mt <- !is.null(k)
   cs <- if (do.mt){
+    message("calculating sine-multitaper spectra...")
     sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp)
   } else {
+    message("calculating Welch spectra...")
     sapa::SDF(XY, method='wosa', sampling.interval=samp, overlap=0.5)
   }
   csa <- attributes(cs)
-  if (do.mt & !all.equal(k, csa[['n.taper']])) warning('discrepancy in no. of tapers')
+  if (do.mt){
+    if (!all.equal(k, csa[['n.taper']])) warning('discrepancy in no. of tapers')
+  }
   
   nfrq <- which(names(csa) == 'frequency')
   mtcsa <- csa[-nfrq]
@@ -103,7 +107,7 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
   
   # Admittance (gain)
   G <- abs(sqrt(Coh * S22 / S11))
-  G.err <- sqrt((1 - Coh) / k)
+  G.err <- sqrt((1 - Coh) / ifelse(do.mt,k,1))
   
   # Phase
   Phi <- atan2(x = Re(S12), y = Im(S12))
