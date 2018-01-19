@@ -7,7 +7,7 @@
 #' @param samp numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}
 #' @param q numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
 #' pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).
-#' @param ... additional arguments
+#' @param ... additional arguments to \code{\link[sapa]{SDF}}
 #' 
 #' @export
 #' 
@@ -80,10 +80,10 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
   do.mt <- !is.null(k)
   cs <- if (do.mt){
     message("calculating sine-multitaper spectra...")
-    sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp)
+    sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp, ...)
   } else {
     message("calculating Welch spectra...")
-    sapa::SDF(XY, method='wosa', sampling.interval=samp, overlap=0.5)
+    sapa::SDF(XY, method='wosa', sampling.interval=samp, ...)
   }
   csa <- attributes(cs)
   if (do.mt){

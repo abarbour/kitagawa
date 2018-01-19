@@ -15,7 +15,7 @@ cross_spectrum(x, ...)
 \arguments{
 \item{x}{numeric; timeseries}
 
-\item{...}{additional arguments}
+\item{...}{additional arguments to \code{\link[sapa]{SDF}}}
 
 \item{y}{numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}}
 
