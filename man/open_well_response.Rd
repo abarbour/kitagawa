@@ -95,12 +95,14 @@ for the Liu and Rojstaczer models are reversed from their original presentation,
 in order to account for differences in sign convention.
 }
 }
-
 \examples{
 OWR <- open_well_response(1:10,1,1)
 plot(OWR)
 OWR <- open_well_response(1/(1:200),1,1,Ta=100,Hw=10,model="liu",freq.units="Hz")
 plot(OWR)
+}
+\author{
+A. J. Barbour
 }
 \seealso{
 \code{\link{owrsp-methods}} for a description of the class 'owrsp' and its methods, and
@@ -108,6 +110,4 @@ plot(OWR)
 
 Other WellResponseFunctions: \code{\link{well_response}}
 }
-\author{
-A. J. Barbour
-}
+

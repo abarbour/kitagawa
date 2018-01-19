@@ -2,8 +2,8 @@
 % Please edit documentation in R/cross.R
 \name{cross_spectrum}
 \alias{cross_spectrum}
-\alias{cross_spectrum.mts}
 \alias{cross_spectrum.default}
+\alias{cross_spectrum.mts}
 \title{Calculate the cross-spectrum of two timeseries}
 \usage{
 cross_spectrum(x, ...)
@@ -19,12 +19,14 @@ cross_spectrum(x, ...)
 
 \item{y}{numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}}
 
-\item{k}{integer; the number of sine multitapers}
+\item{k}{integer; the number of sine multitapers, unless this is \code{NULL}; in the latter case
+a Welch-based spectrum is calculated rather than a multitaper spectrum. There are distinct
+advantanges and disadvantages to either of these.}
 
 \item{samp}{numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}}
 
 \item{q}{numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
-pre-specified sequence is included.}
+pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).}
 }
 \description{
 Calculate the cross-spectrum of two timeseries
@@ -40,7 +42,7 @@ set.seed(1255)
 X <- ts(rnorm(n) + ramp/2)
 Y <- ts(rnorm(n) + ramp/10 + parab/100)
 
-# Calculate the cross spectrum
+# Calculate the cross spectrum, multitaper if K is not NULL
 csd <- cross_spectrum(X, Y, k=20)
 
 with(csd,{
@@ -72,4 +74,8 @@ with(csd,{
   lines(x, y3s)
 })
 
+# turn off k to get Welch's Overlapping
+wcsd <- cross_spectrum(X, Y, k=NULL)
+
 }
+

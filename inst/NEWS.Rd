@@ -18,6 +18,12 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 
 \encoding{UTF-8}
 
+\section{CHANGES IN VERSION 2.2-1 (2017-01-18)}{
+  \itemize{
+    \item Added optional switch to \code{cross_spectrum} to switch from multitaper to Welch overlapping estimation
+  }
+}
+
 \section{CHANGES IN VERSION 2.2-0 (2017-07-11)}{
   \itemize{
     \item Tohoku cross-spectrum vignette
@@ -26,6 +32,7 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
     \item unit-testing framework (testthat, \CRANpkg{testthat}), with some tests
   }
 }
+
 
 \section{2.1-1 (2015-02-10)}{
   \itemize{

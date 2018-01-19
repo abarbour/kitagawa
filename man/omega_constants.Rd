@@ -71,7 +71,6 @@ calculation does not fail, and the results are essentially meaningless.
 Warnings will be issued if any necessary parameters are missing, indicating
 default values were used.
 }
-
 \examples{
 # alpha
 omega_constants() # default is alpha, but will give warnings about S., T., Rs.
@@ -84,6 +83,9 @@ omega_constants(c.type="diff", D.=1)  # 0, no warnings (arg matching)
 omega_constants(c.type="diff")  # 0, warnings about S., T. because no D.
 omega_constants(c.type="diff", S.=1)  # 0, warnings about T. because no D. or S.
 }
+\author{
+A. J. Barbour <andy.barbour@gmail.com>
+}
 \seealso{
 \code{\link{alpha_constants}}, \code{\link{well_response}}, and
 \code{\link{kitagawa-package}} for references and more background.
@@ -91,6 +93,4 @@ omega_constants(c.type="diff", S.=1)  # 0, warnings about T. because no D. or S.
 Other ConstantsCalculators: \code{\link{alpha_constants}},
   \code{\link{kitagawa-constants}}
 }
-\author{
-A. J. Barbour <andy.barbour@gmail.com>
-}
+

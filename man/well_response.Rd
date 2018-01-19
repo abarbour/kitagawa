@@ -102,6 +102,9 @@ Vw.=Volw, Rs.=Rs, Ku.=40e9, B.=0.2, freq.units="Hz"))
 plot(Rsp)
 
 }
+\author{
+A. J. Barbour
+}
 \seealso{
 \code{\link{wrsp-methods}} for a description of the class 'wrsp' and its methods,
 \code{\link{sensing_volume}} to easily estimate the volume \code{Vw.}, and
@@ -109,6 +112,4 @@ plot(Rsp)
 
 Other WellResponseFunctions: \code{\link{open_well_response}}
 }
-\author{
-A. J. Barbour
-}
+

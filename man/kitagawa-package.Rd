@@ -2,8 +2,8 @@
 % Please edit documentation in R/kitagawa-package.R
 \docType{package}
 \name{kitagawa-package}
-\alias{kitagawa-package}
 \alias{kitagawa}
+\alias{kitagawa-package}
 \title{Spectral Response of Water Wells to Harmonic Strain and Pressure Signals}
 \description{
 Provides tools to calculate the theoretical hydrodynamic response
@@ -64,7 +64,9 @@ assumption of isotropic permeability, which may substantially
 alter the response by introducing shear-strain coupling. But these
 complications are beyond the scope of this model.
 }
-
+\author{
+Andrew J. Barbour <andy.barbour@gmail.com>
+}
 \references{
 Abramowitz, M. and Stegun, I. A. (Eds.). "Kelvin Functions." 
 \eqn{\S 9.9} in Handbook of Mathematical Functions with Formulas, Graphs, 
@@ -97,6 +99,4 @@ Poroelastic techniques in the study of earthquake-related hydrologic phenomena,
 \code{\link{sensing_volume}}, 
 \code{\link{wrsp-methods}}
 }
-\author{
-Andrew J. Barbour <andy.barbour@gmail.com>
-}
+

@@ -1,10 +1,12 @@
 #' Calculate the cross-spectrum of two timeseries
 #' @param x numeric; timeseries
 #' @param y numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}
-#' @param k integer; the number of sine multitapers
+#' @param k integer; the number of sine multitapers, unless this is \code{NULL}; in the latter case
+#' a Welch-based spectrum is calculated rather than a multitaper spectrum. There are distinct
+#' advantanges and disadvantages to either of these.
 #' @param samp numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}
 #' @param q numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
-#' pre-specified sequence is included.
+#' pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).
 #' @param ... additional arguments
 #' 
 #' @export
@@ -20,7 +22,7 @@
 #' X <- ts(rnorm(n) + ramp/2)
 #' Y <- ts(rnorm(n) + ramp/10 + parab/100)
 #' 
-#' # Calculate the cross spectrum
+#' # Calculate the cross spectrum, multitaper if K is not NULL
 #' csd <- cross_spectrum(X, Y, k=20)
 #' 
 #' with(csd,{
@@ -52,6 +54,9 @@
 #'   lines(x, y3s)
 #' })
 #' 
+#' # turn off k to get Welch's Overlapping
+#' wcsd <- cross_spectrum(X, Y, k=NULL)
+#' 
 cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 
 #' @rdname cross_spectrum
@@ -72,9 +77,14 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
   }
   
   # Calculate sine-mt CS
-  cs <- sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp)
+  do.mt <- !is.null(k)
+  cs <- if (do.mt){
+    sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp)
+  } else {
+    sapa::SDF(XY, method='wosa', sampling.interval=samp, overlap=0.5)
+  }
   csa <- attributes(cs)
-  if (!all.equal(k, csa[['n.taper']])) warning('discrepancy in no. of tapers')
+  if (do.mt & !all.equal(k, csa[['n.taper']])) warning('discrepancy in no. of tapers')
   
   nfrq <- which(names(csa) == 'frequency')
   mtcsa <- csa[-nfrq]
@@ -108,11 +118,15 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
                            S11, S12, S22)
 
   # Calculate minimum coherence significance levels
-  if (missing(q)) q <- c(0.01, seq(0.05,0.95,by=0.05), 0.99)
-  mtcsa[['Coh.probs']] <- data.frame(q, coh.sig=stats::pf(q, 2, 4*k))
+  mtcsa[['Coh.probs']] <- if (do.mt){
+    if (missing(q)) q <- c(0.01, seq(0.05, 0.95, by=0.05), 0.99)
+    data.frame(q, coh.sig=stats::pf(q, 2, 4*k))
+  } else {
+    NA
+  }
   attr(csd., 'mtcsd') <- mtcsa
   
-  class(csd.) <- c('mtcsd', class(csd.))
+  class(csd.) <- c(ifelse(do.mt,'mtcsd','wosacsd'), class(csd.))
   
   return(csd.)
 }

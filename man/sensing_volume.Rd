@@ -55,11 +55,12 @@ Ls <- 9.14     # m, length of screened region (30ft)
 # calculate the sensing volume for the given well parameters
 sensing_volume(Rc, Lc, Rs, Ls) # m**3, ~= 1.8
 }
+\author{
+A. J. Barbour <andy.barbour@gmail.com>
+}
 \seealso{
 \code{\link{well_response}}
 
 Other utilities: \code{\link{omega_norm}}
 }
-\author{
-A. J. Barbour <andy.barbour@gmail.com>
-}
+
