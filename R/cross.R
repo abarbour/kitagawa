@@ -63,7 +63,7 @@ cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 #' @rdname cross_spectrum
 #' @export
 cross_spectrum.mts <- function(x, ...){
-    xsamp <- deltat(x)
+    xsamp <- stats::deltat(x)
     cross_spectrum.default(x=unclass(x), samp=xsamp, ...)
 }
 

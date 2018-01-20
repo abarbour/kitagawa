@@ -34,7 +34,7 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 }
 
 
-\section{2.1-1 (2015-02-10)}{
+\section{CHANGES IN VERSION 2.1-1 (2015-02-10)}{
   \itemize{
     \item Mostly a maintenance release.
     \item \href{https://travis-ci.org/abarbour/kitagawa}{Travis-CI} is now used to track builds; see 
@@ -42,7 +42,7 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
   }
 }
 
-\section{2.1-0 (2013-10-03)}{
+\section{CHANGES IN VERSION 2.1-0 (2013-10-03)}{
   \itemize{
     \item New capability to model open well response: \code{open_well_response}
     \item \code{well_response} now returns complex frequency response only, rather than
@@ -61,21 +61,21 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
   }
 }
 
-\section{1.1-1 (2013-03-12)}{
+\section{CHANGES IN VERSION 1.1-1 (2013-03-12)}{
   \itemize{
     \item Removed empty \code{.Last.lib} function.
     \item Added missing closures in 'NEWS.Rd'.
   }
 }
 
-\section{1.1-0 (2013-03-11)}{
+\section{CHANGES IN VERSION 1.1-0 (2013-03-11)}{
   \itemize{
     \item Added \code{.onAttach} message into 'zzz.R' file.
     \item NEWS is now in Rd format in the inst/ directory.
   }
 }
 
-\section{1.0-1 (2012-10-25)}{
+\section{CHANGES IN VERSION 1.0-1 (2012-10-25)}{
   \itemize{
     \item This marks the first release to \CRANpkg{kitagawa}.
     \item added a demo
@@ -84,7 +84,7 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
   }
 }
 
-\section{1.0-0 (2012-09-27)}{
+\section{CHANGES IN VERSION 1.0-0 (2012-09-27)}{
   \itemize{
     \item First version, checks ok.
     \item Documentation complete, thanks to roxygen2 (\CRANpkg{roxygen2}).

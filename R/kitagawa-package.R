@@ -64,6 +64,7 @@
 #' @importFrom kelvin Keir Beir
 #' @importFrom graphics abline axis layout lines mtext par plot
 #' @importFrom utils head str tail
+#' @importFrom stats deltat
 #' 
 #' @references Abramowitz, M. and Stegun, I. A. (Eds.). "Kelvin Functions." 
 #' \eqn{\S 9.9} in Handbook of Mathematical Functions with Formulas, Graphs, 
