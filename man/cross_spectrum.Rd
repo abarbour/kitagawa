@@ -10,7 +10,8 @@ cross_spectrum(x, ...)
 
 \method{cross_spectrum}{mts}(x, ...)
 
-\method{cross_spectrum}{default}(x, y, k = 10, samp = 1, q, ...)
+\method{cross_spectrum}{default}(x, y, k = 10, samp = 1, q,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{x}{numeric; timeseries}
@@ -27,6 +28,8 @@ advantanges and disadvantages to either of these.}
 
 \item{q}{numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
 pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).}
+
+\item{verbose}{logical; should messages be printed?}
 }
 \description{
 Calculate the cross-spectrum of two timeseries

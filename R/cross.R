@@ -7,6 +7,7 @@
 #' @param samp numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}
 #' @param q numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
 #' pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).
+#' @param verbose logical; should messages be printed?
 #' @param ... additional arguments to \code{\link[sapa]{SDF}}
 #' 
 #' @export
@@ -63,12 +64,12 @@ cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 #' @export
 cross_spectrum.mts <- function(x, ...){
     xsamp <- deltat(x)
-    cross_spectrum(x=as.matrix(x), samp=xsamp, ...)
+    cross_spectrum.default(x=unclass(x), samp=xsamp, ...)
 }
 
 #' @rdname cross_spectrum
 #' @export
-cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
+cross_spectrum.default <- function(x, y, k=10, samp=1, q, verbose=TRUE, ...){
   
   XY <- if (missing(y)){
     as.matrix(x)
@@ -79,10 +80,10 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, ...){
   # Calculate sine-mt CS
   do.mt <- !is.null(k)
   cs <- if (do.mt){
-    message("calculating sine-multitaper spectra...")
+    if (verbose) message("calculating sine-multitaper spectra...")
     sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp, ...)
   } else {
-    message("calculating Welch spectra...")
+    if (verbose) message("calculating Welch spectra...")
     sapa::SDF(XY, method='wosa', sampling.interval=samp, ...)
   }
   csa <- attributes(cs)

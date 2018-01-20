@@ -233,7 +233,11 @@ axis(1, at=-3:1, labels=paste0("(",c(1000,100,10,1,"1/10"),'s)'), line=1.6, lwd=
 
 This is now implemented in the function `cross_spectrum`:
 ```{r}
-cross_spectrum(toh.dat)
+TohCS <- cross_spectrum(toh.dat, k=50, verbose=FALSE)
+TohCS_welch <- cross_spectrum(toh.dat, k=NULL, verbose=FALSE) # turn off k to get a Welch overlapping csd
+plot(Admittance ~ Period, TohCS, col=NA, log='x')
+lines(Admittance ~ Period, TohCS_welch, col='salmon')
+lines(Admittance ~ Period, TohCS, lwd=2)
 ```
 
 
