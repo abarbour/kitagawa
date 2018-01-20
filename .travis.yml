@@ -1,7 +1,7 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: r
-sudo: false
+sudo: required
 cache: packages
 warnings_are_errors: false
 
@@ -9,7 +9,7 @@ apt_packages:
  - libgmp3-dev
  - libmpfr-dev
 
-r_binary_packages:
+r_packages:
  - dplyr
  - knitr
  - rmarkdown
