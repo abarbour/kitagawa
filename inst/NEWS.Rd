@@ -18,7 +18,7 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 
 \encoding{UTF-8}
 
-\section{CHANGES IN VERSION 2.2-1 (2017-01-18)}{
+\section{CHANGES IN VERSION 2.2-1 (2017-01-20)}{
   \itemize{
     \item Added optional switch to \code{cross_spectrum} to switch from multitaper to Welch overlapping estimation
   }
