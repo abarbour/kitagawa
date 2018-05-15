@@ -21,6 +21,7 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 \section{CHANGES IN VERSION 2.2-2 (2018-05-15)}{
   \itemize{
     \item NA values stop execution of \code{cross_spectrum}; and, added tests.
+    \item NEW FUNCTION: \code{logsmoo} which can be used to smooth hdr signals in log-space
   }
 }
 

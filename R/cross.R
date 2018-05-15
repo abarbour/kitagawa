@@ -145,3 +145,46 @@ unwrap.phase.lower <- function(ang, thresh=0) {
   }
   return(ang)
 }
+
+#' Logarithmic smoothing with loess
+#'
+#' @param x numeric; the index series (cannot contain \code{NA})
+#' @param y numeric; the series of values associated with x
+#' @param x.is.log logical; determines whether the series in \code{x} has
+#' been log-transformed already. If \code{FALSE} then \code{log10} is used.
+#' @param ... additional parameters (e.g., \code{span}) passed to \code{\link[stats]{loess.smooth}}
+#'
+#' @seealso \code{\link[stats]{loess.smooth}} and \code{\link[stats]{approxfun}}
+#' 
+#' @references Barbour, A. J., and D. C. Agnew (2011), Noise levels on 
+#' Plate Boundary Observatory borehole strainmeters in southern California,
+#' Bulletin of the Seismological Society of America, 101(5), 2453-2466,
+#' doi: 10.1785/0120110062
+#' 
+#' @return The result of \code{\link[stats]{loess.smooth}}
+#' @export
+#'
+#' @examples
+#' set.seed(11133)
+#' n <- 101
+#' lx <- seq(-1,1,length.out=n)
+#' y <- rnorm(n) + cumsum(rnorm(n))
+#' plot(lx, y, col='grey')
+#' lines(logsmoo(lx, y, x.is.log=TRUE))
+#' 
+logsmoo <- function(x, y, x.is.log=FALSE, ...){
+  if (any(is.na(x))) stop('x vector cannot contain NA values')
+  fx <- if (x.is.log){
+    x
+  } else {
+    log10(x)
+  }
+  fy <- y
+  nx <- length(fx)
+  COHFUN <- stats::approxfun(fx, fy, rule=2)
+  fxnew <- seq(min(fx), max(fx), length.out=nx*2)
+  fynew <- COHFUN(fxnew)
+  lsmoo <- stats::loess.smooth(fxnew, fynew, family='gaussian', evaluation=nx, ...)
+  if (!x.is.log) lsmoo[['x']] <- 10 ** lsmoo[['x']]
+  return(lsmoo)
+}
