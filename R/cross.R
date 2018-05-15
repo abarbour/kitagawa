@@ -76,6 +76,7 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, verbose=TRUE, ...){
   } else {
     cbind(as.double(x), as.double(y))
   }
+  if (any(is.na(XY))) stop("Neither series can contain NA values")
   
   # Calculate sine-mt CS
   do.mt <- !is.null(k)
