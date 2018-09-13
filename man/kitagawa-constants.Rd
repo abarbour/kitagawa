@@ -44,3 +44,4 @@ constants(FALSE) # returns invisibly
 Other ConstantsCalculators: \code{\link{alpha_constants}},
   \code{\link{omega_constants}}
 }
+\concept{ConstantsCalculators}

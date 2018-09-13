@@ -30,13 +30,13 @@ data.frame.wrsp(x, ...)
 
 \method{points}{wrsp}(x, series = c("amp", "phs"), pch = "+", ...)
 
-\method{plot}{wrsp}(x, xlims = c(-3, 1), ylims = list(amp = NULL, phs = 185
-  * c(-1, 1)), logamp = TRUE, ...)
+\method{plot}{wrsp}(x, xlims = c(-3, 1), ylims = list(amp = NULL, phs =
+  185 * c(-1, 1)), logamp = TRUE, ...)
 
 kitplot(x, ...)
 
-\method{kitplot}{wrsp}(x, xlims = c(-3, 1), ylims = list(amp = NULL, phs =
-  185 * c(-1, 1)), logamp = TRUE, ...)
+\method{kitplot}{wrsp}(x, xlims = c(-3, 1), ylims = list(amp = NULL,
+  phs = 185 * c(-1, 1)), logamp = TRUE, ...)
 }
 \arguments{
 \item{x}{'wrsp' object}
@@ -107,3 +107,4 @@ Other PlotUtilities: \code{\link{logticks}}
 \author{
 A. J. Barbour <andy.barbour@gmail.com>
 }
+\concept{PlotUtilities}

@@ -18,10 +18,11 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 
 \encoding{UTF-8}
 
-\section{CHANGES IN VERSION 2.2-2 (2018-05-15)}{
+\section{CHANGES IN VERSION 2.2-2 (2018-09-13)}{
   \itemize{
     \item NA values stop execution of \code{cross_spectrum}; and, added tests.
     \item NEW FUNCTION: \code{logsmoo} which can be used to smooth hdr signals in log-space
+    \item UPDATED: Tohoku cross-spectrum vignette
   }
 }
 

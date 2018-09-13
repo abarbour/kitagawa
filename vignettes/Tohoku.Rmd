@@ -1,10 +1,10 @@
 ---
-title: "Cross-spectra computation: Pore-pressure response to the 2011 M9 Tohoku-Oki earthquake"
+title: "Cross-spectrum computation: Pore-pressure response to the 2011 M9 Tohoku-Oki earthquake"
 author: "Andrew J Barbour"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Cross-spectrum computation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 bibliography: REFS.bib
@@ -231,11 +231,13 @@ logticks(1, major.ticks = -3:1)
 axis(1, at=-3:1, labels=paste0("(",c(1000,100,10,1,"1/10"),'s)'), line=1.6, lwd=0)
 ```
 
-This is now implemented in the function `cross_spectrum`:
-```{r}
+This is now implemented in the function `cross_spectrum`. In comparison with
+a Welch-type CSD -- calculated by setting `k=NULL`, the sine multitaper result is
+more accurate across the full frequency band, and does not degrade at low frequencies:
+```{r, fig.width=6., fig.height=3.5}
 TohCS <- cross_spectrum(toh.dat, k=50, verbose=FALSE)
 TohCS_welch <- cross_spectrum(toh.dat, k=NULL, verbose=FALSE) # turn off k to get a Welch overlapping csd
-plot(Admittance ~ Period, TohCS, col=NA, log='x')
+plot(Admittance ~ Period, TohCS, col=NA, log='x', main="Pore Pressure from Strain: Tohoku", xlab="Period, sec")
 lines(Admittance ~ Period, TohCS_welch, col='salmon')
 lines(Admittance ~ Period, TohCS, lwd=2)
 ```

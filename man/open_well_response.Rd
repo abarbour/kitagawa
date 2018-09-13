@@ -9,8 +9,8 @@ open_well_response(omega, T., S., ...)
 
 \method{open_well_response}{default}(omega, T., S., Rs. = (8/12) *
   (1200/3937), rho, grav, z, Hw, Ta, freq.units = c("rad_per_sec", "Hz"),
-  model = c("rojstaczer", "liu", "cooper", "hsieh"), as.pressure = TRUE,
-  ...)
+  model = c("rojstaczer", "liu", "cooper", "hsieh"),
+  as.pressure = TRUE, ...)
 }
 \arguments{
 \item{omega}{numeric; frequency,  (see \code{freq.units})}
@@ -111,3 +111,4 @@ Other WellResponseFunctions: \code{\link{well_response}}
 \author{
 A. J. Barbour
 }
+\concept{WellResponseFunctions}

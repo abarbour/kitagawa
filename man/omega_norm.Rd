@@ -38,3 +38,4 @@ Other utilities: \code{\link{sensing_volume}}
 \author{
 A. J. Barbour <andy.barbour@gmail.com>
 }
+\concept{utilities}

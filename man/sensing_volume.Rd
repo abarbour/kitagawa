@@ -63,3 +63,4 @@ Other utilities: \code{\link{omega_norm}}
 \author{
 A. J. Barbour <andy.barbour@gmail.com>
 }
+\concept{utilities}

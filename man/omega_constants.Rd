@@ -5,7 +5,8 @@
 \alias{omega_constants.default}
 \title{Calculate any constants that depend on angular frequency \eqn{\omega}}
 \usage{
-omega_constants(omega = 0, c.type = c("alpha", "diffusivity_time"), ...)
+omega_constants(omega = 0, c.type = c("alpha", "diffusivity_time"),
+  ...)
 
 \method{omega_constants}{default}(omega = 0, c.type = c("alpha",
   "diffusivity_time"), ...)
@@ -94,3 +95,4 @@ Other ConstantsCalculators: \code{\link{alpha_constants}},
 \author{
 A. J. Barbour <andy.barbour@gmail.com>
 }
+\concept{ConstantsCalculators}

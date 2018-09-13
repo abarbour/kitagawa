@@ -7,8 +7,8 @@
 \alias{log10_ticks}
 \title{Add proper logarithm ticks to a plot axis.}
 \usage{
-logticks(ax = 1, n.minor = 9, t.lims, t.ratio = 0.5, major.ticks = NULL,
-  base = c("ten", "ln", "two"), ...)
+logticks(ax = 1, n.minor = 9, t.lims, t.ratio = 0.5,
+  major.ticks = NULL, base = c("ten", "ln", "two"), ...)
 
 log_ticks(...)
 
@@ -64,3 +64,4 @@ Other PlotUtilities: \code{\link{wrsp-methods}}
 \author{
 A. J. Barbour <andy.barbour@gmail.com>
 }
+\concept{PlotUtilities}

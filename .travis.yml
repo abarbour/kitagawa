@@ -19,10 +19,10 @@ r_packages:
  - signal
  - testthat
  - covr
-# - kelvin
+ - kelvin
 
-r_github_packages:
- - abarbour/kelvin
+#r_github_packages:
+# - abarbour/kelvin
  
 notifications:
  email:

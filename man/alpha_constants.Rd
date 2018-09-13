@@ -7,8 +7,8 @@
 \usage{
 alpha_constants(alpha = 0, c.type = c("Phi", "Psi", "A", "Kel"))
 
-\method{alpha_constants}{default}(alpha = 0, c.type = c("Phi", "Psi", "A",
-  "Kel"))
+\method{alpha_constants}{default}(alpha = 0, c.type = c("Phi", "Psi",
+  "A", "Kel"))
 }
 \arguments{
 \item{alpha}{the constant alpha (see \code{\link{omega_constants}})}
@@ -62,3 +62,4 @@ Other ConstantsCalculators: \code{\link{kitagawa-constants}},
 \author{
 A. J. Barbour <andy.barbour@gmail.com>
 }
+\concept{ConstantsCalculators}

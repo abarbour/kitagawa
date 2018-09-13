@@ -7,8 +7,9 @@
 \usage{
 well_response(omega, T., S., Vw., Rs., Ku., B., ...)
 
-\method{well_response}{default}(omega, T., S., Vw., Rs., Ku., B., Avs, Aw, rho,
-  Kf, grav, freq.units = c("rad_per_sec", "Hz"), as.pressure = TRUE, ...)
+\method{well_response}{default}(omega, T., S., Vw., Rs., Ku., B., Avs, Aw,
+  rho, Kf, grav, freq.units = c("rad_per_sec", "Hz"),
+  as.pressure = TRUE, ...)
 }
 \arguments{
 \item{omega}{frequency, (see \code{freq.units})}
@@ -112,3 +113,4 @@ Other WellResponseFunctions: \code{\link{open_well_response}}
 \author{
 A. J. Barbour
 }
+\concept{WellResponseFunctions}
