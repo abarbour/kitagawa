@@ -25,3 +25,4 @@ vignettes/figure
 ^\.travis\.yml$
 ^revdep$
 ^appveyor\.yml$
+^cran-comments\.md$

@@ -4,3 +4,4 @@
 *.Rproj
 *.Rout
 packrat/lib*/
+/revdep/.cache.rds
