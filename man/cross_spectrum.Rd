@@ -20,9 +20,9 @@ cross_spectrum(x, ...)
 
 \item{y}{numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}}
 
-\item{k}{integer; the number of sine multitapers, unless this is \code{NULL}; in the latter case
+\item{k}{integer; the number of sine tapers, unless this is \code{NULL}; in the latter case
 a Welch-based spectrum is calculated rather than a multitaper spectrum. There are distinct
-advantanges and disadvantages to either of these.}
+advantages and disadvantages to either of these.}
 
 \item{samp}{numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}}
 

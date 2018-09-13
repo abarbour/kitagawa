@@ -23,7 +23,7 @@ omega_constants(omega = 0, c.type = c("alpha", "diffusivity_time"),
 \code{D.} or \code{S., T.}.}
 }
 \value{
-Values of the constant repesented by \code{c.type} for the given
+Values of the constant represented by \code{c.type} for the given
 parameters
 }
 \description{

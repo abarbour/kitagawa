@@ -1,9 +1,9 @@
 #' Calculate the cross-spectrum of two timeseries
 #' @param x numeric; timeseries
 #' @param y numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}
-#' @param k integer; the number of sine multitapers, unless this is \code{NULL}; in the latter case
+#' @param k integer; the number of sine tapers, unless this is \code{NULL}; in the latter case
 #' a Welch-based spectrum is calculated rather than a multitaper spectrum. There are distinct
-#' advantanges and disadvantages to either of these.
+#' advantages and disadvantages to either of these.
 #' @param samp numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}
 #' @param q numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
 #' pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).

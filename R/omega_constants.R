@@ -55,7 +55,7 @@
 #'   \code{ctype="diffusivity_time"}, set
 #'   \code{D.} or \code{S., T.}.
 #'
-#' @return Values of the constant repesented by \code{c.type} for the given
+#' @return Values of the constant represented by \code{c.type} for the given
 #' parameters
 #' 
 #' @author A. J. Barbour <andy.barbour@@gmail.com>
