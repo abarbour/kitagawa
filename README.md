@@ -35,7 +35,7 @@ from within the `R` environment:
 
     install.packages("kitagawa")
 
-Load the package library and take a look at the vignette:
+Load the package library and take a look at the vignettes:
 
     library(kitagawa)
     vignette(package='kitagawa')

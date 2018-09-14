@@ -2,16 +2,20 @@ Package: kitagawa
 Type: Package
 Title: Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
 Version: 2.2-2
-Date: 2018-09-13
+Date: 2018-09-14
 Author: Andrew J Barbour
 Maintainer: Andrew J Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response
     of an aquifer undergoing harmonic straining or pressurization, or analyze
     measured responses. There are
-    two classes of models here: (1) for sealed wells, based on the model of
-    Kitagawa et al (2011), and (2) for open wells, based on the models of
-    Cooper et al (1965), Hsieh et al (1987), Rojstaczer (1988), and Liu et al
-    (1989). These models treat strain (or aquifer head) as an input to the
+    two classes of models here: (1) for sealed wells, based on the model of 
+    Kitagawa et al (2011, <doi:10.1029/2010JB007794>), 
+    and (2) for open wells, based on the models of
+    Cooper et al (1965, <doi:10.1029/JZ070i016p03915>), 
+    Hsieh et al (1987, <doi:10.1029/WR023i010p01824>), 
+    Rojstaczer (1988, <doi:10.1029/JB093iB11p13619>), and 
+    Liu et al (1989, <doi:10.1029/JB094iB07p09453>). These models treat 
+    strain (or aquifer head) as an input to the
     physical system, and fluid-pressure (or water height) as the output. The
     applicable frequency band of these models is characteristic of seismic
     waves, atmospheric pressure fluctuations, and solid earth tides.
