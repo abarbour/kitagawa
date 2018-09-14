@@ -30,7 +30,7 @@ This package also includes support for the models in
 ## Getting Started
 
 You can install the package via
-[CRAN](http://cran.r-project.org/package=kitagawa)
+[CRAN](https://cran.r-project.org/package=kitagawa)
 from within the `R` environment:
 
     install.packages("kitagawa")
@@ -49,4 +49,4 @@ will be useful:
     library(devtools)
     install_github("abarbour/kitagawa")
 
-[2]: http://cran.r-project.org/web/packages/devtools
+[2]: https://cran.r-project.org/package=devtools
