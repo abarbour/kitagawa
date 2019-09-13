@@ -476,7 +476,7 @@ plot(lQ, log10(hGain), col=Set1[3],
      xlab="",
      main="")
 lines(lQ, log10(cGain), lwd=2, col=Set1[1])
-lines(lQ, log10(lGain), lwd=2, col=Set1[2])
+lines(lQ, log10(lGain), lwd=2, col=Set1[2], lty = 2)
 legend("bottomleft", 
 	c("Cooper et al (1965)","Liu et al (1989)","Hsieh et al (1987)"), 
 	lwd=3, col=Set1[1:3], bty="n")
@@ -499,7 +499,7 @@ lines(lQ, lP$uPhs*180/pi, lty=3, lwd=1.5, col=Set1[2])
 lines(lQ, hP$uPhs*180/pi, lty=3, lwd=1.5, col=Set1[3])
 # unwrapped phase
 lines(lQ, cP$Phs*180/pi, lwd=2, col=Set1[1])
-lines(lQ, lP$Phs*180/pi, lwd=2, col=Set1[2])
+lines(lQ, lP$Phs*180/pi, lwd=2, col=Set1[2], lty = 2)
 lines(lQ, hP$Phs*180/pi, lwd=2, col=Set1[3])
 log10_ticks()
 mtext("(b) Phase", adj=0)
