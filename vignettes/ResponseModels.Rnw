@@ -335,12 +335,12 @@ log10_ticks()
 mtext("Open Well Response (LIU): Harmonic Strain", font=2, line=1.5)
 mtext("(a) Gain", adj=0)
 par(mar=c(4,4,1.1,2))
-plot(lQ, lP$Phs*180/pi, type="l", lty=3, #ylim=c(-190, -130), 
+plot(lQ, lP$Phs*180/pi, type="l", lwd = 2, #ylim=c(-190, -130), 
 	 xaxt="n",
      ylab=expression(Z ~ "rel." ~ H),
      xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
 abline(h=-180, col="grey")
-lines(lQ, lP$uPhs*180/pi, type="l", lwd=2)
+lines(lQ, lP$uPhs*180/pi, type="l", lty=3)
 log10_ticks()
 mtext("(b) Phase", adj=0)
 @

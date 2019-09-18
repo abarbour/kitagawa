@@ -180,15 +180,12 @@ open_well_response.default <- function(omega, T., S.,
       gamma <- sqrt(2*onei*omega/(Rs.**2 * grav * U.))
       expgam <- exp(-1*gamma*Ta)
       exp2gam <- exp(-2*gamma*Ta)
-      A. <- -1 * omegsq / grav * (Hw + (1 - expgam)/(1 + expgam)/gamma)
+      A. <- -1 * omegsq / grav * (Hw + (1 - expgam)/(1 + expgam)/gamma) + 1
+      # fix a -1 sign convention in Liu (relative to Hsieh/Cooper)
       B. <- -1 * onei * omega * U. * Rs.**2 * gamma * expgam / (1 - exp2gam)
       # Eq A20 -- x / h
-      wellresp <- 1 / (A. + B. + 1)
-      # fix a -1 sign convention in Liu (relative to Hsieh/Cooper)
-      amp <- Mod(wellresp)
-      phs <- -1*Arg(wellresp)
-      wellresp <- complex(modulus=amp, argument=phs)
-      #
+      wellresp <- complex(modulus = Mod(1/(A.+B.)), argument = -Arg(A. - B.))
+
     } else if (model=="hsieh"){
       #
       # from Hsieh et al (1987), Eq 12-16
