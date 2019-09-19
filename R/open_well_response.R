@@ -145,7 +145,28 @@ open_well_response.default <- function(omega, T., S.,
     phs <- -1*Arg(wellresp)
     wellresp <- complex(modulus=amp, argument=phs)
     #
-  } else if (model %in% c("liu","cooper","hsieh", "wang")){
+  } else if (model == 'wang'){
+   
+    Zunits <- ifelse(as.pressure, "Z/P", "Z/H")
+    
+    if (missing(leak)){
+      leak <- 1
+      warning("specific leakage 'leak' not given. using default")
+    }
+    
+    Rc.     <- Rs.     # currently set casing and screen equal
+    t1      <- 1i * omega * S.
+    beta    <- sqrt((leak / T.) + (t1 / T.))
+    beta_rw <- beta * Rs.
+    
+    k0    <- Bessel::BesselK(beta_rw, nu = 0, nSeq = 2, expon.scaled = FALSE)
+    numer <- Rc.^2 * 1i  * omega * k0[,1]
+    denom <- Rs. * 2.0 * T. * beta * k0[,2]
+    xi    <- 1.0 + (numer / denom)
+    
+    wellresp <- t1 / (xi * (t1 + (leak)))
+
+  } else if (model %in% c("liu","cooper","hsieh")){
     #    
     Zunits <- ifelse(as.pressure, "Z/P", "Z/H")
     # 
@@ -169,11 +190,6 @@ open_well_response.default <- function(omega, T., S.,
     if (missing(Ta)){
       Ta <- 1
       warning("aquifer thickness 'Ta' not given. using default")
-    }
-    # Ta is the aquifer thickness
-    if (missing(leak) & model == 'wang'){
-      leak <- 1
-      warning("specific leakage 'leak' not given. using default")
     }
     #
     if (model=="liu"){
@@ -221,19 +237,7 @@ open_well_response.default <- function(omega, T., S.,
       # Eq 28 -- A == x / h == rho * g x / p
       wellresp <- 1 / complex(real=A., imaginary=B.)
     } else if (model=="wang"){
-      
-      Rc.     <- Rs.     # currently set casing and screen equal
-      t1      <- 1i * omega * S.
-      beta    <- sqrt((leak / T.) + (t1 / T.))
-      beta_rw <- beta * Rs.
-      
-      k0    <- Bessel::BesselK(beta_rw, nu = 0, nSeq = 2, expon.scaled = FALSE)
-      numer <- Rc.^2 * 1i  * omega * k0[,1]
-      denom <- Rs. * 2.0 * T. * beta * k0[,2]
-      xi    <- 1.0 + (numer / denom)
-      
-      wellresp <- t1 / (xi * (t1 + (leak)))
-      
+
     }
   }
   #

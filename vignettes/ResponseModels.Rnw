@@ -359,7 +359,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \subsection{Pressure head: Wang et al. (2018)}
 
 <<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=WANGRESP>>= 
-wrsp <- open_well_response(omega, T.=T., S.=S., leak = 1e-8, Ta=Ta, Hw=Hw,
+wrsp <- open_well_response(omega, T.=T., S.=S., leak = 1e-8,
                            model = "wang", as.pressure=asP)
 plot(wrsp)
 crsp <- wrsp[["Response"]][,2]
@@ -399,8 +399,6 @@ for (i in seq_along(Transmiss)) {
                                 T., 
                                 S.,
                                 Rs. = 0.1,
-                                Ta = Ta,
-                                Hw = Hw,
                                 model = 'wang', 
                                 leak = leak,
                                 freq.units = 'Hz', 
@@ -436,8 +434,6 @@ for (i in seq_along(Transmiss)) {
                                 T., 
                                 S.,
                                 Rs. = 0.1,
-                                Ta = Ta,
-                                Hw = Hw,
                                 model = 'wang', 
                                 leak = leak,
                                 freq.units = 'Hz', 
