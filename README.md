@@ -4,7 +4,8 @@ Tools to calculate the theoretical spectral response
 of fluid-pressure in a water well
 to harmonic strains (e.g., tides, long-period seismic waves).
 
-[![Travis Build Status](https://travis-ci.org/abarbour/kitagawa.svg)](https://travis-ci.org/abarbour/kitagawa) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/abarbour/kitagawa?branch=master&svg=true)](https://ci.appveyor.com/project/abarbour/kitagawa) [![Code Coverage](https://codecov.io/gh/abarbour/kitagawa/branch/master/graph/badge.svg)](https://codecov.io/gh/abarbour/kitagawa) [![License](https://img.shields.io/badge/license-GPL-orange.svg)](https://www.gnu.org/licenses/gpl-2.0.html) [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/kitagawa)](https://cran.r-project.org/package=kitagawa) [![Downloads](https://cranlogs.r-pkg.org/badges/kitagawa)](https://www.r-pkg.org/pkg/kitagawa)
+
+[![Travis Build Status](https://travis-ci.org/abarbour/kitagawa.svg)](https://travis-ci.org/abarbour/kitagawa) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/abarbour/kitagawa?branch=master&svg=true)](https://ci.appveyor.com/project/abarbour/kitagawa) [![Code Coverage](https://codecov.io/gh/abarbour/kitagawa/branch/master/graph/badge.svg)](https://codecov.io/gh/abarbour/kitagawa?branch=master) [![License](https://img.shields.io/badge/license-GPL-orange.svg)](https://www.gnu.org/licenses/gpl-2.0.html) [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/kitagawa)](https://cran.r-project.org/package=kitagawa) [![Downloads](https://cranlogs.r-pkg.org/badges/kitagawa)](https://www.r-pkg.org/pkg/kitagawa)
 
 ## Models of spectral response
 

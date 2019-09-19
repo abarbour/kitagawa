@@ -11,17 +11,18 @@ apt_packages:
  - libgmp3-dev
  - libmpfr-dev
 
-#r_packages:
-# - dplyr
-# - knitr
-# - rmarkdown
-# - psd
-# - RColorBrewer
-# - sapa
-# - signal
-# - testthat
-# - covr
-# - kelvin
+r_packages:
+ - Bessel
+ - kelvin
+ - dplyr
+ - knitr
+ - psd
+ - rmarkdown
+ - RColorBrewer
+ - sapa
+ - signal
+ - testthat
+ - covr
 
 #r_github_packages:
 # - abarbour/kelvin
