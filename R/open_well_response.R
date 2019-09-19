@@ -59,12 +59,14 @@
 #' @param z numeric; From Rojstaczer (1988): the depth from the water table (assumed if missing and if needed)
 #' @param Hw numeric; height of water column above confined surface (assumed if missing and if needed)
 #' @param Ta numeric; thickness of aquifer (assumed if missing and if needed)
+#' @param leak numeric; specific leakage \eqn{K'/b'} \eqn{[1/s]}
 #' @param freq.units character; setup the units of \code{omega}
 #' @param model  character; use the response model from either
 #'    Rojstaczer (1988),
 #'    Liu et al (1989),
-#'    Cooper et al (1965), or
-#'    Hsieh et al (1987).
+#'    Cooper et al (1965), 
+#'    Hsieh et al (1987), or
+#'    Wang et al (2018).
 #' @param as.pressure logical; should the response be relative to aquifer pressure? (default is aquifer head)
 #' @param ... additional arguments
 #' 
@@ -88,9 +90,9 @@ open_well_response <- function(omega, T., S., ...) UseMethod("open_well_response
 #' @export
 open_well_response.default <- function(omega, T., S., 
                                        Rs.=(8/12)*(1200/3937),
-                                       rho, grav, z, Hw, Ta,
+                                       rho, grav, z, Hw, Ta, leak,
                                        freq.units=c("rad_per_sec","Hz"),
-                                       model=c("rojstaczer","liu","cooper","hsieh"),
+                                       model=c("rojstaczer","liu","cooper","hsieh","wang"),
                                        as.pressure=TRUE, ...){
   # Pick a model
   model <- match.arg(model)
@@ -143,7 +145,7 @@ open_well_response.default <- function(omega, T., S.,
     phs <- -1*Arg(wellresp)
     wellresp <- complex(modulus=amp, argument=phs)
     #
-  } else if (model %in% c("liu","cooper","hsieh")){
+  } else if (model %in% c("liu","cooper","hsieh", "wang")){
     #    
     Zunits <- ifelse(as.pressure, "Z/P", "Z/H")
     # 
@@ -167,6 +169,11 @@ open_well_response.default <- function(omega, T., S.,
     if (missing(Ta)){
       Ta <- 1
       warning("aquifer thickness 'Ta' not given. using default")
+    }
+    # Ta is the aquifer thickness
+    if (missing(leak) & model == 'wang'){
+      leak <- 1
+      warning("specific leakage 'leak' not given. using default")
     }
     #
     if (model=="liu"){
@@ -213,6 +220,20 @@ open_well_response.default <- function(omega, T., S.,
       # pressure head in the aquifer
       # Eq 28 -- A == x / h == rho * g x / p
       wellresp <- 1 / complex(real=A., imaginary=B.)
+    } else if (model=="wang"){
+      
+      Rc.     <- Rs.     # currently set casing and screen equal
+      t1      <- 1i * omega * S.
+      beta    <- sqrt((leak / T.) + (t1 / T.))
+      beta_rw <- beta * Rs.
+      
+      k0    <- Bessel::BesselK(beta_rw, nu = 0, nSeq = 2, expon.scaled = FALSE)
+      numer <- Rc.^2 * 1i  * omega * k0[,1]
+      denom <- Rs. * 2.0 * T. * beta * k0[,2]
+      xi    <- 1.0 + (numer / denom)
+      
+      wellresp <- t1 / (xi * (t1 + (leak)))
+      
     }
   }
   #

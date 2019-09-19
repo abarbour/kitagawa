@@ -8,8 +8,8 @@
 open_well_response(omega, T., S., ...)
 
 \method{open_well_response}{default}(omega, T., S., Rs. = (8/12) *
-  (1200/3937), rho, grav, z, Hw, Ta, freq.units = c("rad_per_sec", "Hz"),
-  model = c("rojstaczer", "liu", "cooper", "hsieh"),
+  (1200/3937), rho, grav, z, Hw, Ta, leak, freq.units = c("rad_per_sec",
+  "Hz"), model = c("rojstaczer", "liu", "cooper", "hsieh", "wang"),
   as.pressure = TRUE, ...)
 }
 \arguments{
@@ -33,13 +33,16 @@ open_well_response(omega, T., S., ...)
 
 \item{Ta}{numeric; thickness of aquifer (assumed if missing and if needed)}
 
+\item{leak}{numeric; specific leakage \eqn{K'/b'} \eqn{[1/s]}}
+
 \item{freq.units}{character; setup the units of \code{omega}}
 
 \item{model}{character; use the response model from either
 Rojstaczer (1988),
 Liu et al (1989),
-Cooper et al (1965), or
-Hsieh et al (1987).}
+Cooper et al (1965), 
+Hsieh et al (1987), or
+Wang et al (2018).}
 
 \item{as.pressure}{logical; should the response be relative to aquifer pressure? (default is aquifer head)}
 }

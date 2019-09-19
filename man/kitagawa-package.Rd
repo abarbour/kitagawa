@@ -52,7 +52,8 @@ where \eqn{S, T} are the aquifer storativity and transmissivity respectively.
 The solution to this PDE, with periodic discharge boundary conditions,
 gives the amplitude and phase response we wish to calculate.
 The solution  for an open well was presented by
-Cooper et al (1965), and subsequently modified by Liu et al (1989).
+Cooper et al (1965), and subsequently modified by Liu et al (1989). 
+Wang et al (2018) modified this solution for the leaky aquifer case.
 Kitagawa et al (2011) adapted the solution
 of Hsieh et al (1987) for the case of a sealed well.
 
@@ -90,6 +91,10 @@ Seismically Induced Water Level Fluctuations in the Wali Well, Beijing, China,
 Roeloffs, E. (1996),
 Poroelastic techniques in the study of earthquake-related hydrologic phenomena,
 \emph{Advances in Geophysics}, \strong{37}
+
+Wang C.-Y., Doan, M.-L., Xue, L., Barbour, A. (2018),
+Tidal Response of Groundwater in a Leaky Aquifer—Application to Oklahoma,
+\emph{Water Resour. Res.}, \strong{54} (10)
 }
 \seealso{
 \code{\link{well_response}}, 
