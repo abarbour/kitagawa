@@ -78,15 +78,19 @@
 \usepackage{color}
 \raggedright
 %
-\author{Andrew J. Barbour}
+\author{Andrew J. Barbour$^1$ $\cdot$ Jonathan Kennel$^2$}
 \title{Comparison of response functions in \kit{}}
+\date{%
+    \footnotesize{$1$ - U.S. Geological Survey $\cdot$ $2$ - University of Guelph}\\[2ex]%
+    \today
+}
 %
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 %
 \newcommand{\SC}[1]{\textsc{#1}}
 \newcommand{\Rcmd}[1]{\texttt{#1}}
-\newcommand{\kit}[0]{\href{https://abarbour.github.io/kitagawa/}{\color{blue}\Rcmd{kitagawa}}}
+\newcommand{\kit}[0]{\href{https://github.com/abarbour/kitagawa/}{\color{blue}\Rcmd{kitagawa}}}
 \newcommand{\bidxa}[1]{\index{#1}{\textbf{#1}}} 
 \newcommand{\bidxb}[2]{\index{#2}{\textbf{#1}}} 
 \newcommand{\idxa}[1]{\index{#1}{#1}} 
@@ -113,7 +117,7 @@ water height as a function of aquifer head $H$ or pressure.
 %
 \tableofcontents
 
-\clearpage
+%\clearpage
 \section{Introduction}
 
  The underlying physical model of these response functions
@@ -164,7 +168,7 @@ Load the necessary packages:
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loaded kitagawa (2.3) -- Spectral response of water wells}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loaded kitagawa (3.0) -- Spectral response of water wells}}\end{kframe}
 \end{knitrout}
 
 Setup some constants:
@@ -370,7 +374,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 
 
 \clearpage
-\subsection{Pressure head: Wang et al. (2018)}
+\subsection{Pressure head (with leakage): Wang et al. (2018)}
 
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -390,7 +394,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{knitrout}
 
 \clearpage
-\subsection{Figure 2 from Wang et al. (2018)}
+\subsubsection{Figure 2 from Wang et al. (2018)}
 
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}

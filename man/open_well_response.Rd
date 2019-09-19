@@ -62,7 +62,8 @@ The response depends strongly on the physical properties
 given. Default values are assumed where reasonable--for instance, 
 the pore-fluid is assumed to be water--but considerable care 
 should be invested in the choice of
-parameters, unless the function is used in an optimization scheme.
+parameters, especially in the case of starting parameters
+in an optimization scheme.
 
 The responses returned here are,
 effectively, the amplification of water levels in a well, relative to 
@@ -79,7 +80,7 @@ either \code{rho} or \code{grav} are not specified, they
 are taken from \code{\link{constants}}.
 \emph{Parameters which do not end in \code{.} do
 not need to be specified (they may be excluded); if
-they are missing, warnings will be thrown.}
+they are missing, assumptions may be made and warnings will be thrown.}
 }
 \section{Models}{
 
@@ -90,12 +91,18 @@ and strain from volumetric or areal strainmeters.
 \subsection{\code{"cooper"}, \code{"hsieh"}, and \code{"liu"}}{
 Cooper et al (1965), Hsieh et al (1987) and Liu et al (1989) are based
 on measurements of water level and 
-displacements from seismometers; these 
+displacements from seismometers or strainmeters; these 
 models are expressed succinctly in Roeloffs (1996).
 
 The sense of the phase shift 
 for the Liu and Rojstaczer models are reversed from their original presentation, 
 in order to account for differences in sign convention.
+}
+
+\subsection{\code{"wang"}}{
+Wang et al (2018) allows for specific leakage -- vertical conductivity across
+a semi-permeable aquitard -- but the perfectly confined case (i.e., Hsieh, et al 1987)
+is recovered when leakage is zero.
 }
 }
 
@@ -105,13 +112,16 @@ plot(OWR)
 OWR <- open_well_response(1/(1:200),1,1,Ta=100,Hw=10,model="liu",freq.units="Hz")
 plot(OWR)
 }
+\references{
+See \code{\link{kitagawa-package}} for references and more background.
+}
 \seealso{
-\code{\link{owrsp-methods}} for a description of the class 'owrsp' and its methods, and
-\code{\link{kitagawa-package}} for references and more background.
+\code{\link{well_response}} for the sealed-well equivalents, and
+\code{\link{owrsp-methods}} for a description of the class \code{'owrsp'} and its methods.
 
 Other WellResponseFunctions: \code{\link{well_response}}
 }
 \author{
-A. J. Barbour
+A. J. Barbour and J. Kennel
 }
 \concept{WellResponseFunctions}

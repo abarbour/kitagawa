@@ -52,12 +52,13 @@
 #' @param as.pressure logical; should the response for water pressure? (default is water height)
 #' @param ... additional arguments
 #'
-#' @return An object with class 'wrsp'
+#' @return An object with class \code{'wrsp'}
 #' 
 #' @author A. J. Barbour
 #'
-#' @seealso 
-#' \code{\link{wrsp-methods}} for a description of the class 'wrsp' and its methods,
+#' @references See \code{\link{kitagawa-package}} for references and more background.
+#' @seealso \code{\link{open_well_response}} for the open-well equivalents
+#' \code{\link{wrsp-methods}} for a description of the class \code{'wrsp'} and its methods,
 #' \code{\link{sensing_volume}} to easily estimate the volume \code{Vw.}, and
 #' \code{\link{kitagawa-package}} for references and more background.
 #' @family WellResponseFunctions

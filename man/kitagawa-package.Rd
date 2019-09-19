@@ -56,6 +56,8 @@ Cooper et al (1965), and subsequently modified by Liu et al (1989).
 Wang et al (2018) modified this solution for the leaky aquifer case.
 Kitagawa et al (2011) adapted the solution
 of Hsieh et al (1987) for the case of a sealed well.
+When there is no leakage, Wang et al (2018) is
+equivalent to Hsieh et al (1987).
 
 These models are applicable to any quasi-static process involving harmonic, 
 volumetric strain of an aquifer 

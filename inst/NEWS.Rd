@@ -5,6 +5,7 @@
 %%\newcommand{\Rlogo}{\if{html}{\figure{../../html/logo.jpg}}\if{latex}{\figure{logo.jpg}{options:
 %width=0.5in}}}
 \newcommand{\GITpkg}{\href{https://www.github.com/abarbour/#1}{github}}
+\newcommand{\JK}{\href{https://www.github.com/jkennel}{@jkennel}}
 \newcommand{\CRANpkg}{\href{https://cran.r-project.org/package=#1}{CRAN}}
 \newcommand{\kitagawa}{\pkg{kitagawa}}
 \newcommand{\gitkit}{\GITpkg{kitagawa} page}
@@ -18,9 +19,18 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 
 \encoding{UTF-8}
 
+\section{CHANGES IN VERSION 3.0 (2019-09-19)}{
+  \itemize{
+    \item Added the model of Wang et al (2018; \href{https://doi.org/10.1029/2018WR022793}{10.1029/2018WR022793}),
+    to the model toolbox and to the ResponseModels toolbox. Thanks to \JK for contributing this.
+    \item New test validating Wang model against Hsieh model (they are equivalent when specific leakage is zero).
+    Thanks to \JK for contributing this.
+  }
+}
+
 \section{CHANGES IN VERSION 2.3 (2019-09-18)}{
   \itemize{
-    \item \href{https://github.com/abarbour/kitagawa/pull/2/commits/1610331a03a4470fa83e30160af4a6c279072277}{Fixes} a sign error in the Liu solution. Thanks to \href{https://www.github.com/jkennel}{@jkennel} for catching this.
+    \item \href{https://github.com/abarbour/kitagawa/pull/2/commits/1610331a03a4470fa83e30160af4a6c279072277}{Fixes} a sign error in the Liu solution. Thanks to \JK for catching this.
     \item Removed the need for pandoc-citeproc in Tohoku vignette because of a presently unfixed bug.
   }
 }

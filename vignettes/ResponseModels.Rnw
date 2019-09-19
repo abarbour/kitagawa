@@ -28,14 +28,18 @@
 \usepackage{color}
 \raggedright
 %
-\author{Andrew J. Barbour}
+\author{Andrew J. Barbour$^1$ $\cdot$ Jonathan Kennel$^2$}
 \title{Comparison of response functions in \kit{}}
+\date{%
+    \footnotesize{$1$ - U.S. Geological Survey $\cdot$ $2$ - University of Guelph}\\[2ex]%
+    \today
+}
 %
 \begin{document}
 %
 \newcommand{\SC}[1]{\textsc{#1}}
 \newcommand{\Rcmd}[1]{\texttt{#1}}
-\newcommand{\kit}[0]{\href{https://abarbour.github.io/kitagawa/}{\color{blue}\Rcmd{kitagawa}}}
+\newcommand{\kit}[0]{\href{https://github.com/abarbour/kitagawa/}{\color{blue}\Rcmd{kitagawa}}}
 \newcommand{\bidxa}[1]{\index{#1}{\textbf{#1}}} 
 \newcommand{\bidxb}[2]{\index{#2}{\textbf{#1}}} 
 \newcommand{\idxa}[1]{\index{#1}{#1}} 
@@ -62,7 +66,7 @@ water height as a function of aquifer head $H$ or pressure.
 %
 \tableofcontents
 
-\clearpage
+%\clearpage
 \section{Introduction}
 
  The underlying physical model of these response functions
@@ -356,7 +360,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 
 
 \clearpage
-\subsection{Pressure head: Wang et al. (2018)}
+\subsection{Pressure head (with leakage): Wang et al. (2018)}
 
 <<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=WANGRESP>>= 
 wrsp <- open_well_response(omega, T.=T., S.=S., leak = 1e-8,
@@ -368,7 +372,7 @@ rP <- Phase(crsp)
 @
 
 \clearpage
-\subsection{Figure 2 from Wang et al. (2018)}
+\subsubsection{Figure 2 from Wang et al. (2018)}
 
 <<eval=TRUE, echo=TRUE, label=WANGRESPDAT>>= 
 Transmiss <- c(1e0, 1e-2, 1e-4, 1e-6, 1e-8)
@@ -389,7 +393,12 @@ layout(matrix(c(1,2), ncol=1), heights=c(0.5,0.5))
       mgp=c(2.5, 0.5, 0), las=1)
 plot(c(), c(),  log = 'x',
      xlim = range(leak), type='l', ylim = c(-80, 100),
-     ylab = 'Phase shift (deg)')
+     ylab = 'Phase shift (deg)', xaxt='n', frame=FALSE)
+lats <- seq(-11,-3,by=2)
+axis(1, at=10^lats, labels=parse(text=sprintf("10^%s",lats)))
+axis(3, at=10^lats, labels=FALSE)
+axis(4, labels=FALSE)
+box()
 
 for (i in seq_along(Transmiss)) {
   T. <- Transmiss[i]
@@ -424,7 +433,13 @@ legend('bottomright',
 plot(c(), c(),  log = 'xy',
      xlim = range(leak), type='l', ylim = c(1e-10, 1),
      ylab = 'Amplitude ratio',
-     xlab = 'Specific Leakage (1/s)')
+     xlab = 'Specific Leakage (1/s)', axes=FALSE)
+axis(1, at=10^lats, labels=parse(text=sprintf("10^%s",lats)))
+lats.y <- seq(-10,-1,by=3)
+axis(3, at=10^lats, labels=FALSE)
+axis(2, at=10^lats.y, labels=parse(text=sprintf("10^%s",lats.y)))
+axis(4, at=10^lats.y, labels=FALSE)
+box()
 
 for (i in seq_along(Transmiss)) {
   T. <- Transmiss[i]
@@ -507,7 +522,8 @@ log10_ticks()
 mtext("(b) Phase", adj=0)
 @
 \caption{The response of an open well to harmonic areal strain using
-the Rojstaczer model. Modified from \citet[][Fig.~3]{rojstaczer1988}.
+the Rojstaczer model. In the phase curve, phase wrapping has been removed.
+Modified from \citet[][Fig.~3]{rojstaczer1988}.
 Frequency is dimensionless, based on the well-depth $z$ and the diffusivity
 $D$.}
 \label{fig:owrsp-roj}
