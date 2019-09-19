@@ -353,60 +353,24 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{center}
 \end{figure}
 
-\clearpage
-\subsection{Strain: Rojstaczer (1988)}
 
-<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=ROJRESP>>= 
-wrsp <- open_well_response(omega, T.=T., S.=S., z=z, model = "rojstaczer", as.pressure=asP)
+
+\clearpage
+\subsection{Pressure head: Wang et al. (2018)}
+
+<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=WANGRESP>>= 
+wrsp <- open_well_response(omega, T.=T., S.=S., leak = 1e-8, Ta=Ta, Hw=Hw,
+                           model = "wang", as.pressure=asP)
 plot(wrsp)
 crsp <- wrsp[["Response"]][,2]
 rGain <- Mod(crsp)
 rP <- Phase(crsp)
 @
 
-\begin{figure}[htb!]
-\begin{center}
-<<eval=TRUE, echo=FALSE, fig.height=6, fig.width=5.5, label=ROJRESPFIG>>=
-par(mfrow=c(2,1), 
-    mar=c(2.5,4,3.1,2), 
-    oma=rep(0.1,4), 
-    omi=rep(0.1,4), 
-    las=1)
-plot(lQ, (rGain), type="l", 
-	 #ylim=c(0, 1.15),
-     xaxt="n", 
-     lwd=2,
-     ylab=expression( Z / Epsilon ),
-     xlab="", 
-     main="")
-log10_ticks()
-mtext("Open Well Response (ROJSTACZER): Harmonic Strain", font=2, line=1.5)
-mtext("(a) Gain", adj=0)
-# relative to static-confined areal strain response", adj=0)
-par(mar=c(4,4,1.1,2))
-plot(lQ, rP$Phs*180/pi, type="l", lty=3, ylim=c(130, 180), 
-	 xaxt="n",
-     ylab=expression(Z ~ "rel." ~ Epsilon), 
-     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
-abline(h=-180, col="grey")
-lines(lQ, rP$uPhs*180/pi, type="l", lwd=2)
-log10_ticks()
-mtext("(b) Phase", adj=0)
-@
-\caption{The response of an open well to harmonic areal strain using
-the Rojstaczer model. Modified from \citet[][Fig.~3]{rojstaczer1988}.
-Frequency is dimensionless, based on the well-depth $z$ and the diffusivity
-$D$.}
-\label{fig:owrsp-roj}
-\end{center}
-\end{figure}
-
-
-
 \clearpage
 \subsection{Figure 2 from Wang et al. (2018)}
 
-<<eval=TRUE, echo=TRUE, label=WANGRESP>>= 
+<<eval=TRUE, echo=TRUE, label=WANGRESPDAT>>= 
 Transmiss <- c(1e0, 1e-2, 1e-4, 1e-6, 1e-8)
 Storativ  <- c(1e-2, 1e-4, 1e-6, 1e-8)
 omeg      <- 1.9322736 / 86400 # M2 in Hz
@@ -503,6 +467,57 @@ mtext("Leakage Coefficient (1/s)", side=1, line=2)
 \label{fig:owrsp-wang}
 \end{center}
 \end{figure}
+
+
+
+\clearpage
+\subsection{Strain: Rojstaczer (1988)}
+
+<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=ROJRESP>>= 
+wrsp <- open_well_response(omega, T.=T., S.=S., z=z, model = "rojstaczer", as.pressure=asP)
+plot(wrsp)
+crsp <- wrsp[["Response"]][,2]
+rGain <- Mod(crsp)
+rP <- Phase(crsp)
+@
+
+\begin{figure}[htb!]
+\begin{center}
+<<eval=TRUE, echo=FALSE, fig.height=6, fig.width=5.5, label=ROJRESPFIG>>=
+par(mfrow=c(2,1), 
+    mar=c(2.5,4,3.1,2), 
+    oma=rep(0.1,4), 
+    omi=rep(0.1,4), 
+    las=1)
+plot(lQ, (rGain), type="l", 
+	 #ylim=c(0, 1.15),
+     xaxt="n", 
+     lwd=2,
+     ylab=expression( Z / Epsilon ),
+     xlab="", 
+     main="")
+log10_ticks()
+mtext("Open Well Response (ROJSTACZER): Harmonic Strain", font=2, line=1.5)
+mtext("(a) Gain", adj=0)
+# relative to static-confined areal strain response", adj=0)
+par(mar=c(4,4,1.1,2))
+plot(lQ, rP$Phs*180/pi, type="l", lty=3, ylim=c(130, 180), 
+	 xaxt="n",
+     ylab=expression(Z ~ "rel." ~ Epsilon), 
+     xlab=expression("Dimensionless frequency," ~ Q ==z^2 * omega / 2 * D  ))
+abline(h=-180, col="grey")
+lines(lQ, rP$uPhs*180/pi, type="l", lwd=2)
+log10_ticks()
+mtext("(b) Phase", adj=0)
+@
+\caption{The response of an open well to harmonic areal strain using
+the Rojstaczer model. Modified from \citet[][Fig.~3]{rojstaczer1988}.
+Frequency is dimensionless, based on the well-depth $z$ and the diffusivity
+$D$.}
+\label{fig:owrsp-roj}
+\end{center}
+\end{figure}
+
 
 \clearpage
 \section{Model Comparisons}

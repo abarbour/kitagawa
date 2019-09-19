@@ -367,6 +367,56 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{center}
 \end{figure}
 
+
+
+\clearpage
+\subsection{Pressure head: Wang et al. (2018)}
+
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{leak} \hlstd{=} \hlnum{1e-08}\hlstd{,} \hlkwc{Ta} \hlstd{= Ta,}
+    \hlkwc{Hw} \hlstd{= Hw,} \hlkwc{model} \hlstd{=} \hlstr{"wang"}\hlstd{,} \hlkwc{as.pressure} \hlstd{= asP)}
+\hlkwd{plot}\hlstd{(wrsp)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/WANGRESP-1} 
+\begin{kframe}\begin{alltt}
+\hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}
+\hlstd{rGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
+\hlstd{rP} \hlkwb{<-} \hlkwd{Phase}\hlstd{(crsp)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\clearpage
+\subsection{Figure 2 from Wang et al. (2018)}
+
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Transmiss} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{0.01}\hlstd{,} \hlnum{1e-04}\hlstd{,} \hlnum{1e-06}\hlstd{,} \hlnum{1e-08}\hlstd{)}
+\hlstd{Storativ} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{0.01}\hlstd{,} \hlnum{1e-04}\hlstd{,} \hlnum{1e-06}\hlstd{,} \hlnum{1e-08}\hlstd{)}
+\hlstd{omeg} \hlkwb{<-} \hlnum{1.9322736}\hlopt{/}\hlnum{86400}  \hlcom{# M2 in Hz}
+\hlstd{leak} \hlkwb{<-} \hlnum{10}\hlopt{^}\hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{11}\hlstd{,} \hlopt{-}\hlnum{3}\hlstd{,} \hlnum{0.2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\begin{figure}[htb!]
+\begin{center}
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/WANGRESPFIG-1} 
+
+\end{knitrout}
+\caption{Amplitude and phase shift as a function of the specific leakage (K'/b') using the Wang 2018 model for the M2 tide.}
+\label{fig:owrsp-wang}
+\end{center}
+\end{figure}
+
+
+
 \clearpage
 \subsection{Strain: Rojstaczer (1988)}
 
@@ -402,33 +452,6 @@ $D$.}
 \end{center}
 \end{figure}
 
-
-
-\clearpage
-\subsection{Figure 2 from Wang et al. (2018)}
-
-\begin{knitrout}\small
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{Transmiss} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{0.01}\hlstd{,} \hlnum{1e-04}\hlstd{,} \hlnum{1e-06}\hlstd{,} \hlnum{1e-08}\hlstd{)}
-\hlstd{Storativ} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{0.01}\hlstd{,} \hlnum{1e-04}\hlstd{,} \hlnum{1e-06}\hlstd{,} \hlnum{1e-08}\hlstd{)}
-\hlstd{omeg} \hlkwb{<-} \hlnum{1.9322736}\hlopt{/}\hlnum{86400}  \hlcom{# M2 in Hz}
-\hlstd{leak} \hlkwb{<-} \hlnum{10}\hlopt{^}\hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{11}\hlstd{,} \hlopt{-}\hlnum{3}\hlstd{,} \hlnum{0.2}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-\begin{figure}[htb!]
-\begin{center}
-\begin{knitrout}\small
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/WANGRESPFIG-1} 
-
-\end{knitrout}
-\caption{Amplitude and phase shift as a function of the specific leakage (K'/b') using the Wang 2018 model for the M2 tide.}
-\label{fig:owrsp-wang}
-\end{center}
-\end{figure}
 
 \clearpage
 \section{Model Comparisons}
