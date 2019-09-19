@@ -26,7 +26,7 @@ This package also includes support for the models in
 [Hsieh, et al. (1987)](https://doi.org/10.1029/WR023i010p01824 "Determination of aquifer transmissivity from Earth tide analysis").
 [Rojstaczer (1988)](https://doi.org/10.1029/JB093iB11p13619 "Intermediate period response of water levels in wells to crustal strain: Sensitivity and noise level"), and
 [Liu, et al. (1989)](https://doi.org/10.1029/JB094iB07p09453 "Seismically induced water level fluctuations in the Wali Well, Beijing, China"), which are based on various sources (i.e., tides, atmospheric pressure, and seismic waves).
-[Wang, et al. (2018)](https://doi.org/10.1029/2018WR022793 "Tidal Response of Groundwater in a LeakyAquifer—Application to Oklahoma"), which are based on various sources and includes leakage (i.e., tides, atmospheric pressure, and seismic waves).
+[Wang, et al. (2018)](https://doi.org/10.1029/2018WR022793 "Tidal Response of Groundwater in a LeakyAquifer—Application to Oklahoma"), modifies these solutions to include leakage (i.e., tides, atmospheric pressure, and seismic waves).
 ## Getting Started
 
 You can install the package via
