@@ -62,6 +62,7 @@
 #' @title Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
 #' @author Andrew J. Barbour <andy.barbour@@gmail.com> 
 #' 
+#' @importFrom Bessel BesselK
 #' @importFrom kelvin Keir Beir
 #' @importFrom graphics abline axis layout lines mtext par plot
 #' @importFrom utils head str tail
