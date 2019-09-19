@@ -86,7 +86,7 @@
 %
 \newcommand{\SC}[1]{\textsc{#1}}
 \newcommand{\Rcmd}[1]{\texttt{#1}}
-\newcommand{\kit}[0]{\href{http://abarbour.github.io/kitagawa/}{\color{blue}\Rcmd{kitagawa}}}
+\newcommand{\kit}[0]{\href{https://abarbour.github.io/kitagawa/}{\color{blue}\Rcmd{kitagawa}}}
 \newcommand{\bidxa}[1]{\index{#1}{\textbf{#1}}} 
 \newcommand{\bidxb}[2]{\index{#2}{\textbf{#1}}} 
 \newcommand{\idxa}[1]{\index{#1}{#1}} 
@@ -106,7 +106,7 @@ virtual water height $Z$ or pressure $P$ as a function of
 areal %volumetric?
 strain $\epsilon$.
 There is a suite of open-well response functions, from 
-\citet{cooper1965, hsieh1987, rojstaczer1988, liu1989}; and
+\citet{cooper1965, hsieh1987, rojstaczer1988, liu1989, wang2018}; and
 these give the complex frequency response of
 water height as a function of aquifer head $H$ or pressure.
 \end{abstract}
@@ -136,7 +136,8 @@ water height as a function of aquifer head $H$ or pressure.
  The solution  for an open well was first presented by
  \citet{cooper1965}, and subsequently modified by \citet{rojstaczer1988, liu1989}.
  \citet{kitagawa2011} adapted the solution
- of \citet{hsieh1987} for the case of a sealed well.
+ of \citet{hsieh1987} for the case of a sealed well. 
+ \citet{wang2018} provides the leaky aquifer response for an open well.
  
  These models are applicable to any quasi-static process involving harmonic, 
  volumetric strain of an aquifer 
@@ -163,7 +164,7 @@ Load the necessary packages:
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loaded kitagawa (2.2.2) -- Spectral response of water wells}}\end{kframe}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loaded kitagawa (2.3) -- Spectral response of water wells}}\end{kframe}
 \end{knitrout}
 
 Setup some constants:
@@ -366,6 +367,56 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \end{center}
 \end{figure}
 
+
+
+\clearpage
+\subsection{Pressure head: Wang et al. (2018)}
+
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{wrsp} \hlkwb{<-} \hlkwd{open_well_response}\hlstd{(omega,} \hlkwc{T.} \hlstd{= T.,} \hlkwc{S.} \hlstd{= S.,} \hlkwc{leak} \hlstd{=} \hlnum{1e-08}\hlstd{,} \hlkwc{model} \hlstd{=} \hlstr{"wang"}\hlstd{,}
+    \hlkwc{as.pressure} \hlstd{= asP)}
+\hlkwd{plot}\hlstd{(wrsp)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/WANGRESP-1} 
+\begin{kframe}\begin{alltt}
+\hlstd{crsp} \hlkwb{<-} \hlstd{wrsp[[}\hlstr{"Response"}\hlstd{]][,} \hlnum{2}\hlstd{]}
+\hlstd{rGain} \hlkwb{<-} \hlkwd{Mod}\hlstd{(crsp)}
+\hlstd{rP} \hlkwb{<-} \hlkwd{Phase}\hlstd{(crsp)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\clearpage
+\subsection{Figure 2 from Wang et al. (2018)}
+
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{Transmiss} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{0.01}\hlstd{,} \hlnum{1e-04}\hlstd{,} \hlnum{1e-06}\hlstd{,} \hlnum{1e-08}\hlstd{)}
+\hlstd{Storativ} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{0.01}\hlstd{,} \hlnum{1e-04}\hlstd{,} \hlnum{1e-06}\hlstd{,} \hlnum{1e-08}\hlstd{)}
+\hlstd{omeg} \hlkwb{<-} \hlnum{1.9322736}\hlopt{/}\hlnum{86400}  \hlcom{# M2 in Hz}
+\hlstd{leak} \hlkwb{<-} \hlnum{10}\hlopt{^}\hlkwd{seq}\hlstd{(}\hlopt{-}\hlnum{11}\hlstd{,} \hlopt{-}\hlnum{3}\hlstd{,} \hlnum{0.2}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\begin{figure}[htb!]
+\begin{center}
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/WANGRESPFIG-1} 
+
+\end{knitrout}
+\caption{Amplitude and phase shift as a function of the specific leakage (K'/b') using the Wang 2018 model for the M2 tide.}
+\label{fig:owrsp-wang}
+\end{center}
+\end{figure}
+
+
+
 \clearpage
 \subsection{Strain: Rojstaczer (1988)}
 
@@ -400,6 +451,7 @@ $D$.}
 \label{fig:owrsp-roj}
 \end{center}
 \end{figure}
+
 
 \clearpage
 \section{Model Comparisons}
