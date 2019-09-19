@@ -18,6 +18,13 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 
 \encoding{UTF-8}
 
+\section{CHANGES IN VERSION 2.3 (2019-09-18)}{
+  \itemize{
+    \item \href{https://github.com/abarbour/kitagawa/pull/2/commits/1610331a03a4470fa83e30160af4a6c279072277}{Fixes} a sign error in the Liu solution. Thanks to \href{https://www.github.com/jkennel}{@jkennel} for catching this.
+    \item Removed the need for pandoc-citeproc in Tohoku vignette because of a presently unfixed bug.
+  }
+}
+
 \section{CHANGES IN VERSION 2.2-2 (2018-09-14)}{
   \itemize{
     \item NA values stop execution of \code{cross_spectrum}; and, added tests.

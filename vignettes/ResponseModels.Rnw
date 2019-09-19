@@ -35,7 +35,7 @@
 %
 \newcommand{\SC}[1]{\textsc{#1}}
 \newcommand{\Rcmd}[1]{\texttt{#1}}
-\newcommand{\kit}[0]{\href{http://abarbour.github.io/kitagawa/}{\color{blue}\Rcmd{kitagawa}}}
+\newcommand{\kit}[0]{\href{https://github.com/abarbour/kitagawa/}{\color{blue}\Rcmd{kitagawa}}}
 \newcommand{\bidxa}[1]{\index{#1}{\textbf{#1}}} 
 \newcommand{\bidxb}[2]{\index{#2}{\textbf{#1}}} 
 \newcommand{\idxa}[1]{\index{#1}{#1}} 

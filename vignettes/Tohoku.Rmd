@@ -7,14 +7,15 @@ vignette: >
   %\VignetteIndexEntry{Cross-spectrum computation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-bibliography: REFS.bib
 ---
+<!-- bibliography: REFS.bib -->
+
 
 Here I show how the modeling tools in **kitagawa** can be
 used to study actual data.  Specifically, I will show
 records of strain and pore-pressure from borehole
-stations in the [Plate Boundary Observatory](http://pbo.unavco.org/)
-in a manner similar to the approaches taken in @barbour2011 and @barbour2015.
+stations in the [Plate Boundary Observatory](https://www.unavco.org/unavco.html)
+in a manner similar to the approaches taken in Barbour and Agnew (2011) and Barbour (2015).
 
 ```{r, echo=TRUE}
 library(kitagawa)
@@ -244,3 +245,11 @@ lines(Admittance ~ Period, TohCS, lwd=2)
 
 
 ## References
+
+Barbour, A. J., (2015), Pore-Pressure Sensitivities to Dynamic Strains: Observations in Active Tectonic Regions, 
+Journal of Geophysical Research: Solid Earth, 120, 5863 — 5883,
+[DOI: 10.1002/2015JB012201](https://doi.org/10.1002/2015JB012201)
+
+Barbour, A. J., and D. C. Agnew (2011), Noise Levels on Plate Boundary Observatory Borehole Strainmeters in Southern California,
+Bulletin of the Seismological Society of America, 101(5), 2453 — 2466,  
+[DOI: 10.1785/0120110062](https://doi.org/10.1785/0120110062)
