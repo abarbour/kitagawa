@@ -16,10 +16,10 @@ Description: Provides tools to calculate the theoretical hydrodynamic response
     Hsieh et al (1987, <doi:10.1029/WR023i010p01824>), 
     Rojstaczer (1988, <doi:10.1029/JB093iB11p13619>), 
     Liu et al (1989, <doi:10.1029/JB094iB07p09453>), and
-    Wang et al (2018, <doi:10.1029/2018WR022793>). Wang's model is a special
+    Wang et al (2018, <doi:10.1029/2018WR022793>). Wang's solution is a special
     exception which
-    allows for leakage out of the aquifer (semi-confined); itis equivalent to Hsieh's model
-    when there is no leakage (confined).
+    allows for leakage out of the aquifer (semi-confined); it is equivalent to Hsieh's model
+    when there is no leakage (the confined case).
     These models treat 
     strain (or aquifer head) as an input to the
     physical system, and fluid-pressure (or water height) as the output. The
