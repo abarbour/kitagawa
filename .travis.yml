@@ -24,9 +24,11 @@ r_packages:
  - testthat
  - covr
 
-#r_github_packages:
 # - abarbour/kelvin
-
+#   - stringi	   
+r_github_packages:
+   - gagolews/stringi
+   
 jobs:
   include:
   - r: devel
