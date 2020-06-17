@@ -1,2 +1,8 @@
 **/
 checks.rds
+checks
+library
+checks.noindex
+library.noindex
+data.sqlite
+*.html

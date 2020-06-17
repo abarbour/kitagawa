@@ -85,12 +85,9 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, adaptive=FALSE, verbos
   do.mt <- !is.null(k)
   cs <- if (do.mt){
     if (verbose) message("calculating sine-multitaper spectra...")
-    #sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp, ...)
-    psd::pspectrum(XY, x.frqsamp=samp, ntap.init=k, niter=ifelse(adaptive,3,0), ...)
+    psd::pspectrum(XY, x.frqsamp=samp, ntap.init=k, niter=ifelse(adaptive, 3, 0), ...)
   } else {
-    #if (verbose) message("calculating Welch spectra...")
-    #sapa::SDF(XY, method='wosa', sampling.interval=samp, ...)
-    stop('With removal of sapa, Welch cross spectrum no longer available.')
+    stop('With removal of sapa, Welch cross spectrum is temporarily unavailable.')
   }
   
   freq <- cs[['freq']]

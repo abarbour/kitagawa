@@ -1,5 +1,12 @@
-library("devtools")
+library(devtools)
+library(remotes)
 
-revdep_check()
-revdep_check_save_summary()
-revdep_check_print_problems()
+if (!require(revdepcheck)){
+    install_github('r-lib/revdepcheck')
+    library(revdepcheck)
+}
+
+pkg <- ".."
+revdepcheck::revdep_check(pkg, num_workers = 3)
+revdep_report(pkg)
+revdep_report_summary(pkg)
