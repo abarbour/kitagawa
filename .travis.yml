@@ -16,6 +16,7 @@ r_packages:
  - kelvin
  - dplyr
  - knitr
+ - formatR
  - psd
  - rmarkdown
  - RColorBrewer
