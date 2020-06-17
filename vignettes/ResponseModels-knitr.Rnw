@@ -36,7 +36,14 @@
 }
 %
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+concordance=TRUE
+)
+@
+
 %\SweaveOpts{concordance=TRUE}
 %
 \newcommand{\SC}[1]{\textsc{#1}}
@@ -106,7 +113,7 @@ allows for leakage from the aquifer.
 
 \section{Preliminaries}
 
-<<eval=TRUE, echo=FALSE>>= 
+<<eval=TRUE, echo=FALSE>>=
 library(knitr)
 options(width=69)
 knitr::opts_chunk$set(tidy = TRUE, size="small")
@@ -115,7 +122,7 @@ knitr::opts_chunk$set(tidy = TRUE, size="small")
 
 Load the necessary packages:
 
-<<eval=TRUE, echo=TRUE, label=PRELIM>>= 
+<<eval=TRUE, echo=TRUE, label=PRELIM>>=
 library(RColorBrewer)
 Set1 <- brewer.pal(8, "Set1")
 library(signal, warn.conflicts=FALSE)
@@ -124,7 +131,7 @@ library(kitagawa)
 
 Setup some constants:
 
-<<eval=TRUE, echo=TRUE, label=PARAMS1>>= 
+<<eval=TRUE, echo=TRUE, label=PARAMS1>>=
 S. <- 1e-5    # Storativity [nondimensional]
 T. <- 1e-4    # Transmissivity [m**2 / s]
 D. <- T./S.   # Diffusivity [m**2 / s]
@@ -152,7 +159,7 @@ And create the dimensionless frequencies,
 defined by $z^2 \omega / 2 D$,
 where $D$ is the hydraulic diffusivity:
 
-<<eval=TRUE, echo=TRUE, label=PARAMS2>>= 
+<<eval=TRUE, echo=TRUE, label=PARAMS2>>=
 # Frequencies
 Q <- 10**seq(-5,2,by=0.05)					# [nondimensional]
 lQ <- log10(Q)
@@ -176,7 +183,7 @@ And onto the response functions...
 
 \subsection{Strain: Kitagawa et al. (2011)}
 %
-<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=KITRESP>>= 
+<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=KITRESP>>=
 wrsp <- well_response(omega, T.=T., S.=S., Vw.=Vw., Rs.=Rs., Ku.=Ku., B.=B., Avs=1, Aw=1, as.pressure=asP)
 plot(wrsp) # uses plot.wrsp method
 crsp <- wrsp[["Response"]][,2]	# Complex response
@@ -225,7 +232,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 
 \subsection{Pressure head: Cooper et al. (1965)}
 
-<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=COOPERRESP>>= 
+<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=COOPERRESP>>=
 wrsp <- open_well_response(omega, T.=T., S.=S., Ta=Ta, Hw=Hw, 
 	model = "cooper", as.pressure=ZasP)
 plot(wrsp)
@@ -272,7 +279,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \clearpage
 \subsection{Pressure head: Hsieh et al. (1987)}
 
-<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=HSIEHRESP>>= 
+<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=HSIEHRESP>>=
 wrsp <- open_well_response(omega, T.=T., S.=S.,  Ta=Ta, Hw=Hw, model = "hsieh", as.pressure=ZasP)
 plot(wrsp)
 crsp <- wrsp[["Response"]][,2]
@@ -318,7 +325,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \clearpage
 \subsection{Pressure head: Liu et al. (1989)}
 
-<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=LIURESP>>= 
+<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=LIURESP>>=
 wrsp <- open_well_response(omega, T.=T., S.=S.,  Ta=Ta, Hw=Hw, model = "liu", as.pressure=ZasP)
 plot(wrsp)
 crsp <- wrsp[["Response"]][,2]
@@ -366,7 +373,7 @@ Frequency is dimensionless, based on the well-depth $z$ and the diffusivity $D$.
 \clearpage
 \subsection{Pressure head (with leakage): Wang et al. (2018)}
 
-<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=WANGRESP>>= 
+<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=WANGRESP>>=
 wrsp <- open_well_response(omega, T.=T., S.=S., leak = 1e-8,
                            model = "wang", as.pressure=asP)
 plot(wrsp)
@@ -378,7 +385,7 @@ rP <- Phase(crsp)
 \clearpage
 \subsubsection{Figure 2 from Wang et al. (2018)}
 
-<<eval=TRUE, echo=TRUE, label=WANGRESPDAT>>= 
+<<eval=TRUE, echo=TRUE, label=WANGRESPDAT>>=
 Transmiss <- c(1e0, 1e-2, 1e-4, 1e-6, 1e-8)
 Storativ  <- c(1e-2, 1e-4, 1e-6, 1e-8)
 omeg      <- 1.9322736 / 86400 # M2 in Hz
@@ -488,7 +495,7 @@ mtext("Leakage Coefficient (1/s)", side=1, line=2)
 \clearpage
 \subsection{Strain: Rojstaczer (1988)}
 
-<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=ROJRESP>>= 
+<<eval=TRUE, echo=TRUE, fig.height=4.7, fig.width=4, label=ROJRESP>>=
 wrsp <- open_well_response(omega, T.=T., S.=S., z=z, model = "rojstaczer", as.pressure=asP)
 plot(wrsp)
 crsp <- wrsp[["Response"]][,2]

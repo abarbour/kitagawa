@@ -106,5 +106,5 @@ Tidal Response of Groundwater in a Leaky Aquifer—Application to Oklahoma,
 \code{\link{wrsp-methods}}
 }
 \author{
-Andrew J. Barbour <andy.barbour@gmail.com>
+Andrew J. Barbour <andy.barbour@gmail.com> with contributions from Jonathan Kennel
 }

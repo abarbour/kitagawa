@@ -14,6 +14,8 @@
 #' @export
 #' 
 #' @examples
+# UNTIL SETTLED:
+#' \dontrun{
 #' require(stats)
 #' require(psd)
 #' 
@@ -56,6 +58,7 @@
 #   lines(x, y3, col='grey')
 #   lines(x, y3s)
 # })
+#' }
 #' 
 cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 

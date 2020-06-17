@@ -45,6 +45,7 @@ pre-specified sequence is included. This is will be ignored for Welch-based spec
 Calculate the cross-spectrum of two timeseries
 }
 \examples{
+\dontrun{
 require(stats)
 require(psd)
 
@@ -59,5 +60,6 @@ Y <- ts(rnorm(n) + ramp/10 + parab/100)
 # Calculate the cross spectrum, multitaper if K is not NULL
 csd <- cross_spectrum(X, Y, k=20)
 
+}
 
 }

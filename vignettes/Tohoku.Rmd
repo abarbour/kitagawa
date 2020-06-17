@@ -90,10 +90,10 @@ toh.cs <- psd::pspectrum(toh.dat, ntap.init=k, niter = 0)
 class(toh.cs)
 str(toh.cs)
 ```
-```{r, echo=FALSE, fig.show='hold', fig.width=7., fig.height=5.5}
+```{r, echo=FALSE, fig.show='hold', fig.width=5., fig.height=7}
 with(toh.cs,{
   layout(matrix(1:3,nc=1))
-  par(mar=c(2,3,1,1), mgp=c(2,0.5,0), tcl=0.5, oma=c(2,0,0,0))
+  par(mar=c(3,3,1,1), mgp=c(2,0.5,0), tcl=0.5, oma=c(2,0,0,0))
   f <- freq
   plot(f, coh, type='l', log='x', ylim=c(0,1), ylab="Coherence")
   plot(f, signal::unwrap(phase[,1]), type='l', log='xy', ylab="Phase, rad")

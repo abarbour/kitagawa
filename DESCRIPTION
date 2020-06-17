@@ -2,7 +2,7 @@ Package: kitagawa
 Type: Package
 Title: Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
 Version: 3.1
-Date: 2020-06-16
+Date: 2020-06-17
 Author: Andrew J Barbour [aut, cre] (<https://orcid.org/0000-0002-6890-2452>), Jonathan Kennel [ctb] 
 Maintainer: A. J. Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response

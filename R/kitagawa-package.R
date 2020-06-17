@@ -63,7 +63,7 @@
 #' @name kitagawa-package
 #' @aliases kitagawa
 #' @title Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
-#' @author Andrew J. Barbour <andy.barbour@@gmail.com> 
+#' @author Andrew J. Barbour <andy.barbour@@gmail.com> with contributions from Jonathan Kennel
 #' 
 #' @importFrom Bessel BesselK
 #' @importFrom kelvin Keir Beir

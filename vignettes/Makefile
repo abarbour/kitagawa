@@ -3,7 +3,7 @@
 #
 # DO NOT EXCLUDE FROM BUILD!
 
-PDFS = ResponseModels.pdf
+PDFS = ResponseModels-knitr.pdf
 
 all: $(PDFS)
 
