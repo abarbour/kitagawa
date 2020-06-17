@@ -17,11 +17,11 @@ r_packages:
  - Bessel
  - kelvin
  - dplyr
+ - RColorBrewer
+ - signal
  - knitr
  - formatR
  - rmarkdown
- - RColorBrewer
- - signal
  - testthat
  - covr
 

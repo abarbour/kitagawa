@@ -37,12 +37,10 @@ Imports:
     psd (>= 2.0.0)
 Suggests:
     dplyr,
-    knitr,
-    rmarkdown,
     RColorBrewer,
     signal,
     testthat,
     covr
-VignetteBuilder: knitr
+VignetteBuilder: knitr, rmarkdown, formatR
 Encoding: UTF-8
 RoxygenNote: 7.1.0
