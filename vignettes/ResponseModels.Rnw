@@ -37,6 +37,7 @@
 %
 \begin{document}
 \SweaveOpts{concordance=TRUE}
+%\SweaveOpts{concordance=TRUE}
 %
 \newcommand{\SC}[1]{\textsc{#1}}
 \newcommand{\Rcmd}[1]{\texttt{#1}}

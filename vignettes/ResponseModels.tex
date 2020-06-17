@@ -38,6 +38,7 @@
 \usepackage{Sweave}
 \begin{document}
 \input{ResponseModels-concordance}
+%\SweaveOpts{concordance=TRUE}
 %
 \newcommand{\SC}[1]{\textsc{#1}}
 \newcommand{\Rcmd}[1]{\texttt{#1}}
@@ -50,20 +51,22 @@
 \maketitle
 %
 \begin{abstract}
-In this vignette I demonstrate the response functions found in 
+In this vignette we demonstrate the response functions found in 
 the package
 \kit{}, which are appropriate for modeling the effect of
 harmonic volumetric strain or pressure-head fluctuations in
 sealed and open water wells.
-There is only one sealed-well response function, from
+For sealed-wells there is only one response function, from
 \citet{kitagawa2011}, and this gives the complex frequency response of
 virtual water height $Z$ or pressure $P$ as a function of
 areal %volumetric?
 strain $\epsilon$.
-There is a suite of open-well response functions, from 
+For open wells there is
+a suite of open-well response functions, from 
 \citet{cooper1965, hsieh1987, rojstaczer1988, liu1989, wang2018}; and
 these give the complex frequency response of
-water height as a function of aquifer head $H$ or pressure.
+water height as a function of aquifer head $H$ or pressure. \citet{wang2018}
+allows for leakage from the aquifer.
 \end{abstract}
 %
 \tableofcontents
