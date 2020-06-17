@@ -14,10 +14,10 @@ logsmoo(x, y, x.is.log = FALSE, ...)
 \item{x.is.log}{logical; determines whether the series in \code{x} has
 been log-transformed already. If \code{FALSE} then \code{log10} is used.}
 
-\item{...}{additional parameters (e.g., \code{span}) passed to \code{\link[stats]{loess.smooth}}}
+\item{...}{additional parameters (e.g., \code{span}) passed to \code{\link{loess.smooth}}}
 }
 \value{
-The result of \code{\link[stats]{loess.smooth}}
+The result of \code{\link{loess.smooth}}
 }
 \description{
 Logarithmic smoothing with loess
@@ -38,5 +38,5 @@ Bulletin of the Seismological Society of America, 101(5), 2453-2466,
 doi: 10.1785/0120110062
 }
 \seealso{
-\code{\link[stats]{loess.smooth}} and \code{\link[stats]{approxfun}}
+\code{\link{loess.smooth}} and \code{\link{approxfun}}
 }
