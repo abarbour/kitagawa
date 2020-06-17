@@ -25,6 +25,11 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
     to the model toolbox and to the ResponseModels toolbox. Thanks to \JK for contributing this.
     \item New test validating Wang model against Hsieh model (they are equivalent when specific leakage is zero).
     Thanks to \JK for contributing this.
+    \item Build on CRAN breaks because sapa/ifultools are no longer reliably maintained; hence, the specifics of
+    \code{cross_spectrum} have changed. The code now uses new functionality from the \CRANpkg{psd} package. 
+    One benefit is this new approach allows for adaptive refinement of the (sine-multitaper) cross spectrum rather
+    than uniform tapering across all frequencies. But, one unfortunate consequence is
+    that any codes/scripts using the Welch option (i.e., \code{k=NULL}) will break.
   }
 }
 
