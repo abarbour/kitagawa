@@ -16,12 +16,33 @@ test_that("method dispatch appropriate",{
   
   expect_is(as.data.frame(resp),'data.frame')
   
-  expect_is(print(resp),'owrsp')
-  expect_message(print(resp))
+  expect_output(expect_is(print(resp),'owrsp'))
+  expect_output(expect_message(print(resp)))
   
   expect_is(summary(resp),'summary.owrsp')
-  expect_is(print(summary(resp)),'summary.owrsp')
-  expect_message(print(summary(resp)))
+  expect_output(expect_is(print(summary(resp)),'summary.owrsp'))
+  expect_output(expect_message(print(summary(resp))))
+  
+})
+
+test_that("complains about missing parameters",{
+  Transmiss <- 1e-6
+  Storativ <- 1e-6
+  omeg <- 10**seq(-3,3, by=0.1) # Hz
+  dep <- 30 # meters
+  frq <- omega_norm(omeg, Storativ/Transmiss, z = dep, invert = TRUE)
+  
+  expect_silent(open_well_response(frq, Transmiss, Storativ, rho=1, grav=1, Ta=1, Hw=1, model = 'hsieh'))
+  expect_warning(open_well_response(frq, Transmiss, Storativ, rho=1, grav=1, Ta=1, model = 'hsieh'))
+  
+  expect_silent(open_well_response(frq, Transmiss, Storativ, rho=1, grav=1, Ta=1, Hw=1, model = 'liu'))
+  expect_silent(open_well_response(frq, Transmiss, Storativ, rho=1, grav=1, Ta=1, Hw=1, model = 'cooper'))
+  expect_silent(open_well_response(frq, Transmiss, Storativ, rho=1, grav=1, z=1, model = 'rojstaczer'))
+  
+  expect_warning(open_well_response(frq, Transmiss, Storativ, model = 'wang'))
+  expect_silent(open_well_response(frq, Transmiss, Storativ, leak=1, model = 'wang'))
+  #??expect_warning(open_well_response(frq, Transmiss, Storativ, leak=1, rho=1, model = 'wang'))
+  #??expect_silent(open_well_response(frq, Transmiss, Storativ, leak=1, rho=1, grav=1, model = 'wang'))
   
 })
 
@@ -34,7 +55,7 @@ test_that("wang == hsieh when leak = 0",{
   frq <- omega_norm(omeg, Storativ/Transmiss, z = dep, invert = TRUE)
   
   
-  hsieh <- open_well_response(frq, Transmiss, Storativ, z=dep, model = 'hsieh')
+  expect_warning(hsieh <- open_well_response(frq, Transmiss, Storativ, z=dep, model = 'hsieh'))
   wang  <- open_well_response(frq, Transmiss, Storativ, z=dep, model = 'wang', leak = 0)
 
   expect_equal(hsieh$Response, wang$Response)

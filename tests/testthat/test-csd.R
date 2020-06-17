@@ -1,3 +1,4 @@
+skip('no cross spectrum yet -- until psd updated etc')
 context('Cross spectrum')
 
 set.seed(1222)

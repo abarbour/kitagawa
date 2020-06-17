@@ -15,6 +15,7 @@
 #' 
 #' @examples
 #' require(stats)
+#' require(psd)
 #' 
 #' n <- 1000
 #' ramp <- seq_len(n)
@@ -27,34 +28,34 @@
 #' # Calculate the cross spectrum, multitaper if K is not NULL
 #' csd <- cross_spectrum(X, Y, k=20)
 #' 
-#' with(csd,{
-#'   x <- Frequency
-#'   px <- c(x, rev(x))
-#'   
-#'   y1 <- y1s <- Coherence
-#'   cpr <- attr(csd, 'mtcsd')[['Coh.probs']]
-#'   sig99 <- max(cpr$coh.sig) # 99% confidence
-#'   insig <- y1 < sig99
-#'   y1s[insig] <- NA
-#'   plot(x, y1, col=NA, main='Coherence')
-#'   lines(x, y1, col='grey')
-#'   lines(x, y1s)
-#'   
-#'   y2 <- y2s <- Admittance
-#'   y2e <- 2*Admittance.stderr
-#'   y2s[insig] <- NA
-#'   py <- c(y2 + y2e, rev(y2 - y2e))
-#'   plot(x, y2, col=NA, ylim=range(py), main='Admittance')
-#'   polygon(px, py, col='lightgrey', border=NA)
-#'   lines(x, y2, lty=3)
-#'   lines(x, y2s)
-#'   
-#'   y3 <- y3s <- Phase * 180/pi
-#'   y3s[insig] <- NA
-#'   plot(x, y3, col=NA, ylim=90*c(-1,1), main='Phase')
-#'   lines(x, y3, col='grey')
-#'   lines(x, y3s)
-#' })
+# with(csd,{
+#   x <- Frequency
+#   px <- c(x, rev(x))
+# 
+#   y1 <- y1s <- Coherence
+#   cpr <- attr(csd, 'mtcsd')[['Coh.probs']]
+#   sig99 <- max(cpr$coh.sig) # 99% confidence
+#   insig <- y1 < sig99
+#   y1s[insig] <- NA
+#   plot(x, y1, col=NA, main='Coherence')
+#   lines(x, y1, col='grey')
+#   lines(x, y1s)
+# 
+#   y2 <- y2s <- Admittance
+#   y2e <- 2*Admittance.stderr
+#   y2s[insig] <- NA
+#   py <- c(y2 + y2e, rev(y2 - y2e))
+#   plot(x, y2, col=NA, ylim=range(py), main='Admittance')
+#   polygon(px, py, col='lightgrey', border=NA)
+#   lines(x, y2, lty=3)
+#   lines(x, y2s)
+# 
+#   y3 <- y3s <- Phase * 180/pi
+#   y3s[insig] <- NA
+#   plot(x, y3, col=NA, ylim=90*c(-1,1), main='Phase')
+#   lines(x, y3, col='grey')
+#   lines(x, y3s)
+# })
 #' 
 cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 
@@ -89,9 +90,7 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, adaptive=FALSE, verbos
     stop('With removal of sapa, Welch cross spectrum no longer available.')
   }
   
-  nfrq <- which(names(csa) == 'frequency')
-  mtcsa <- csa[-nfrq]
-  freq <- as.double(csa[[nfrq]])
+  freq <- cs[['freq']]
   period <- 1/freq
   
   # Spectral content (complex)
@@ -140,13 +139,13 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, adaptive=FALSE, verbos
                            S11, S12, S22)
 
   # Calculate minimum coherence significance levels
-  mtcsa[['Coh.probs']] <- if (do.mt){
+  Coh.probs <- if (do.mt){
     if (missing(q)) q <- c(0.01, seq(0.05, 0.95, by=0.05), 0.99)
     data.frame(q, coh.sig=stats::pf(q, 2, 4*k))
   } else {
     NA
   }
-  attr(csd., 'mtcsd') <- mtcsa
+  attr(csd., 'mtcsd') <- Coh.probs
   
   class(csd.) <- c('mtcsd', class(csd.))
   
