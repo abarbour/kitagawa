@@ -40,7 +40,10 @@ Suggests:
     RColorBrewer,
     signal,
     testthat,
+    knitr, 
+    rmarkdown, 
+    formatR,
     covr
-VignetteBuilder: knitr, rmarkdown, formatR
+VignetteBuilder: knitr
 Encoding: UTF-8
 RoxygenNote: 7.1.0
