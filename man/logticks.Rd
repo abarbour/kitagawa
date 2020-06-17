@@ -7,8 +7,15 @@
 \alias{log10_ticks}
 \title{Add proper logarithm ticks to a plot axis.}
 \usage{
-logticks(ax = 1, n.minor = 9, t.lims, t.ratio = 0.5,
-  major.ticks = NULL, base = c("ten", "ln", "two"), ...)
+logticks(
+  ax = 1,
+  n.minor = 9,
+  t.lims,
+  t.ratio = 0.5,
+  major.ticks = NULL,
+  base = c("ten", "ln", "two"),
+  ...
+)
 
 log_ticks(...)
 
@@ -59,7 +66,8 @@ This was modified from a post on StackOverflow:
 \url{http://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}
 }
 \seealso{
-Other PlotUtilities: \code{\link{wrsp-methods}}
+Other PlotUtilities: 
+\code{\link{wrsp-methods}}
 }
 \author{
 A. J. Barbour <andy.barbour@gmail.com>

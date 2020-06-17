@@ -10,13 +10,21 @@ cross_spectrum(x, ...)
 
 \method{cross_spectrum}{mts}(x, ...)
 
-\method{cross_spectrum}{default}(x, y, k = 10, samp = 1, q,
-  verbose = TRUE, ...)
+\method{cross_spectrum}{default}(
+  x,
+  y,
+  k = 10,
+  samp = 1,
+  q,
+  adaptive = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{numeric; timeseries}
 
-\item{...}{additional arguments to \code{\link[sapa]{SDF}}}
+\item{...}{additional arguments to \code{\link[psd]{pspectrum}}}
 
 \item{y}{numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}}
 
@@ -28,6 +36,8 @@ advantages and disadvantages to either of these.}
 
 \item{q}{numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
 pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).}
+
+\item{adaptive}{logical; should adaptive multitaper estimation be used?}
 
 \item{verbose}{logical; should messages be printed?}
 }
@@ -76,8 +86,5 @@ with(csd,{
   lines(x, y3, col='grey')
   lines(x, y3s)
 })
-
-# turn off k to get Welch's Overlapping
-wcsd <- cross_spectrum(X, Y, k=NULL)
 
 }

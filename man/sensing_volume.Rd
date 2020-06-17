@@ -58,7 +58,8 @@ sensing_volume(Rc, Lc, Rs, Ls) # m**3, ~= 1.8
 \seealso{
 \code{\link{well_response}}
 
-Other utilities: \code{\link{omega_norm}}
+Other utilities: 
+\code{\link{omega_norm}()}
 }
 \author{
 A. J. Barbour <andy.barbour@gmail.com>

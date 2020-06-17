@@ -41,7 +41,8 @@ constants(FALSE) # returns invisibly
 
 \code{\link{kitagawa-package}}
 
-Other ConstantsCalculators: \code{\link{alpha_constants}},
-  \code{\link{omega_constants}}
+Other ConstantsCalculators: 
+\code{\link{alpha_constants}()},
+\code{\link{omega_constants}()}
 }
 \concept{ConstantsCalculators}

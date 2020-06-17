@@ -33,7 +33,8 @@ and \eqn{D} is the hydraulic diffusivity.
 \seealso{
 \code{\link{open_well_response}}, \code{\link{kitagawa-package}}
 
-Other utilities: \code{\link{sensing_volume}}
+Other utilities: 
+\code{\link{sensing_volume}()}
 }
 \author{
 A. J. Barbour <andy.barbour@gmail.com>

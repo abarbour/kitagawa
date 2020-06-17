@@ -28,8 +28,13 @@ data.frame.owrsp(x, ...)
 
 \method{points}{owrsp}(x, series = c("amp", "phs"), pch = "+", ...)
 
-\method{plot}{owrsp}(x, xlims = c(-3, 1), ylims = list(amp = NULL, phs
-  = 185 * c(-1, 1)), logamp = TRUE, ...)
+\method{plot}{owrsp}(
+  x,
+  xlims = c(-3, 1),
+  ylims = list(amp = NULL, phs = 185 * c(-1, 1)),
+  logamp = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{'owrsp' object}

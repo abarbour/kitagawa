@@ -79,15 +79,15 @@ points(IO[,1], IO[,2], pch=3)
 
 ## Cross-Spectrum Estimation
 
-First let's use Don Percival's package [sapa](https://cran.r-project.org/package=sapa)
+First let's use [psd](https://cran.r-project.org/package=psd)
 to estimate a cross spectrum between pressure and strain,
 treating strain as the input to the system and
 pressure as the output:
 ```{r, echo=TRUE}
-library(sapa)
 k <- 2*130
-toh.cs <- sapa::SDF(toh.dat, method='multitaper', n.taper=k, sampling.interval=1)
-print(toh.cs)
+#class(toh.dat)
+toh.cs <- psd::pspectrum(toh.dat, ntap.init=k, niter = 0)
+#print(toh.cs)
 ```
 ```{r, echo=FALSE, fig.show='hold', fig.width=7., fig.height=5.5}
 plot(toh.cs)

@@ -5,11 +5,9 @@
 \alias{omega_constants.default}
 \title{Calculate any constants that depend on angular frequency \eqn{\omega}}
 \usage{
-omega_constants(omega = 0, c.type = c("alpha", "diffusivity_time"),
-  ...)
+omega_constants(omega = 0, c.type = c("alpha", "diffusivity_time"), ...)
 
-\method{omega_constants}{default}(omega = 0, c.type = c("alpha",
-  "diffusivity_time"), ...)
+\method{omega_constants}{default}(omega = 0, c.type = c("alpha", "diffusivity_time"), ...)
 }
 \arguments{
 \item{omega}{frequency,  \eqn{[rad/sec]}}
@@ -89,8 +87,9 @@ omega_constants(c.type="diff", S.=1)  # 0, warnings about T. because no D. or S.
 \code{\link{alpha_constants}}, \code{\link{well_response}}, and
 \code{\link{kitagawa-package}} for references and more background.
 
-Other ConstantsCalculators: \code{\link{alpha_constants}},
-  \code{\link{kitagawa-constants}}
+Other ConstantsCalculators: 
+\code{\link{alpha_constants}()},
+\code{\link{kitagawa-constants}}
 }
 \author{
 A. J. Barbour <andy.barbour@gmail.com>

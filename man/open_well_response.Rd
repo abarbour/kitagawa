@@ -7,10 +7,22 @@
 \usage{
 open_well_response(omega, T., S., ...)
 
-\method{open_well_response}{default}(omega, T., S., Rs. = (8/12) *
-  (1200/3937), rho, grav, z, Hw, Ta, leak, freq.units = c("rad_per_sec",
-  "Hz"), model = c("rojstaczer", "liu", "cooper", "hsieh", "wang"),
-  as.pressure = TRUE, ...)
+\method{open_well_response}{default}(
+  omega,
+  T.,
+  S.,
+  Rs. = (8/12) * (1200/3937),
+  rho,
+  grav,
+  z,
+  Hw,
+  Ta,
+  leak,
+  freq.units = c("rad_per_sec", "Hz"),
+  model = c("rojstaczer", "liu", "cooper", "hsieh", "wang"),
+  as.pressure = TRUE,
+  ...
+)
 }
 \arguments{
 \item{omega}{numeric; frequency,  (see \code{freq.units})}
@@ -119,7 +131,8 @@ See \code{\link{kitagawa-package}} for references and more background.
 \code{\link{well_response}} for the sealed-well equivalents, and
 \code{\link{owrsp-methods}} for a description of the class \code{'owrsp'} and its methods.
 
-Other WellResponseFunctions: \code{\link{well_response}}
+Other WellResponseFunctions: 
+\code{\link{well_response}()}
 }
 \author{
 A. J. Barbour and J. Kennel

@@ -7,8 +7,7 @@
 \usage{
 alpha_constants(alpha = 0, c.type = c("Phi", "Psi", "A", "Kel"))
 
-\method{alpha_constants}{default}(alpha = 0, c.type = c("Phi", "Psi",
-  "A", "Kel"))
+\method{alpha_constants}{default}(alpha = 0, c.type = c("Phi", "Psi", "A", "Kel"))
 }
 \arguments{
 \item{alpha}{the constant alpha (see \code{\link{omega_constants}})}
@@ -56,8 +55,9 @@ alpha_constants(1:10, c.type="A")  # constant 'A' (again, note output)
 \seealso{
 \code{\link{omega_constants}}, \code{\link{well_response}}
 
-Other ConstantsCalculators: \code{\link{kitagawa-constants}},
-  \code{\link{omega_constants}}
+Other ConstantsCalculators: 
+\code{\link{kitagawa-constants}},
+\code{\link{omega_constants}()}
 }
 \author{
 A. J. Barbour <andy.barbour@gmail.com>

@@ -7,8 +7,9 @@
 #' @param samp numeric; the sampling rate (e.g., \code{\link{deltat}}) of the data; must be the same for \code{x} and \code{y}
 #' @param q numeric; the probability quantile [0,1] to calculate coherence significance levels; if missing, a 
 #' pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).
+#' @param adaptive logical; should adaptive multitaper estimation be used?
 #' @param verbose logical; should messages be printed?
-#' @param ... additional arguments to \code{\link[sapa]{SDF}}
+#' @param ... additional arguments to \code{\link[psd]{pspectrum}}
 #' 
 #' @export
 #' 
@@ -55,9 +56,6 @@
 #'   lines(x, y3s)
 #' })
 #' 
-#' # turn off k to get Welch's Overlapping
-#' wcsd <- cross_spectrum(X, Y, k=NULL)
-#' 
 cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 
 #' @rdname cross_spectrum
@@ -69,7 +67,7 @@ cross_spectrum.mts <- function(x, ...){
 
 #' @rdname cross_spectrum
 #' @export
-cross_spectrum.default <- function(x, y, k=10, samp=1, q, verbose=TRUE, ...){
+cross_spectrum.default <- function(x, y, k=10, samp=1, q, adaptive=FALSE, verbose=TRUE, ...){
   
   XY <- if (missing(y)){
     as.matrix(x)
@@ -78,18 +76,17 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, verbose=TRUE, ...){
   }
   if (any(is.na(XY))) stop("Neither series can contain NA values")
   
-  # Calculate sine-mt CS
+  # Calculate sine-mt CS; sapa is no longer reliable; we use the psd implementation
+  # which is more advanced anyway
   do.mt <- !is.null(k)
   cs <- if (do.mt){
     if (verbose) message("calculating sine-multitaper spectra...")
-    sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp, ...)
+    #sapa::SDF(XY, method='multitaper', n.taper=k, sampling.interval=samp, ...)
+    psd::pspectrum(XY, x.frqsamp=samp, ntap.init=k, niter=ifelse(adaptive,3,0), ...)
   } else {
-    if (verbose) message("calculating Welch spectra...")
-    sapa::SDF(XY, method='wosa', sampling.interval=samp, ...)
-  }
-  csa <- attributes(cs)
-  if (do.mt){
-    if (!all.equal(k, csa[['n.taper']])) warning('discrepancy in no. of tapers')
+    #if (verbose) message("calculating Welch spectra...")
+    #sapa::SDF(XY, method='wosa', sampling.interval=samp, ...)
+    stop('With removal of sapa, Welch cross spectrum no longer available.')
   }
   
   nfrq <- which(names(csa) == 'frequency')
@@ -98,28 +95,47 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, verbose=TRUE, ...){
   period <- 1/freq
   
   # Spectral content (complex)
-  S <- as.matrix(cs)
-  colnames(S) <- attr(cs, 'labels')
-  S11 <- S[,'S11']
-  S12 <- S[,'S12']
-  S22 <- S[,'S22']
+  #S <- as.matrix(cs)
+  #colnames(S) <- attr(cs, 'labels')
+  #S11 <- S[,'S11']
+  #S12 <- S[,'S12']
+  #S22 <- S[,'S22']
+  
+  S <- cs[['spec']]
+  TF <- cs[['transfer']]
+  Co <- cs[['coh']]
+  Ph <- cs[['phase']]
+  
+  S11 <- S[,1]
+  S22 <- S[,2]
+  S12 <- TF[, 1]
   
   # Coherence
-  Coh <- abs(Mod(S12)^2 / (S11 * S22))
+  Coh <- Co[, 1]
+  Coh2 <- abs(Mod(S12)^2 / (S11 * S22))
+  stopifnot(all.equal(Coh, Coh2))
   
   # Admittance (gain)
-  G <- abs(sqrt(Coh * S22 / S11))
-  G.err <- sqrt((1 - Coh) / ifelse(do.mt,k,1))
+  G <- Mod(S12)
+  G2 <- abs(sqrt(Coh * S22 / S11))
+  stopifnot(all.equal(G, G2))
+  
+  # Std. error in gain
+  G.err <- sqrt((1 - Coh) / ifelse(do.mt, k, 1))
   
   # Phase
   Phi <- atan2(x = Re(S12), y = Im(S12))
   Phi2 <- Arg(S12)
+  Phi3 <- Ph
   stopifnot(all.equal(Phi, Phi2))
+  stopifnot(all.equal(Phi2, Phi3))
   
   # Assemble results
-  csd. <- dplyr::data_frame(Frequency=freq, Period=1/freq, 
+  csd. <- dplyr::data_frame(Frequency=freq, 
+                            Period=1/freq, 
                            Coherence=Coh, 
-                           Admittance=G, Admittance.stderr=G.err, 
+                           Admittance=G, 
+                           Admittance.stderr=G.err, 
                            Phase=Phi,
                            S11, S12, S22)
 
@@ -132,7 +148,7 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, verbose=TRUE, ...){
   }
   attr(csd., 'mtcsd') <- mtcsa
   
-  class(csd.) <- c(ifelse(do.mt,'mtcsd','wosacsd'), class(csd.))
+  class(csd.) <- c('mtcsd', class(csd.))
   
   return(csd.)
 }

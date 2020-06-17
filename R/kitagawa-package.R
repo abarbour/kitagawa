@@ -2,11 +2,12 @@
 #' of an aquifer undergoing harmonic straining or pressurization. There are
 #' two classes of models here: (1) for sealed wells, based on the model of
 #' Kitagawa et al (2011), and (2) for open wells, based on the models of
-#' Cooper et al (1965), Hsieh et al (1987), Rojstaczer (1988), and Liu et al
-#' (1989). These models treat strain (or aquifer head) as an input to the
-#' physical system, and fluid-pressure (or water height) as the output. The
+#' Cooper et al (1965), Hsieh et al (1987), Rojstaczer (1988), Liu et al
+#' (1989), and Wang et al (2018). These models treat strain (or aquifer head) as 
+#' an input to the physical system, and fluid-pressure (or water height) as the output. The
 #' applicable frequency band of these models is characteristic of seismic
 #' waves, atmospheric pressure fluctuations, and solid earth tides.
+#' The Wang et al (2018) can explicitly model vertical leakage.
 #' 
 #' @details
 #' The following functions provide the primary features of the package:
@@ -99,8 +100,9 @@
 #' Tidal Response of Groundwater in a Leaky Aquifer—Application to Oklahoma,
 #' \emph{Water Resour. Res.}, \strong{54} (10) 
 #' 
-#' @seealso \code{\link{well_response}}, 
+#' @seealso 
 #' \code{\link{open_well_response}}, 
+#' \code{\link{well_response}}, 
 #' \code{\link{sensing_volume}}, 
 #' \code{\link{wrsp-methods}}
 NULL
