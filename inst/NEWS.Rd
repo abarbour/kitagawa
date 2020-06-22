@@ -19,7 +19,7 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 
 \encoding{UTF-8}
 
-\section{CHANGES IN VERSION 3.1 (2020-06-17)}{
+\section{CHANGES IN VERSION 3.1 (2020-06-21)}{
   \itemize{
     \item Added the model of Wang et al (2018; \href{https://doi.org/10.1029/2018WR022793}{10.1029/2018WR022793}),
     to the model toolbox and to the ResponseModels toolbox. Thanks to \JK for contributing this.

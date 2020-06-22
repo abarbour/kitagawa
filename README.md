@@ -48,6 +48,6 @@ of this software, the [devtools][2] library
 will be useful:
 
     library(devtools)
-    install_github("abarbour/kitagawa")
+    install_github("abarbour/remotes")
 
-[2]: https://cran.r-project.org/package=devtools
+[2]: https://cran.r-project.org/package=remotes

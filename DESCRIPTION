@@ -2,8 +2,17 @@ Package: kitagawa
 Type: Package
 Title: Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
 Version: 3.1
-Date: 2020-06-17
-Author: Andrew J Barbour [aut, cre] (<https://orcid.org/0000-0002-6890-2452>), Jonathan Kennel [ctb] 
+Date: 2020-06-21
+Authors@R:
+    c(person(given = c("Andrew","J."),
+             family = "Barbour",
+             role = c("aut", "cre"),
+             email = "andy.barbour@gmail.com",
+             comment = c(ORCID = "0000-0002-6890-2452")),
+      person(given = "Jonathan",
+             family = "Kennel",
+             role = "ctb",
+             comment = c(ORCID = "0000-0003-4474-6886")))
 Maintainer: A. J. Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response
     of an aquifer undergoing harmonic straining or pressurization, or analyze
@@ -16,12 +25,12 @@ Description: Provides tools to calculate the theoretical hydrodynamic response
     Hsieh et al (1987, <doi:10.1029/WR023i010p01824>), 
     Rojstaczer (1988, <doi:10.1029/JB093iB11p13619>), 
     Liu et al (1989, <doi:10.1029/JB094iB07p09453>), and
-    Wang et al (2018, <doi:10.1029/2018WR022793>). Wang's solution is a special
-    exception which
-    allows for leakage out of the aquifer (semi-confined); it is equivalent to Hsieh's model
+    Wang et al (2018, <doi:10.1029/2018WR022793>). Wang's 
+    solution is a special exception which
+    allows for leakage out of the aquifer 
+    (semi-confined); it is equivalent to Hsieh's model
     when there is no leakage (the confined case).
-    These models treat 
-    strain (or aquifer head) as an input to the
+    These models treat strain (or aquifer head) as an input to the
     physical system, and fluid-pressure (or water height) as the output. The
     applicable frequency band of these models is characteristic of seismic
     waves, atmospheric pressure fluctuations, and solid earth tides.
@@ -37,6 +46,7 @@ Imports:
     psd (>= 2.0.0)
 Suggests:
     dplyr,
+    tibble,
     RColorBrewer,
     signal,
     testthat,

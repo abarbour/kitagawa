@@ -17,7 +17,7 @@ cross_spectrum(x, ...)
   samp = 1,
   q,
   adaptive = FALSE,
-  verbose = TRUE,
+  verbose = FALSE,
   ...
 )
 }
@@ -45,7 +45,6 @@ pre-specified sequence is included. This is will be ignored for Welch-based spec
 Calculate the cross-spectrum of two timeseries
 }
 \examples{
-\dontrun{
 require(stats)
 require(psd)
 
@@ -57,9 +56,7 @@ set.seed(1255)
 X <- ts(rnorm(n) + ramp/2)
 Y <- ts(rnorm(n) + ramp/10 + parab/100)
 
-# Calculate the cross spectrum, multitaper if K is not NULL
+# Calculate the multitaper cross spectrum
 csd <- cross_spectrum(X, Y, k=20)
-
-}
 
 }

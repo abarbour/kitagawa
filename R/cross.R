@@ -14,8 +14,6 @@
 #' @export
 #' 
 #' @examples
-# UNTIL SETTLED:
-#' \dontrun{
 #' require(stats)
 #' require(psd)
 #' 
@@ -27,38 +25,8 @@
 #' X <- ts(rnorm(n) + ramp/2)
 #' Y <- ts(rnorm(n) + ramp/10 + parab/100)
 #' 
-#' # Calculate the cross spectrum, multitaper if K is not NULL
+#' # Calculate the multitaper cross spectrum
 #' csd <- cross_spectrum(X, Y, k=20)
-#' 
-# with(csd,{
-#   x <- Frequency
-#   px <- c(x, rev(x))
-# 
-#   y1 <- y1s <- Coherence
-#   cpr <- attr(csd, 'mtcsd')[['Coh.probs']]
-#   sig99 <- max(cpr$coh.sig) # 99% confidence
-#   insig <- y1 < sig99
-#   y1s[insig] <- NA
-#   plot(x, y1, col=NA, main='Coherence')
-#   lines(x, y1, col='grey')
-#   lines(x, y1s)
-# 
-#   y2 <- y2s <- Admittance
-#   y2e <- 2*Admittance.stderr
-#   y2s[insig] <- NA
-#   py <- c(y2 + y2e, rev(y2 - y2e))
-#   plot(x, y2, col=NA, ylim=range(py), main='Admittance')
-#   polygon(px, py, col='lightgrey', border=NA)
-#   lines(x, y2, lty=3)
-#   lines(x, y2s)
-# 
-#   y3 <- y3s <- Phase * 180/pi
-#   y3s[insig] <- NA
-#   plot(x, y3, col=NA, ylim=90*c(-1,1), main='Phase')
-#   lines(x, y3, col='grey')
-#   lines(x, y3s)
-# })
-#' }
 #' 
 cross_spectrum <- function(x, ...) UseMethod('cross_spectrum')
 
@@ -71,7 +39,7 @@ cross_spectrum.mts <- function(x, ...){
 
 #' @rdname cross_spectrum
 #' @export
-cross_spectrum.default <- function(x, y, k=10, samp=1, q, adaptive=FALSE, verbose=TRUE, ...){
+cross_spectrum.default <- function(x, y, k=10, samp=1, q, adaptive=FALSE, verbose=FALSE, ...){
   
   XY <- if (missing(y)){
     as.matrix(x)
@@ -82,10 +50,10 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, adaptive=FALSE, verbos
   
   # Calculate sine-mt CS; sapa is no longer reliable; we use the psd implementation
   # which is more advanced anyway
-  do.mt <- !is.null(k)
+  do.mt <- TRUE
   cs <- if (do.mt){
     if (verbose) message("calculating sine-multitaper spectra...")
-    psd::pspectrum(XY, x.frqsamp=samp, ntap.init=k, niter=ifelse(adaptive, 3, 0), ...)
+    psd::pspectrum(XY, x.frqsamp=samp, ntap.init=k, niter=ifelse(adaptive, 3, 0), verbose=verbose, ...)
   } else {
     stop('With removal of sapa, Welch cross spectrum is temporarily unavailable.')
   }
@@ -94,49 +62,27 @@ cross_spectrum.default <- function(x, y, k=10, samp=1, q, adaptive=FALSE, verbos
   period <- 1/freq
   
   # Spectral content (complex)
-  #S <- as.matrix(cs)
-  #colnames(S) <- attr(cs, 'labels')
-  #S11 <- S[,'S11']
-  #S12 <- S[,'S12']
-  #S22 <- S[,'S22']
-  
-  S <- cs[['spec']]
-  TF <- cs[['transfer']]
+  Sp <- cs[['spec']]
+  Tf <- cs[['transfer']]
   Co <- cs[['coh']]
   Ph <- cs[['phase']]
-  
-  S11 <- S[,1]
-  S22 <- S[,2]
-  S12 <- TF[, 1]
-  
+  # Autospectra
+  S11 <- Sp[,1]
+  S22 <- Sp[,2]
   # Coherence
   Coh <- Co[, 1]
-  Coh2 <- abs(Mod(S12)^2 / (S11 * S22))
-  stopifnot(all.equal(Coh, Coh2))
-  
   # Admittance (gain)
-  G <- Mod(S12)
-  G2 <- abs(sqrt(Coh * S22 / S11))
-  stopifnot(all.equal(G, G2))
-  
+  G <- Mod(Tf[,1])
+  G <- Coh * G
   # Std. error in gain
   G.err <- sqrt((1 - Coh) / ifelse(do.mt, k, 1))
-  
   # Phase
-  Phi <- atan2(x = Re(S12), y = Im(S12))
-  Phi2 <- Arg(S12)
-  Phi3 <- Ph
-  stopifnot(all.equal(Phi, Phi2))
-  stopifnot(all.equal(Phi2, Phi3))
+  Phi <- Ph[,1]
   
   # Assemble results
-  csd. <- dplyr::data_frame(Frequency=freq, 
-                            Period=1/freq, 
-                           Coherence=Coh, 
-                           Admittance=G, 
-                           Admittance.stderr=G.err, 
-                           Phase=Phi,
-                           S11, S12, S22)
+  csd. <- tibble::tibble(Frequency=freq, Period=1/freq, Coherence=Coh, 
+                         Admittance=G, Admittance.stderr=G.err, 
+                         Phase=Phi, S11, S22)
 
   # Calculate minimum coherence significance levels
   Coh.probs <- if (do.mt){

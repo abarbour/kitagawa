@@ -11,7 +11,14 @@ apt_packages:
  - libgmp3-dev
  - libmpfr-dev
 
+
+r_github_packages:
+# - abarbour/kelvin
+   - gagolews/stringi
+   - abarbour/psd
+
 r_packages:
+#   - stringi	   
 # until psd 2.0 is on cran
 # - psd
  - Bessel
@@ -24,12 +31,6 @@ r_packages:
  - rmarkdown
  - testthat
  - covr
-
-# - abarbour/kelvin
-#   - stringi	   
-r_github_packages:
-   - gagolews/stringi
-   - abarbour/psd
    
 jobs:
   include:

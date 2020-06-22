@@ -158,7 +158,7 @@ pressure as the output.
 ```{r, echo=TRUE}
 #!order_matters
 class(toh.dat)
-toh_to_pspec <- toh.dat[,c('output','input')]
+toh_to_pspec <- toh.dat[,c('input','output')]
 toh.cs <- psd::pspectrum(toh_to_pspec, ntap.init=k, verbose=FALSE)
 ```
 Which gives the following results:
