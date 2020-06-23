@@ -13,7 +13,6 @@ Authors@R:
              family = "Kennel",
              role = "ctb",
              comment = c(ORCID = "0000-0003-4474-6886")))
-Maintainer: A. J. Barbour <andy.barbour@gmail.com>
 Description: Provides tools to calculate the theoretical hydrodynamic response
     of an aquifer undergoing harmonic straining or pressurization, or analyze
     measured responses. There are
