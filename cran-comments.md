@@ -1,16 +1,14 @@
-## Release summary
-
-Minor version bump to address all previous issues and clean up structure and documentation.
-
 ## Test environments
-* local OS X install, R 3.5.1
-* ubuntu 12.04 (on travis-ci), R 3.5.1, R-devel
-* win-builder (devel and release)
+* local R installation, R 4.0.1
+* Debian Linux (on rhub)
+* remote R installation (on travis-ci), R devel (2020-06-22 r78735)
+* ubuntu 16.04 (on travis-ci), R 4.0.1 (and devel)
+* win-builder (devel)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 note
+0 errors | 0 warnings | 1 note
 
-## Reverse dependencies
+* This fixes build errors caused by removal of linked package 'sapa'
 
-There are no reverse dependencies.
+Thanks for all you do for the community!

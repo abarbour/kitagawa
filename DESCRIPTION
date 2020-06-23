@@ -1,7 +1,7 @@
 Package: kitagawa
 Type: Package
 Title: Spectral Response of Water Wells to Harmonic Strain and Pressure Signals
-Version: 3.1
+Version: 3.1.0
 Date: 2020-06-21
 Authors@R:
     c(person(given = c("Andrew","J."),
@@ -43,8 +43,6 @@ Imports:
     Bessel,
     kelvin (>= 1.2.0),
     psd (>= 2.0.0)
-Remotes:
-    abarbour/psd
 Suggests:
     dplyr,
     tibble,
