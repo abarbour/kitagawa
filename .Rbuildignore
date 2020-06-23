@@ -27,3 +27,4 @@ vignettes/figure
 ^appveyor\.yml$
 ^cran-comments\.md$
 ^codecov\.yml$
+^CRAN-RELEASE$
