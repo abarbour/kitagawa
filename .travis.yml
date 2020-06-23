@@ -3,7 +3,7 @@
 language: r
 sudo: required
 dist: trusty
-cache: packages
+#cache: packages
 warnings_are_errors: false
 #latex: false
 
@@ -11,16 +11,14 @@ apt_packages:
  - libgmp3-dev
  - libmpfr-dev
 
-
 r_github_packages:
 # - abarbour/kelvin
    - gagolews/stringi
-   - abarbour/psd
+#   - abarbour/psd
 
 r_packages:
 #   - stringi	   
-# until psd 2.0 is on cran
-# - psd
+ - psd
  - Bessel
  - kelvin
  - dplyr
@@ -36,10 +34,6 @@ jobs:
   include:
   - r: devel
   - r: release
-#  - r: 3.4
-#  - r: 3.3
-#  - r: 3.2
-#  - r: 3.1
   
 notifications:
  email:
