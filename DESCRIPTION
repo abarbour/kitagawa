@@ -44,6 +44,8 @@ Imports:
     Bessel,
     kelvin (>= 1.2.0),
     psd (>= 2.0.0)
+Remotes:
+    abarbour/psd
 Suggests:
     dplyr,
     tibble,
