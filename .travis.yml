@@ -2,7 +2,7 @@
 
 language: r
 sudo: required
-dist: trusty
+#dist: trusty
 cache: packages
 warnings_are_errors: false
 #latex: false
