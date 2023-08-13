@@ -14,6 +14,7 @@ logticks(
   t.ratio = 0.5,
   major.ticks = NULL,
   base = c("ten", "ln", "two"),
+  ticks.only = FALSE,
   ...
 )
 
@@ -35,6 +36,8 @@ log10_ticks(...)
 \item{major.ticks}{numeric; the axis limits.}
 
 \item{base}{numeric; the base of the logarithm (somewhat experimental)}
+
+\item{ticks.only}{logical; on the axis}
 
 \item{...}{additional parameters passed to the \code{axis} call for the major ticks.}
 }
@@ -58,8 +61,15 @@ in the original plot command to prevent adding default tick marks.
 \examples{
 x <- 10^(0:8)
 y <- 1:9
+
 plot(log10(x),y,xaxt="n",xlab="x",xlim=c(0,9))
 logticks()
+logticks(ax=3, ticks.only=TRUE)
+
+par(tcl=0.5) # have tick marks show up on inside instead
+plot(log10(x),y,xaxt="n",xlab="x",xlim=c(0,9))
+logticks()
+logticks(ax=3, ticks.only=TRUE)
 }
 \references{
 This was modified from a post on StackOverflow:

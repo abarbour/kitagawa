@@ -1,16 +1,17 @@
 # Platform
 
-|field    |value                        |
-|:--------|:----------------------------|
-|version  |R version 4.0.1 (2020-06-06) |
-|os       |macOS Mojave 10.14.6         |
-|system   |x86_64, darwin17.0           |
-|ui       |X11                          |
-|language |(EN)                         |
-|collate  |en_US.UTF-8                  |
-|ctype    |en_US.UTF-8                  |
-|tz       |America/Los_Angeles          |
-|date     |2020-06-22                   |
+|field    |value                         |
+|:--------|:-----------------------------|
+|version  |R version 4.2.3 (2023-03-15)  |
+|os       |macOS Catalina 10.15.7        |
+|system   |x86_64, darwin17.0            |
+|ui       |X11                           |
+|language |(EN)                          |
+|collate  |en_US.UTF-8                   |
+|ctype    |en_US.UTF-8                   |
+|tz       |UTC                           |
+|date     |2023-08-13                    |
+|pandoc   |3.1.1 @ /opt/local/bin/pandoc |
 
 # Dependencies
 

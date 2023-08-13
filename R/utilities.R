@@ -189,6 +189,7 @@ sensing_volume <- function(rad_grout, len_grout, rad_screen, len_screen){
 #' @param t.ratio numeric; the ratio of minor to major tick lengths.
 #' @param major.ticks numeric; the axis limits.
 #' @param base numeric; the base of the logarithm (somewhat experimental)
+#' @param ticks.only logical; on the axis
 #' @param ... additional parameters passed to the \code{axis} call for the major ticks.
 #' 
 #' @author A. J. Barbour <andy.barbour@@gmail.com>
@@ -199,9 +200,16 @@ sensing_volume <- function(rad_grout, len_grout, rad_screen, len_screen){
 #' @examples
 #' x <- 10^(0:8)
 #' y <- 1:9
+#' 
 #' plot(log10(x),y,xaxt="n",xlab="x",xlim=c(0,9))
 #' logticks()
-logticks <- function(ax=1, n.minor=9, t.lims, t.ratio=0.5, major.ticks=NULL, base=c("ten","ln","two"), ...){
+#' logticks(ax=3, ticks.only=TRUE)
+#' 
+#' par(tcl=0.5) # have tick marks show up on inside instead
+#' plot(log10(x),y,xaxt="n",xlab="x",xlim=c(0,9))
+#' logticks()
+#' logticks(ax=3, ticks.only=TRUE)
+logticks <- function(ax=1, n.minor=9, t.lims, t.ratio=0.5, major.ticks=NULL, base=c("ten","ln","two"), ticks.only=FALSE, ...){
   # axis limits
   lims <- par("usr")
   # x or y axis
@@ -222,7 +230,11 @@ logticks <- function(ax=1, n.minor=9, t.lims, t.ratio=0.5, major.ticks=NULL, bas
   base <- switch(base, two=2, ln="e", ten=10)
   
   # create tick label expressions
-  tick.labels <- sapply(major.ticks, function(i) as.expression(bquote(.(base) ^ .(i))) )
+  tick.labels <- if (ticks.only){
+    FALSE
+  } else {
+    sapply(major.ticks, function(i) as.expression(bquote(.(base) ^ .(i))) )
+  }
   # add major ticks
   axis(ax, at=major.ticks, labels=tick.labels, ...)
   

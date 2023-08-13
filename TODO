@@ -18,12 +18,7 @@
 *** open_well_response [X]
 *** well_response [ ]
 
-[ ] Method to estimate transfer function between two series
-*** MT CSD <-- perhaps include in  psd
-
 [ ] Datasets:
-*** Honshu timeseries [X] <-- in  psd
 *** PBO-PP well information (and calculated sensing volumes)
-*** Slug test series???
 
 

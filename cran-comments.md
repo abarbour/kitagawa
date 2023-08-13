@@ -1,10 +1,5 @@
-## Test environments
-* local R installation, R 4.0.1
-* Debian Linux (on rhub)
-* remote R installation (on travis-ci), R devel (2020-06-22 r78735)
-* ubuntu 16.04 (on travis-ci), R 4.0.1 (and devel)
-* win-builder (devel)
+## R CMD check results
 
-* This fixes build errors caused by removal of linked package 'sapa'
+0 errors | 0 warnings | 1 note
 
-Thanks for all you do for the community!
+* This is a new release.
