@@ -49,10 +49,10 @@ Load the package library and take a look at the vignettes:
 ### Installing the Development Version
 
 Should you wish to install the development version
-of this software, the [devtools][2] library
+of this software, the [remotes][2] library
 will be useful:
 
-    library(devtools)
+    library(remotes)
     install_github("abarbour/remotes")
 
 [2]: https://cran.r-project.org/package=remotes
