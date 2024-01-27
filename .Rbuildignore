@@ -29,3 +29,4 @@ vignettes/figure
 ^codecov\.yml$
 ^CRAN-RELEASE$
 ^\.github$
+^CRAN-SUBMISSION$
