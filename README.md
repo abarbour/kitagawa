@@ -6,7 +6,7 @@ to harmonic strains (e.g., tides, long-period seismic waves).
 
   <!-- badges: start -->
   [![R-CMD-check](https://github.com/abarbour/kitagawa/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abarbour/kitagawa/actions/workflows/R-CMD-check.yaml)\
-[![Code Coverage](https://codecov.io/gh/abarbour/kitagawa/branch/master/graph/badge.svg)](https://codecov.io/gh/abarbour/kitagawa?branch=master)\
+[![Code Coverage](https://app.codecov.io/gh/abarbour/kitagawa/branch/master/graph/badge.svg)](https://app.codecov.io/gh/abarbour/kitagawa?branch=master)\
 [![License](https://img.shields.io/badge/license-GPL-orange.svg)](https://www.gnu.org/licenses/gpl-2.0.html)\
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/kitagawa)](https://cran.r-project.org/package=kitagawa)\
 [![Downloads](https://cranlogs.r-pkg.org/badges/kitagawa)](https://www.r-pkg.org/pkg/kitagawa)
