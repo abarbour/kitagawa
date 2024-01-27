@@ -4,23 +4,25 @@
 %%\newcommand{\PR}{\Sexpr[results=rd]{tools:::Rd_expr_PR(#1)}}
 %%\newcommand{\Rlogo}{\if{html}{\figure{../../html/logo.jpg}}\if{latex}{\figure{logo.jpg}{options:
 %width=0.5in}}}
-\newcommand{\GITpkg}{\href{https://www.github.com/abarbour/#1}{github}}
-\newcommand{\JK}{\href{https://www.github.com/jkennel}{@jkennel}}
+\newcommand{\GITpkg}{\href{https://github.com/abarbour/#1}{github}}
+\newcommand{\JK}{\href{https://github.com/jkennel}{@jkennel}}
 \newcommand{\CRANpkg}{\href{https://cran.r-project.org/package=#1}{CRAN}}
 \newcommand{\kitagawa}{\pkg{kitagawa}}
 \newcommand{\gitkit}{\GITpkg{kitagawa} page}
 
 \name{kitagawa}
 \title{
-News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} -- 
-\href{https://travis-ci.org/abarbour/kitagawa}{Travis-CI} --
-\href{https://ci.appveyor.com/project/abarbour/kitagawa}{AppVeyor-CI}
+News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa}
 }
 
 \encoding{UTF-8}
 
-\section{CHANGES IN VERSION 3.1+ (last updated 2023-08-13)}{
+\section{CHANGES IN VERSION 3.1+ (last updated 2024-01-26)}{
   \itemize{
+    \item CI is handled via Github Actions (replaces Travis-CI)
+    
+    \item 3.1.2: Fixed error in vignette engine specification
+    
     \item 3.1.1: added a \code{ticks.only} option to \code{logticks}
 
     \item 3.1: Added the model of Wang et al (2018; \href{https://doi.org/10.1029/2018WR022793}{10.1029/2018WR022793}),
@@ -71,8 +73,7 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa} --
 \section{CHANGES IN VERSION 2.1-1 (2015-02-10)}{
   \itemize{
     \item Mostly a maintenance release.
-    \item \href{https://travis-ci.org/abarbour/kitagawa}{Travis-CI} is now used to track builds; see 
-    also the \gitkit{}.
+    \item Travis-CI is now used to track builds; see also the \gitkit{}.
   }
 }
 

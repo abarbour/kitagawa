@@ -3,7 +3,7 @@
 %
 %\makeatletter
 % \VignetteIndexEntry{Comparison of response functions}
-% \VignetteEngine{knitr}
+% \VignetteEngine{knitr::knitr}
 %\makeatother
 %
 

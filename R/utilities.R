@@ -195,7 +195,7 @@ sensing_volume <- function(rad_grout, len_grout, rad_screen, len_screen){
 #' @author A. J. Barbour <andy.barbour@@gmail.com>
 #' @references 
 #' This was modified from a post on StackOverflow:
-#' \url{http://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}
+#' \url{https://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}
 #' @family PlotUtilities
 #' @examples
 #' x <- 10^(0:8)

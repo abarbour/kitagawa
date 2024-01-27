@@ -73,7 +73,7 @@ logticks(ax=3, ticks.only=TRUE)
 }
 \references{
 This was modified from a post on StackOverflow:
-\url{http://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}
+\url{https://stackoverflow.com/questions/6955440/displaying-minor-logarithmic-ticks-in-x-axis-in-r}
 }
 \seealso{
 Other PlotUtilities: 

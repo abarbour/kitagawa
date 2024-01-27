@@ -4,8 +4,11 @@
 \name{kitagawa-package}
 \alias{kitagawa-package}
 \alias{kitagawa}
-\title{Spectral Response of Water Wells to Harmonic Strain and Pressure Signals}
+\title{kitagawa: Spectral Response of Water Wells to Harmonic Strain and Pressure Signals}
 \description{
+Provides tools to calculate the theoretical hydrodynamic response of an aquifer undergoing harmonic straining or pressurization, or analyze measured responses. There are two classes of models here, designed for use with confined aquifers: (1) for sealed wells, based on the model of Kitagawa et al (2011, \doi{10.1029/2010JB007794}), and (2) for open wells, based on the models of Cooper et al (1965, \doi{10.1029/JZ070i016p03915}), Hsieh et al (1987, \doi{10.1029/WR023i010p01824}), Rojstaczer (1988, \doi{10.1029/JB093iB11p13619}), Liu et al (1989, \doi{10.1029/JB094iB07p09453}), and Wang et al (2018, \doi{10.1029/2018WR022793}). Wang's solution is a special exception which allows for leakage out of the aquifer (semi-confined); it is equivalent to Hsieh's model when there is no leakage (the confined case). These models treat strain (or aquifer head) as an input to the physical system, and fluid-pressure (or water height) as the output. The applicable frequency band of these models is characteristic of seismic waves, atmospheric pressure fluctuations, and solid earth tides.
+}
+\details{
 Provides tools to calculate the theoretical hydrodynamic response
 of an aquifer undergoing harmonic straining or pressurization. There are
 two classes of models here: (1) for sealed wells, based on the model of
@@ -16,8 +19,7 @@ an input to the physical system, and fluid-pressure (or water height) as the out
 applicable frequency band of these models is characteristic of seismic
 waves, atmospheric pressure fluctuations, and solid earth tides.
 The Wang et al (2018) can explicitly model vertical leakage.
-}
-\details{
+
 The following functions provide the primary features of the package:
 
 \code{\link{well_response}} and \code{\link{open_well_response}}, which 
@@ -40,7 +42,7 @@ The underlying model is based upon the assumption that fluid flows radially
 through an homogeneous, isotropic, confined aquifer.
 
 The underlying principle is as follows.  When a harmonic wave induces
-strain in a confined aquifer (one having aquitards above and below it), 
+strain in a confined aquifer (one having an aquitard above and below it), 
 fluid flows radially into, and out of a well penetrating the aquifer.
 The flow-induced drawdown, \eqn{s}, is governed by the following 
 partial differential equation, expressed in radial coordinates(\eqn{r}):
@@ -100,11 +102,27 @@ Tidal Response of Groundwater in a Leaky Aquifer—Application to Oklahoma,
 \emph{Water Resour. Res.}, \strong{54} (10)
 }
 \seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/abarbour/kitagawa}
+  \item Report bugs at \url{https://github.com/abarbour/kitagawa/issues}
+}
+
+
 \code{\link{open_well_response}}, 
 \code{\link{well_response}}, 
 \code{\link{sensing_volume}}, 
 \code{\link{wrsp-methods}}
 }
 \author{
+\strong{Maintainer}: Andrew J. Barbour \email{andy.barbour@gmail.com} (\href{https://orcid.org/0000-0002-6890-2452}{ORCID})
+
+Other contributors:
+\itemize{
+  \item Jonathan Kennel (\href{https://orcid.org/0000-0003-4474-6886}{ORCID}) [contributor]
+}
+
+
 Andrew J. Barbour <andy.barbour@gmail.com> with contributions from Jonathan Kennel
 }
+\keyword{internal}

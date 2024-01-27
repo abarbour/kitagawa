@@ -1,5 +1,7 @@
-## R CMD check results
+Minor version bump which fixes a vignette build issue
 
-0 errors | 0 warnings | 1 note
+Build checked with: devtools::check* tools
+check_rhub: 4 NOTES, which are unrelated to the package; otherwise no warnings or errors
+check_win_devel: 
 
-* This is a new release.
+Reverse dependencies checked with revdepcheck::revdep_check; no issues

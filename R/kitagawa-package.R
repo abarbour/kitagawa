@@ -1,3 +1,5 @@
+#' @details
+#' 
 #' Provides tools to calculate the theoretical hydrodynamic response
 #' of an aquifer undergoing harmonic straining or pressurization. There are
 #' two classes of models here: (1) for sealed wells, based on the model of
@@ -9,7 +11,6 @@
 #' waves, atmospheric pressure fluctuations, and solid earth tides.
 #' The Wang et al (2018) can explicitly model vertical leakage.
 #' 
-#' @details
 #' The following functions provide the primary features of the package:
 #' 
 #' \code{\link{well_response}} and \code{\link{open_well_response}}, which 
@@ -31,7 +32,7 @@
 #' through an homogeneous, isotropic, confined aquifer.
 #'
 #' The underlying principle is as follows.  When a harmonic wave induces
-#' strain in a confined aquifer (one having aquitards above and below it), 
+#' strain in a confined aquifer (one having an aquitard above and below it), 
 #' fluid flows radially into, and out of a well penetrating the aquifer.
 #' The flow-induced drawdown, \eqn{s}, is governed by the following 
 #' partial differential equation, expressed in radial coordinates(\eqn{r}):
@@ -59,7 +60,8 @@
 #' alter the response by introducing shear-strain coupling. But these
 #' complications are beyond the scope of this model.
 #' 
-#' @docType package
+#' @keywords internal 
+"_PACKAGE"
 #' @name kitagawa-package
 #' @aliases kitagawa
 #' @title Spectral Response of Water Wells to Harmonic Strain and Pressure Signals

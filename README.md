@@ -25,7 +25,7 @@ responding to dilational strains from seismic waves is from
 
 ### Open Well
 
-The first theoretical model for a sealed well responding to seimic displacements is from 
+The first theoretical model for a sealed well responding to seismic displacements is from 
 [Cooper, et al. (1965)](https://doi.org/10.1029/JZ070i016p03915 "The response of well-aquifer systems to seismic waves").
 
 This package also includes support for the models in
