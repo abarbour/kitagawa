@@ -53,6 +53,6 @@ of this software, the [remotes][2] library
 will be useful:
 
     library(remotes)
-    install_github("abarbour/remotes")
+    remotes::install_github("abarbour/kitagawa")
 
 [2]: https://cran.r-project.org/package=remotes
