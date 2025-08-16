@@ -24,7 +24,7 @@ cross_spectrum(x, ...)
 \arguments{
 \item{x}{numeric; timeseries}
 
-\item{...}{additional arguments to \code{\link{pspectrum}}}
+\item{...}{additional arguments to \code{\link[psd]{pspectrum}}}
 
 \item{y}{numeric; timeseries. if missing, assumed to be column no. 2 in \code{x}}
 

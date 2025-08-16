@@ -9,7 +9,7 @@
 #' pre-specified sequence is included. This is will be ignored for Welch-based spectra (see \code{k}).
 #' @param adaptive logical; should adaptive multitaper estimation be used?
 #' @param verbose logical; should messages be printed?
-#' @param ... additional arguments to \code{\link{pspectrum}}
+#' @param ... additional arguments to \code{\link[psd]{pspectrum}}
 #' 
 #' @export
 #' 

@@ -17,8 +17,11 @@ News for package \kitagawa{}: \CRANpkg{kitagawa} -- \GITpkg{kitagawa}
 
 \encoding{UTF-8}
 
-\section{CHANGES IN VERSION 3.1+ (last updated 2024-01-26)}{
+\section{CHANGES IN VERSION 3.1+ (last updated 2025-08-16)}{
   \itemize{
+   
+    \item 3.1.3: added link to psd to satisfy CRAN error 
+    
     \item CI is handled via Github Actions (replaces Travis-CI)
     
     \item 3.1.2: Fixed error in vignette engine specification

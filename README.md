@@ -5,11 +5,11 @@ of fluid-pressure in a water well
 to harmonic strains (e.g., tides, long-period seismic waves).
 
   <!-- badges: start -->
-[![R-CMD-check](https://github.com/abarbour/kitagawa/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abarbour/kitagawa/actions/workflows/R-CMD-check.yaml)\
-[![Code Coverage](https://codecov.io/gh/abarbour/kitagawa/graph/badge.svg?token=fVFCMSXuiV)](https://codecov.io/gh/abarbour/kitagawa)\
-[![License](https://img.shields.io/badge/license-GPL-orange.svg)](https://www.gnu.org/licenses/gpl-2.0.html)\
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/kitagawa)](https://cran.r-project.org/package=kitagawa)\
+[![R-CMD-check](https://github.com/abarbour/kitagawa/workflows/R-CMD-check/badge.svg)](https://github.com/abarbour/kitagawa/actions)
+[![](https://www.r-pkg.org/badges/version-last-release/kitagawa?color=green)](https://cran.r-project.org/package=kitagawa)
+[![Code Coverage](https://codecov.io/github/abarbour/kitagawa/coverage.svg?branch=master)](https://app.codecov.io/github/abarbour/kitagawa?branch=master)
 [![Downloads](https://cranlogs.r-pkg.org/badges/kitagawa)](https://www.r-pkg.org/pkg/kitagawa)
+[![License](https://img.shields.io/badge/license-GPL-lightgrey.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
   <!-- badges: end -->
   
 ## Models of spectral response

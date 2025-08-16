@@ -14,7 +14,7 @@ vignette: >
 Here I show how the modeling tools in **kitagawa** can be
 used to study actual data.  Specifically, I will show
 records of strain and pore-pressure from borehole
-stations in the [Network of the Americas(https://www.unavco.org/nota/)^[previously known as the [Plate Boundary Observatory](https://www.unavco.org/)]
+stations in the [Network of the Americas(https://www.earthscope.org/nota/)^[previously known as the Plate Boundary Observatory]
 in a manner similar to the approaches taken in 
 [Barbour (2015)](https://doi.org/10.1002/2015JB012201).
 
